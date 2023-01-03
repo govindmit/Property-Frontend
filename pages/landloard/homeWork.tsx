@@ -66,6 +66,7 @@ const HomeWorkComp = () => {
         {array?.map((e,i)=>{
           return(
             // <Col span={4}>
+            <div key={i}>
            
             <Card
             key={e.title}
@@ -89,6 +90,7 @@ const HomeWorkComp = () => {
               {e.description}
            </div>
             </Card>
+            </div>
           // </Col>
           )
         })}

@@ -167,6 +167,9 @@ margin-top: 20px;
 
 
 /* ======================================================================================== */
+body {
+  overflow-x: hidden;
+}
 .menuBar {
   padding: 0 20px;
   border-bottom: solid 1px #e8e8e8;
@@ -203,7 +206,8 @@ margin-top: 20px;
   border-bottom: none;
 }
 .menuCon .leftMenu {
-  float: left;
+  float: none;
+  display: inline-block;
 }
 .menuCon .rightMenu {
   float: right;
@@ -252,6 +256,14 @@ margin-top: 20px;
   border-bottom-color: transparent;
 }
 
+.ant-menu-overflow-item.ant-menu-overflow-item-rest.ant-menu-submenu.ant-menu-submenu-horizontal {
+  display: none !important;
+}
+
+.menuCon {
+  text-align: center;
+}
+
 @media (max-width: 767px) {
   .barsMenu {
     display: inline-block;
@@ -269,5 +281,22 @@ margin-top: 20px;
   }
   .logo a {
     padding: 10px 20px;
+  }
+  .ant-menu-overflow-item.ant-menu-overflow-item-rest.ant-menu-submenu.ant-menu-submenu-horizontal {
+    display: none !important;
+  }
+  .ant-drawer-body .ant-menu-horizontal > .ant-menu-item {
+    opacity: 1 !important;
+    visibility: visible !important;
+    position: static !important;
+    height: auto !important;
+    /* width: auto; */
+    display: block;
+  }
+  ul.ant-menu-overflow.ant-menu.ant-menu-root.ant-menu-horizontal.ant-menu-light {
+    flex-wrap: wrap;
+  }
+  .menuCon .leftMenu {
+    display: none;
   }
 }

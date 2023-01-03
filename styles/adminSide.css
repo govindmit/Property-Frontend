@@ -100,6 +100,22 @@ button.ant-btn.css-dev-only-do-not-override-acm2ia.ant-btn-link.active {
   border-radius: 0px !important;
   color: orangered;
 }
+:where(.css-dev-only-do-not-override-k83k30).ant-btn-link.active {
+  border-bottom: 1px solid orangered !important;
+  border-radius: 0px !important;
+  color: orangered;
+}
+button.ant-btn.css-dev-only-do-not-override-k83k30.ant-btn-link.active{
+  border-bottom: 1px solid orangered !important;
+  border-radius: 0px !important;
+  color: orangered;
+}
+button.ant-btn.css-k83k30.ant-btn-link.active {
+  border-bottom: 1px solid orangered !important;
+  border-radius: 0px !important;
+  color: orangered !important;
+
+}
 .lanlordmain {
   padding: 20px;
   margin-top: 16px;
