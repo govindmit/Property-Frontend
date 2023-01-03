@@ -31,59 +31,51 @@ const RealState = () => {
             <Card
               className="realStateCardCls"
               hoverable
-              style={{ height: "18vh",marginBottom:'30px' }}
+              style={{ height: "18vh", marginBottom: "30px" }}
             >
-              <div className="textCls" style={{paddingTop:'30px'}}>
+              <div className="textCls" style={{ paddingTop: "30px" }}>
                 <span className="spanCls">Buyer Guide</span>
                 <Button className="firstCardBtn">25 jul 2022</Button>
               </div>
-                <h3>What you should Be Prepared with before buying ?</h3>
+              <h3>What you should Be Prepared with before buying ?</h3>
             </Card>
             <Card
               className="realStateCardCls"
               hoverable
-              style={{ height: "18vh"}}
+              style={{ height: "18vh" }}
             >
               <div className="textCls">
                 <span className="spanCls">Buyer Investment</span>
-                <Button className="firstCardBtn">
-                22 jul 2022
-                </Button>
-                
+                <Button className="firstCardBtn">22 jul 2022</Button>
               </div>
-                <h3>Where you can invest in UAE ?</h3>
+              <h3>Where you can invest in UAE ?</h3>
             </Card>
           </Col>
         </Space>
 
-{/* ============================================================== */}
-
+        {/* ============================================================== */}
 
         <Space>
           <Col className="gutter-row  realStateColCls" span={32}>
             <Card className="realStateCardCls" hoverable>
-            <div className="textCls">
-                <span className="spanCls">Buyer Investment</span>
-                <Button className="firstCardBtn">
-                25 jul 2022
-                </Button>
-                
+              <div className="textCls">
+                <span className="spanCls">Real estate</span>
+                <Button className="firstCardBtn">25 jul 2022</Button>
               </div>
-                <h3>shjgjkjhkhk</h3>
+              <h3>Have an ear to the groundon what real estate invest</h3>
+              <span className="spanCls">Read more</span>
             </Card>
           </Col>
         </Space>
         <Space>
           <Col className="gutter-row  realStateColCls" span={32}>
             <Card className="realStateCardCls" hoverable>
-            <div className="textCls">
-                <span className="spanCls">Buyer Investment</span>
-                <Button className="firstCardBtn">
-                25 jul 2022
-                </Button>
-                
+              <div className="textCls">
+                <span className="spanCls">Dubai marina</span>
+                <Button className="firstCardBtn">25 jul 2022</Button>
               </div>
-                <h3>shjgjkjhkhk</h3>
+              <h3>apprisial skills and realestate career?Mckissock</h3>
+              <span className="spanCls">Buyer Investment</span>
             </Card>
           </Col>
         </Space>
