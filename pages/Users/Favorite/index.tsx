@@ -96,6 +96,7 @@ const FavoriteComp = () => {
           >
             {rorData.map((e) => {
               return (
+                <div key={e.key}>
                 <Row style={{ marginTop: "15px" }}>
                   <Col span={12} style={{ fontWeight: "bold", color: "black" }}>
                     {" "}
@@ -108,6 +109,7 @@ const FavoriteComp = () => {
                    {e.value}
                  </Col>}
                 </Row>
+                </div>
               );
             })}
           </Col>
@@ -182,6 +184,7 @@ const FavoriteComp = () => {
           >
             {rorData.map((e) => {
               return (
+                <div key={e.key}>
                 <Row style={{ marginTop: "15px" }}>
                   <Col span={12} style={{ fontWeight: "bold", color: "black" }}>
                     {" "}
@@ -194,6 +197,7 @@ const FavoriteComp = () => {
                    {e.value}
                  </Col>}
                 </Row>
+                </div>
               );
             })}
           </Col>
@@ -269,6 +273,7 @@ const FavoriteComp = () => {
           >
             {rorData.map((e) => {
               return (
+                <div key={e.key}>   
                 <Row style={{ marginTop: "15px" }}>
                   <Col span={12} style={{ fontWeight: "bold", color: "black" }}>
                     {" "}
@@ -281,6 +286,7 @@ const FavoriteComp = () => {
                    {e.value}
                  </Col>}
                 </Row>
+                     </div>
               );
             })}
           </Col>
