@@ -153,11 +153,20 @@ margin-top: 20px;
 
 
 /* ------------------------------------------------------------- -------------------------------------------*/
+.footerLayout .footMainRow .gutter-row .footerListItem{
+  display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4px 24px;
+    color: rgba(0, 0, 0, 0.88);
+}
+.footerLayout .footMainRow{
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
 
 
-
-
-
+/* ======================================================================================== */
 .menuBar {
   padding: 0 20px;
   border-bottom: solid 1px #e8e8e8;

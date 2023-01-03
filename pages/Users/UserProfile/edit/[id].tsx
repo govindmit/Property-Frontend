@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { userType } from "../../../../types/userTypes";
 import { useRouter } from "next/router";
 import userService from "../../../../services/userService";
+import UserHeader from "../../UserHeader";
 type LayoutType = Parameters<typeof Form>[0]["layout"];
 
 const UserProfile = () => {
@@ -134,6 +135,8 @@ const UserProfile = () => {
     });
   };
   return (
+    <>
+        <UserHeader/>
     <div className="userProfile">
       <ToastContainer />
       {isShow ? (
@@ -318,6 +321,7 @@ const UserProfile = () => {
         </>
       )}
     </div>
+    </>
   );
 };
 

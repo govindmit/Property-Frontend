@@ -24,7 +24,7 @@ const MenuItemGroup = Menu.ItemGroup;
         </Menu.Item> */}
 
         <Button style={{backgroundColor:'orangered',color:'white'}} onClick={handleLogin}>Login Or SignUp</Button>
-        <Avatar onClick={handleProfile} icon={<UserOutlined />} style={{cursor:'pointer'}}/>
+        {/* <Avatar onClick={handleProfile} icon={<UserOutlined />} style={{cursor:'pointer'}}/> */}
       </Menu>
         </div>
     );

@@ -71,3 +71,29 @@
     transform: translate(12%, 10px);
     min-width: 0%;
 }
+/* ======================================================================================== */
+.userLayoutCls .userHeaderCls{
+  background: white;
+
+}
+.userLayoutCls .userHeaderCls .userMenuCls .userMenuItem{
+  font-weight: 800;
+}
+.userLayoutCls .userHeaderCls .userMenuCls{
+  border: none;
+  transform: translate(5%,0%);
+}
+.userLayoutCls .userHeaderCls .userMenuCls .ant-menu-item-selected{
+  color: black;
+  border-bottom-color:black
+}
+
+.userLayoutCls .userHeaderCls .userMenuCls .ant-menu-item-selected::after{
+  border-width: 2px;
+  border-bottom-color: black;
+}
+
+.userLayoutCls .userHeaderCls .userMenuCls .ant-menu-item:hover::after{
+  border-width: 2px;
+  border-bottom-color: black;
+}

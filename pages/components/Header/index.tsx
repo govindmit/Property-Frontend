@@ -4,6 +4,7 @@ import LeftMenu from "./left";
 import RightMenu from "./right";
 import logo from "../../../public/assets/logo.png";
 import { Image } from "antd";
+import Router from "next/router";
 
 const Header: React.FC = () => {
   const [current, setCurrent] = useState("mail");
@@ -20,13 +21,21 @@ const Header: React.FC = () => {
   const onClose = () => {
     setVisible(false);
   };
-
+  const handleClick = () => {
+    Router.push("/");
+  };
   return (
     <>
       <nav className="menuBar">
         <div className="logo">
-          <Image src={logo.src}  preview={{ visible: false }} alt="imageee"/>
-          <a href="">Propter</a>
+          <Image
+            src={logo.src}
+            preview={false}
+            alt="imageee"
+            style={{ cursor: "pointer" }}
+            onClick={handleClick}
+          />
+          <a href="/">Propter</a>
         </div>
         <div className="menuCon">
           <div className="leftMenu">
