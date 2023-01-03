@@ -29,9 +29,9 @@ const RealState = () => {
         <Space>
           <Col className="gutter-row  realStateColCls" span={32}>
             <Card
-              className="realStateCardCls"
+              className="realStateCardCls1"
               hoverable
-              style={{ height: "18vh", marginBottom: "30px" }}
+             
             >
               <div className="textCls" style={{ paddingTop: "30px" }}>
                 <span className="spanCls">Buyer Guide</span>
@@ -40,15 +40,15 @@ const RealState = () => {
               <h3>What you should Be Prepared with before buying ?</h3>
             </Card>
             <Card
-              className="realStateCardCls"
+              className="realStateCardCls1"
               hoverable
-              style={{ height: "18vh" }}
+           
             >
-              <div className="textCls">
-                <span className="spanCls">Buyer Investment</span>
-                <Button className="firstCardBtn">22 jul 2022</Button>
+              <div className="textCls" style={{ paddingTop: "30px" }}>
+                <span className="spanCls">Buyer Guide</span>
+                <Button className="firstCardBtn">25 jul 2022</Button>
               </div>
-              <h3>Where you can invest in UAE ?</h3>
+              <h3>What you should Be Prepared with before buying ?</h3>
             </Card>
           </Col>
         </Space>

@@ -1,25 +1,29 @@
-.tab-setting .ant-tabs-nav .ant-tabs-nav-wrap{
+.tab-setting .ant-tabs-nav .ant-tabs-nav-wrap {
   justify-content: center !important;
 }
 
-.tab-setting .ant-tabs-nav .ant-tabs-nav-wrap:hover{
+.tab-setting .ant-tabs-nav .ant-tabs-nav-wrap:hover {
   color: black;
 }
-.tab-setting .ant-tabs-nav .ant-tabs-nav-list .ant-tabs-tab .ant-tabs-tab-btn{
+.tab-setting .ant-tabs-nav .ant-tabs-nav-list .ant-tabs-tab .ant-tabs-tab-btn {
   color: black;
 }
-.tab-setting .ant-tabs-nav .ant-tabs-nav-list .ant-tabs-tab-active .ant-tabs-tab-btn{
+.tab-setting
+  .ant-tabs-nav
+  .ant-tabs-nav-list
+  .ant-tabs-tab-active
+  .ant-tabs-tab-btn {
   color: black;
 }
-.tab-setting .ant-tabs-nav .ant-tabs-nav-list .ant-tabs-ink-bar-animated{
+.tab-setting .ant-tabs-nav .ant-tabs-nav-list .ant-tabs-ink-bar-animated {
   background: black;
 }
 /* ============================================================= */
-.propterHelpCls .propterRowCls .propertyColCls .propertyImgCls{
+.propterHelpCls .propterRowCls .propertyColCls .propertyImgCls {
   padding: 35px 45px;
 }
 
-.propterHelpCls .propterRowCls .propertyColCls .homeCardLink{
+.propterHelpCls .propterRowCls .propertyColCls .homeCardLink {
   color: orangered;
 }
 .propterHelpCls .propterRowCls {
@@ -52,7 +56,7 @@
   height: 25vh;
 } */
 /* ================================================================ */
-.videoClass{
+.videoClass {
   margin-top: 10rem;
   margin-bottom: 5rem;
   background-color: gray;
@@ -60,7 +64,7 @@
   height: 40vh;
 }
 
-.videoClass .videoBtnCls{
+.videoClass .videoBtnCls {
   background-color: white;
   margin: 0 auto;
   transform: translate(-50%, -50%);
@@ -70,30 +74,29 @@
   height: 80px;
 }
 
-
-.topContentCls{
-  background-image: url('/assets/bg.jpg');
+.topContentCls {
+  background-image: url("/assets/bg.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   width: 100vw;
   height: 70vh;
   padding-top: 13%;
-  }
+}
 
-  /* ============================================================================= */
+/* ============================================================================= */
 
-  .aminitiesCls .aminitieColCls .aminitiBtnCls{
-    top: -18px;
-      position: relative;
-      left: 43%
-  }
-  .aminitiesCls .aminitieRowcls1 .aminitieColCls .aminiteImgCls{
+.aminitiesCls .aminitieColCls .aminitiBtnCls {
+  top: -18px;
+  position: relative;
+  left: 43%;
+}
+.aminitiesCls .aminitieRowcls1 .aminitieColCls .aminiteImgCls {
   padding: 10px 30px;
 }
-.aminitiesCls .aminitieRowcls1{
+.aminitiesCls .aminitieRowcls1 {
   margin-top: 5%;
 }
-.aminitiesCls .aminitieRowcls1 .aminitieColCls .aminitieMetaCls{
+.aminitiesCls .aminitieRowcls1 .aminitieColCls .aminitieMetaCls {
   text-align: center;
 }
 
@@ -120,22 +123,34 @@ margin-top: 20px;
 
 /* ========================================================= */
 
-.realStateCls{
+.realStateCls {
   margin-bottom: 40px;
 }
-.realStateRow{
+.realStateRow {
   margin-top: 7%;
 }
-.realStateCls .realStateRow .realStateColCls .realStateCardCls{
+.realStateCls .realStateRow .realStateColCls .realStateCardCls {
   background-color: gray;
   color: white;
-  height: 40vh;
+  /* height: 40vh; */
   width: 330px;
   display: flex;
   box-shadow: none;
-    border-radius: 5px;
+  border-radius: 5px;
+  padding-top: 65%;
+  padding-left: 5%;
 }
-
+.realStateCls .realStateRow .realStateColCls .realStateCardCls1 {
+  background-color: gray;
+  color: white;
+  /* height: 40vh; */
+  width: 330px;
+  display: flex;
+  box-shadow: none;
+  border-radius: 5px;
+  margin-top: 13%;
+  margin-bottom: 13%;
+}
 
 .realStateCls .realStateRow .realStateColCls .realStateCardCls .firstCardBtn {
   margin-top: 0px;
@@ -146,25 +161,32 @@ margin-top: 20px;
   border-color: white;
   font-size: 12px;
 }
+.realStateCls .realStateRow .realStateColCls .realStateCardCls1 .firstCardBtn {
+  margin-top: 0px;
+  border: solid;
+  margin-left: 91px;
+  border-width: 2px 4px;
+  border-radius: 40px;
+  border-color: white;
+  font-size: 12px;
+}
 
-.realStateCls .realStateRow .realStateColCls .realStateCardCls .spanCls{
+.realStateCls .realStateRow .realStateColCls .realStateCardCls .spanCls {
   font-size: 10px;
 }
 
-
 /* ------------------------------------------------------------- -------------------------------------------*/
-.footerLayout .footMainRow .gutter-row .footerListItem{
+.footerLayout .footMainRow .gutter-row .footerListItem {
   display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 4px 24px;
-    color: rgba(0, 0, 0, 0.88);
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 24px;
+  color: rgba(0, 0, 0, 0.88);
 }
-.footerLayout .footMainRow{
+.footerLayout .footMainRow {
   padding-top: 5rem;
   padding-bottom: 5rem;
 }
-
 
 /* ======================================================================================== */
 body {
@@ -186,10 +208,10 @@ body {
   padding: 12px 20px;
   text-transform: capitalize;
   color: black;
-    text-decoration: none;
+  text-decoration: none;
 }
 .menuCon {
-  width: calc(100% - 150px);  
+  width: calc(100% - 150px);
   float: left;
 }
 .menuCon .ant-menu-item {

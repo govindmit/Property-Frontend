@@ -16,6 +16,9 @@ const UserHeader = () => {
   const handleClick =()=>{
     Router.push('/Users/Favorite')
   }
+  const handleAccSetting =()=>{
+    Router.push(`/Users/UserProfile/edit/${1}`)
+  }
   return (
     <div>
 
@@ -29,7 +32,7 @@ const UserHeader = () => {
             defaultSelectedKeys={["2"]}
             className='userMenuCls'
           >
-            <Menu.Item onClick={handleClick} className='userMenuItem'> Favorites</Menu.Item>
+            <Menu.Item onClick={handleClick} className='userMenuItem'>Favorites</Menu.Item>
             <Menu.Item className='userMenuItem'>Saved Search</Menu.Item>
             <Menu.Item className='userMenuItem'>Open House Shedule</Menu.Item>
             <Menu.Item className='userMenuItem'>Home Tours</Menu.Item>
@@ -37,7 +40,7 @@ const UserHeader = () => {
             <Menu.Item className='userMenuItem'>Your voucher</Menu.Item>
             <Menu.Item className='userMenuItem'>Review</Menu.Item>
             <Menu.Item className='userMenuItem'>Email Setting</Menu.Item>
-            <Menu.Item className='userMenuItem'>Account Setting</Menu.Item>
+            <Menu.Item onClick={handleAccSetting} className='userMenuItem'>Account Setting</Menu.Item>
 
 
           </Menu>

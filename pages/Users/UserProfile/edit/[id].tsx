@@ -7,6 +7,7 @@ import { userType } from "../../../../types/userTypes";
 import { useRouter } from "next/router";
 import userService from "../../../../services/userService";
 import UserHeader from "../../UserHeader";
+import axios from "axios";
 type LayoutType = Parameters<typeof Form>[0]["layout"];
 
 const UserProfile = () => {
@@ -15,12 +16,12 @@ const UserProfile = () => {
   const [form] = Form.useForm();
   const [formLayout, setFormLayout] = useState<LayoutType>("vertical");
   const [firstName, setFirstName] = useState<userType | any>("");
-  const [lastName, setLastName] = useState<userType | String>("");
+  const [lastName, setLastName] = useState<userType | any>("");
   const [profilPic, setProfilePic] = useState<userType | any>();
   const [phone, setPhone] = useState<userType | any>();
-  const [gender, setGender] = useState<userType | String>("");
+  const [gender, setGender] = useState<userType | any>("");
   const [reraNumber, setReraNumber] = useState<userType | any>();
-  const [email, setEmail] = useState<userType | String>();
+  const [email, setEmail] = useState<userType | any>();
   const [dataObj, setDataObj] = useState<userType | any>({});
   const [isShow, setIsShow] = useState(false);
 
@@ -77,7 +78,7 @@ const UserProfile = () => {
       setProfilePic(image.target.files[0]);
     }
   };
-
+console.log(profilPic);
   const updatepRofileFn = async () => {
     if (!firstName) {
       setFNameErr(true);
@@ -96,6 +97,7 @@ const UserProfile = () => {
     }
 
     const id: number = 1;
+    const userData = new FormData();
     const data = {
       firstName: firstName,
       lastName: lastName,
@@ -105,8 +107,17 @@ const UserProfile = () => {
       email: email,
     };
 
+    userData.append(firstName, firstName)
+    userData.append(lastName, lastName)
+    userData.append(phone, phone)
+    userData.append(gender, gender)
+    userData.append(profilPic, profilPic)
+    userData.append(email, email)
+
+
+
     userService.updateprofile(id, data).then((data) => {
-      console.log(data);
+      
       if (!firstName || !lastName || !phone || !gender || !email) {
         console.log(firstName,';;',lastName,';;',phone,';;;',email,';;',gender,'ccc')
         toast.error("please fill all fields", {
