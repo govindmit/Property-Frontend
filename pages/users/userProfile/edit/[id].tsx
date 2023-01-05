@@ -13,8 +13,6 @@ type LayoutType = Parameters<typeof Form>[0]["layout"];
 const UserProfile = () => {
   const router = useRouter();
 
-  const [token,setToken] = useState();
-
   const [form] = Form.useForm();
   const [formLayout, setFormLayout] = useState<LayoutType>("vertical");
   const [firstName, setFirstName] = useState<userType | any>("");
@@ -36,7 +34,6 @@ const UserProfile = () => {
   const { id } = router.query;
 
   useEffect(() => {
-    
     getUserProfile();
   }, []);
 
