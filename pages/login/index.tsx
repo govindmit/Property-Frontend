@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { Divider, Layout, Typography } from "antd";
 import { Form, Input, Button } from "antd";
 import type { FormItemProps } from "antd";
+
 import {
   AppleFilled,
   AppleOutlined,
@@ -20,10 +22,29 @@ interface MyFormItemGroupProps {
 
 export default function App(props: IAppProps) {
   const { Text, Link } = Typography;
-  const onFinish = (value: object) => {
-    Router.push({ pathname: "/Users/Favorite" });
-    console.log(value);
+
+  const onFinish = async (value: any) => {
+    const { email, password } = value?.user?.data;
+    const requestData = {
+      email,
+      password,
+    };
+    try {
+      await axios
+        .post(`http://localhost:6001/api/user/signin`, requestData)
+        .then((res) => {
+          if (res?.data?.data?.role === 1) {
+            localStorage.setItem('token',res.data.accessToken)
+            Router.push("/admin/dashboard");
+          } else {
+            console.log("useertv");
+          }
+        });
+    } catch (err) {
+      console.log("#####", err);
+    }
   };
+
   function toArr(
     str: string | number | (string | number)[]
   ): (string | number)[] {
@@ -51,60 +72,93 @@ export default function App(props: IAppProps) {
 
     return <Form.Item name={concatName} {...props} />;
   };
-  const handleMove=()=>{
+  const handleMove = () => {
     Router.push({ pathname: "/signUp" });
-  }
+  };
 
   return (
     <div className="mainlogindivsign">
       <div className="textCentersign">
         <h2 className="h2marginsign">Welcome to Propter</h2>
-        <h3>Sign In</h3>
+        <h3 style={{marginBottom:"18px"}}>Sign In</h3>
       </div>
       <div className="marginleftcss">
-      <Form name="form_item_path" layout="vertical" onFinish={onFinish}>
-        <div>
-          <MyFormItemGroup prefix={["user"]}>
-            <MyFormItemGroup prefix={["data"]}>
-              <div>
-                <MyFormItem name="email" label="Email or Mobile number">
-                  <Input placeholder="Enter Email / Mobile No." />
-                </MyFormItem>
-                <MyFormItem name="password" label="Password">
-                  <Input placeholder="Enter Password"/>
-                </MyFormItem>
-              </div>
+        <Form
+          name="form_item_path"
+          layout="vertical"
+          onFinish={onFinish}
+        >
+          <div>
+            <MyFormItemGroup prefix={["user"]}>
+              <MyFormItemGroup prefix={["data"]}>
+                <div>
+                  <MyFormItem
+                    name="email"
+                    label="Email or Mobile number"
+                    rules={[
+                      {
+                        type: "email",
+                        message: "Email is not valid!",
+                      },
+                      {
+                        required: true,
+                        message: "Email is required!",
+                      },
+                    ]}
+                  >
+                    <Input placeholder="Enter Email / Mobile No." />
+                  </MyFormItem>
+                  <MyFormItem
+                    name="password"
+                    label="Password"
+                    rules={[
+                      // {
+                      //   type: "string",
+                      //   pattern: /^(?=.*\d)(?=.*[a-zA-Z])[a-zA-Z0-9]{6,}$/,
+                      //   message:"Password does not match pattern"
+                      // },
+                      {
+                        required: true,
+                        message: "Password is required!",
+                      },
+                    ]}
+                  >
+                    <Input placeholder="Enter Password" />
+                  </MyFormItem>
+                </div>
+              </MyFormItemGroup>
             </MyFormItemGroup>
-          </MyFormItemGroup>
-          <br />
-          <Button type="primary" htmlType="submit" className="submitbutton">
-            Sign In
-          </Button>
-          <br />
-          <br />
-          <Text className="forgotcss">Forgot Password?</Text>
-          <br />
-          <div className="creatediv">
-            <Text className="createcss">
-            <Button type="link" onClick={handleMove}>Create an Account</Button>
-            </Text>
+            <br />
+            <Button type="primary" htmlType="submit" className="submitbutton">
+              Sign In
+            </Button>
+            <br />
+            <br />
+            <Text className="forgotcss">Forgot Password?</Text>
+            <br />
+            <div className="creatediv">
+              <Text className="createcss">
+                <Button type="link" onClick={handleMove}>
+                  Create an Account
+                </Button>
+              </Text>
+            </div>
+            <div className="line"></div>
+            <Button type="primary" className="submitbutton1">
+              <AppleFilled /> Continue with Apple
+            </Button>
+            <br />
+            <br />
+            <Button type="primary" className="submitbuttonfb">
+              <FacebookOutlined /> Continue with facebook
+            </Button>
+            <br />
+            <br />
+            <Button type="primary" className="submitbutton3">
+              <GoogleOutlined className="googleee" /> continue with Google
+            </Button>
           </div>
-          <div className="line"></div>
-          <Button type="primary" className="submitbutton1">
-            <AppleFilled /> Continue with Apple
-          </Button>
-          <br />
-          <br />
-          <Button type="primary" className="submitbuttonfb">
-            <FacebookOutlined /> Continue with facebook
-          </Button>
-          <br />
-          <br />
-          <Button type="primary" className="submitbutton3">
-            <GoogleOutlined className="googleee"/> continue with Google
-          </Button>
-        </div>
-      </Form>
+        </Form>
       </div>
     </div>
   );

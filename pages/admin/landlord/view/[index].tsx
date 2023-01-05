@@ -6,6 +6,7 @@ import type { FormInstance } from 'antd/es/form';
 import { ArrowLeftOutlined, ExclamationCircleFilled } from "@ant-design/icons";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 export interface IAppProps { }
 
@@ -13,6 +14,7 @@ export default function AddUser(props: IAppProps) {
   const { Option } = Select;
   const { Header, Sider, Content } = Layout;
   const { confirm } = Modal;
+  const { query } = useRouter();
 
   const handleDelete = () => {
     confirm({
@@ -63,7 +65,7 @@ export default function AddUser(props: IAppProps) {
               <br />
             </div>
               <div className="landlordeditSection">
-                <Link href={`/admin/landlord/edit/${"1"}`}><Button type="primary">Edit</Button></Link>&emsp;&emsp;
+                <Link href={`/admin/landlord/edit/${query?.index}`}><Button type="primary">Edit</Button></Link>&emsp;&emsp;
                 <Button danger onClick={handleDelete}>Delete</Button>
               </div>
           </div>
