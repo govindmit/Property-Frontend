@@ -1,15 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
 import { Divider, Layout, Typography } from "antd";
 import { Form, Input, Button } from "antd";
-import type { FormItemProps } from "antd";
-import { toast } from 'react-toastify';
-import {
-  AppleFilled,
-  AppleOutlined,
-  FacebookOutlined,
-  GoogleOutlined,
-} from "@ant-design/icons";
+import { toast } from "react-toastify";
 import Router, { withRouter } from "next/router";
 
 const MyFormItemContext = React.createContext<(string | number)[]>([]);
@@ -21,14 +14,12 @@ interface MyFormItemGroupProps {
 }
 
 export default function App(props: IAppProps) {
-  const { Text, Link } = Typography;
   const [hydrated, setHydrated] = React.useState(false);
-  React.useEffect(() => {
-      setHydrated(true);
+  useEffect(() => {
+    setHydrated(true);
   }, []);
   if (!hydrated) {
-      // Returns null on first render, so the client and server match
-      return null;
+    return null;
   }
   const onFinish = async (value: any) => {
     const { confirm, password } = value;
@@ -48,7 +39,7 @@ export default function App(props: IAppProps) {
           if (res?.status === 200) {
             toast.success("Password Changed Successfully");
             setTimeout(() => {
-              Router.push('/login')
+              Router.push("/login");
             }, 2000);
           } else {
             toast.error("Something went wrong");
@@ -82,7 +73,7 @@ export default function App(props: IAppProps) {
     <div className="mainlogindivsign">
       <div className="textCentersign">
         <h2 className="h2marginsign">Create New Password</h2>
-        <h3 style={{ marginBottom: "18px" }}></h3>
+        {/* <h3 style={{ marginBottom: "18px" }}></h3> */}
       </div>
       <div className="marginleftcss">
         <Form name="form_item_path" layout="vertical" onFinish={onFinish}>

@@ -4,6 +4,7 @@ import { Divider, Layout, Typography } from "antd";
 import { Form, Input, Button } from "antd";
 import type { FormItemProps } from "antd";
 import { toast } from 'react-toastify';
+
 import {
   AppleFilled,
   AppleOutlined,
@@ -90,7 +91,6 @@ export default function App(props: IAppProps) {
   const handleForgot = () => {
     Router.push({ pathname: "/forgotPassword" });
   };
-
   return (
     <div className="mainlogindivsign">
       <div className="textCentersign">
