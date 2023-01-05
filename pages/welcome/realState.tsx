@@ -60,7 +60,7 @@ const RealState = () => {
             <Card className="realStateCardCls" hoverable>
               <div className="textCls">
                 <span className="spanCls">Real estate</span>
-                <Button className="firstCardBtn">25 jul 2022</Button>
+                <Button className="firstCardBtn">25 jul 2023</Button>
               </div>
               <h3>Have an ear to the groundon what real estate invest</h3>
               <span className="spanCls">Read more</span>
@@ -75,7 +75,7 @@ const RealState = () => {
                 <Button className="firstCardBtn">25 jul 2022</Button>
               </div>
               <h3>apprisial skills and realestate career?Mckissock</h3>
-              <span className="spanCls">Buyer Investment</span>
+              <span className="spanCls">Read more</span>
             </Card>
           </Col>
         </Space>

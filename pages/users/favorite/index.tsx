@@ -1,7 +1,7 @@
 import React from "react";
 import {  Col,  Row,  Avatar,  Card,  Typography,  List,  Skeleton,  Button,  Image,  Space,  Divider,} from "antd";
 import { CloseOutlined, EnvironmentOutlined, HeartOutlined,} from "@ant-design/icons";
-import UserHeader from '../UserHeader'
+import UserHeader from '../userHeader'
 const { Meta } = Card;
 
 interface DataType {

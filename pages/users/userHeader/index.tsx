@@ -1,5 +1,5 @@
 import React from "react";
-import FavoriteComp from "../Favorite";
+import FavoriteComp from "../favorite";
 import type { MenuProps } from "antd";
 import {     Layout, Menu, theme } from "antd";
 import  Router from "next/router";
@@ -14,10 +14,10 @@ const UserHeader = () => {
   } = theme.useToken();
 
   const handleClick =()=>{
-    Router.push('/Users/Favorite')
+    Router.push('/users/favorite')
   }
   const handleAccSetting =()=>{
-    Router.push(`/Users/UserProfile/edit/${1}`)
+    Router.push(`/users/userProfile/edit/${1}`)
   }
   return (
     <div>
