@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { userType } from "../../../../types/userTypes";
 import { useRouter } from "next/router";
 import userService from "../../../../services/userService";
-import UserHeader from "../../UserHeader";
+import UserHeader from "../../userHeader";
 import axios from "axios";
 type LayoutType = Parameters<typeof Form>[0]["layout"];
 
@@ -141,7 +141,7 @@ console.log(profilPic);
           progress: undefined,
           theme: "light",
         });
-        router.push("/Users/MyProfile");
+        router.push("/users/myProfile");
       }
     });
   };
