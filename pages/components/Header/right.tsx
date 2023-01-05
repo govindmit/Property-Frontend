@@ -25,6 +25,7 @@ const RightMenu = () => {
           <Menu.Item key="app">
           <a href="">Signup</a>
         </Menu.Item> */}
+        
         {
           path && path?.slice(0, 7) === "/Users/" ?
             <Avatar onClick={handleProfile} icon={<UserOutlined />} style={{ cursor: 'pointer' }} />

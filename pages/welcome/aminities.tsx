@@ -38,7 +38,7 @@ const Aminities = () => {
       <Row
         gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}
         style={{
-          transform: "translate(-50%, 0%)",
+          transform: "translate(-45%, 0%)",
           marginLeft: "50%",
           maxWidth: "1088px",
           width: "100%",
@@ -48,34 +48,7 @@ const Aminities = () => {
         {rowArray.map((e, i) => {
           return (
             <div key={i}>
-              {/* <Space>
-              <Col className="gutter-row  aminitieColCls" span={32}>
-                <Card
-                  className="aminitieCardCls"
-                  hoverable
-                  // style={{ width: 240 }}
-                  
-                  cover={
-                    <Image
-                    className="aminiteImgCls"
-                    alt="example"
-                    src={e.Img.src}
-                    width= {240}
-                    height={100}
-                    />
-                  }
-                  >
-                  <Meta
-                    className="aminitieMetaCls"
-                    title={e.title}
-                    />  
-                </Card>
-                <Button shape="circle" className="aminitiBtnCls">
-                    <ArrowRightOutlined style={{ color: "black" }} />
-                  </Button>
-              </Col>
-            </Space> */}
-
+        
               <Space>
                 <Col className="gutter-row  aminitieColCls" span={48}>
                   <Card

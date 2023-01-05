@@ -2,7 +2,7 @@ import React, { Component, useState } from "react";
 import { Drawer, Button } from "antd";
 import LeftMenu from "./left";
 import RightMenu from "./right";
-import logo from "../../../public/assets/logo.png";
+import logo from "../../../public/assets/aa.png";
 import { Image } from "antd";
 import Router from "next/router";
 import Link from "next/link";
