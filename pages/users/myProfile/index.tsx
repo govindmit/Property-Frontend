@@ -34,10 +34,14 @@ const MyProfile = () => {
     getUserProfile();
   }, []);
 
+
+
   const getUserProfile = async () => {
+    const token:any  = (localStorage.getItem('webToken') ? localStorage.getItem('webToken'):null)
+    const a =JSON.parse(token)
     setIsShow(true);
-    const id: number = 1;
-    await userService.getUserProfile(id).then((data) => {
+    const id: number = 12;
+    await userService.getUserProfile(id,a).then((data) => {
       if (data.data != null) {
         setDataObj(data?.data);
         setIsShow(false);
@@ -74,53 +78,52 @@ const MyProfile = () => {
     }
   };
 
-  const updatepRofileFn = async () => {
-    if (!firstName) {
-      setNameErr(true);
-    }
-    const id: number = 1;
-    const data = {
-      firstName: firstName,
-      lastName: lastName,
-      phone: phone,
-      gender: gender,
-      profilPic: profilPic,
-      email: email,
-      reraNumber: reraNumber,
-    };
+  // const updatepRofileFn = async () => {
+  //   if (!firstName) {
+  //     setNameErr(true);
+  //   }
+  //   const id: number = 1;
+  //   const data = {
+  //     firstName: firstName,
+  //     lastName: lastName,
+  //     phone: phone,
+  //     gender: gender,
+  //     profilPic: profilPic,
+  //     email: email,
+  //     reraNumber: reraNumber,
+  //   };
 
-    userService.updateprofile(id, data).then((data) => {
-      console.log(data);
-      if (!firstName) {
-        toast.error("please fill all fields", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-      } else if (data.status === 200) {
-        toast.success("success", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-        window.location.reload();
-      }
-    });
-  };
+  //   userService.updateprofile(id, data,token).then((data) => {
+  //     console.log(data);
+  //     if (!firstName) {
+  //       toast.error("please fill all fields", {
+  //         position: "top-right",
+  //         autoClose: 5000,
+  //         hideProgressBar: false,
+  //         closeOnClick: true,
+  //         pauseOnHover: true,
+  //         draggable: true,
+  //         progress: undefined,
+  //         theme: "light",
+  //       });
+  //     } else if (data.status === 200) {
+  //       toast.success("success", {
+  //         position: "top-right",
+  //         autoClose: 5000,
+  //         hideProgressBar: false,
+  //         closeOnClick: true,
+  //         pauseOnHover: true,
+  //         draggable: true,
+  //         progress: undefined,
+  //         theme: "light",
+  //       });
+  //       window.location.reload();
+  //     }
+  //   });
+  // };
 
   const handleEdit = () => {
-    Router.push(`/users/userProfile/edit/${1}`); 
-    // window.location = `/Users/UserProfile/edit/${1}`
+    Router.push(`/users/userProfile/edit/${11}`); 
   };
   return (
     <>
@@ -171,18 +174,7 @@ const MyProfile = () => {
               src={dataObj?.profilPic}
             
             />
-            {/* <input
-              type="file"
-              multiple
-              accept=".pdf,.jpeg,.png,.csv,.doc,.docx,.txt,.xlsx,.xls"
-              className="imageTagClass"
-              onChange={(e) => setImgFn(e)}
-            /> */}
-            {/* <div
-              style={{ color: "gray", marginLeft: "40px", marginTop: "15px" }}
-            >
-              upload a profile picture
-            </div> */}
+        
           </div>
 
           <div className="myProfile">

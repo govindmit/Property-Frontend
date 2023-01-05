@@ -17,7 +17,7 @@ const UserHeader = () => {
     Router.push('/users/favorite')
   }
   const handleAccSetting =()=>{
-    Router.push(`/users/userProfile/edit/${1}`)
+    Router.push("/users/myProfile");
   }
   return (
     <div>
