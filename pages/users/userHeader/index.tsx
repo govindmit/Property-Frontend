@@ -41,8 +41,6 @@ const UserHeader = () => {
             <Menu.Item className='userMenuItem'>Review</Menu.Item>
             <Menu.Item className='userMenuItem'>Email Setting</Menu.Item>
             <Menu.Item onClick={handleAccSetting} className='userMenuItem'>Account Setting</Menu.Item>
-
-
           </Menu>
         </Header>
        
