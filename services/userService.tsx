@@ -1,37 +1,32 @@
 import http from "./http-common";
 
-interface values{
-    id:number,
-    token:String,
-    data:any
+interface values {
+  id: number;
+  token: String;
+  data: any;
 }
 
-class userService  {
-
-  getUserProfile(id:number) {
-    return http.get(`api/user/${id}`)
+class userService {
+  getUserProfile(id: number, token: any) {
+    return http.get(`api/user/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
   }
 
-
-  updateprofile(id:number, data:any ) {
-    return http.put(`api/user/${id}`, data,{
-      headers:{
-        "Content-Type": "multipart/form-data"
-      }
-    })
-  
+  updateprofile(id: number, data: any, token: any) {
+    return http.put(`api/user/${id}`, data, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      },
+    });
   }
-  // addUser(userData, onUploadProgress) {
-  //   return http.post("/register", userData, {
-  //     headers: {
-  //       "Content-Type": "multipart/form-data"
-  //     },
-  //     onUploadProgress
-  //   });
-  // }
 
-
+  authToken() {
+    return http.post("/genrateToken");
+  }
 }
 
 export default new userService();
-
