@@ -21,7 +21,7 @@ interface MyFormItemGroupProps {
 export default function App(props: IAppProps) {
   const { Text, Link } = Typography;
   const onFinish = (value: object) => {
-    // Router.push({ pathname: "/home" });
+    Router.push({ pathname: "/users/favorite" });
     console.log(value);
   };
   function toArr(

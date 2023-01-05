@@ -1,7 +1,7 @@
 import React from "react";
 import {  Col,  Row,  Avatar,  Card,  Typography,  List,  Skeleton,  Button,  Image,  Space,  Divider,} from "antd";
 import { CloseOutlined, EnvironmentOutlined, HeartOutlined,} from "@ant-design/icons";
-import UserHeader from '../UserHeader'
+import UserHeader from '../userHeader'
 const { Meta } = Card;
 
 interface DataType {
@@ -83,7 +83,8 @@ const FavoriteComp = () => {
           >
             {rorData.map((e) => {
               return (
-                <Row style={{ marginTop: "15px" }} >
+                <div key={e.key}>
+                <Row style={{ marginTop: "15px" }}>
                   <Col span={12} style={{ fontWeight: "bold", color: "black" }}>
                     {" "}
                     {e.key}{" "}
@@ -95,6 +96,7 @@ const FavoriteComp = () => {
                    {e.value}
                  </Col>}
                 </Row>
+                </div>
               );
             })}
           </Col>
@@ -170,7 +172,8 @@ const FavoriteComp = () => {
           >
             {rorData.map((e) => {
               return (
-                <Row style={{ marginTop: "15px" }} >
+                <div key={e.key}>
+                <Row style={{ marginTop: "15px" }}>
                   <Col span={12} style={{ fontWeight: "bold", color: "black" }}>
                     {" "}
                     {e.key}{" "}
@@ -182,6 +185,7 @@ const FavoriteComp = () => {
                    {e.value}
                  </Col>}
                 </Row>
+                </div>
               );
             })}
           </Col>
@@ -258,7 +262,8 @@ const FavoriteComp = () => {
           >
             {rorData.map((e) => {
               return (
-                <Row style={{ marginTop: "15px" }} >
+                <div key={e.key}>   
+                <Row style={{ marginTop: "15px" }}>
                   <Col span={12} style={{ fontWeight: "bold", color: "black" }}>
                     {" "}
                     {e.key}{" "}
@@ -270,6 +275,7 @@ const FavoriteComp = () => {
                    {e.value}
                  </Col>}
                 </Row>
+                     </div>
               );
             })}
           </Col>

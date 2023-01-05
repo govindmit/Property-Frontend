@@ -1,141 +1,144 @@
-.tab-setting .ant-tabs-nav .ant-tabs-nav-wrap{
+.tab-setting .ant-tabs-nav .ant-tabs-nav-wrap {
   justify-content: center !important;
 }
 
-.tab-setting .ant-tabs-nav .ant-tabs-nav-wrap:hover{
+.tab-setting .ant-tabs-nav .ant-tabs-nav-wrap:hover {
   color: black;
 }
-.tab-setting .ant-tabs-nav .ant-tabs-nav-list .ant-tabs-tab .ant-tabs-tab-btn{
+.tab-setting .ant-tabs-nav .ant-tabs-nav-list .ant-tabs-tab .ant-tabs-tab-btn {
   color: black;
 }
-.tab-setting .ant-tabs-nav .ant-tabs-nav-list .ant-tabs-tab-active .ant-tabs-tab-btn{
+.tab-setting
+  .ant-tabs-nav
+  .ant-tabs-nav-list
+  .ant-tabs-tab-active
+  .ant-tabs-tab-btn {
   color: black;
 }
-.tab-setting .ant-tabs-nav .ant-tabs-nav-list .ant-tabs-ink-bar-animated{
+.tab-setting .ant-tabs-nav .ant-tabs-nav-list .ant-tabs-ink-bar-animated {
   background: black;
 }
 /* ============================================================= */
-.propterHelpCls .propterRowCls .propertyColCls .propertyImgCls{
-  padding: 35px 45px;
+
+.propterHelpCls .propterRowCls .propertyColCls .propertyImgCls {
+  /* padding: 35px 45px; */
+  padding: 5% 32%;
 }
 
-.propterHelpCls .propterRowCls .propertyColCls .homeCardLink{
+.propterHelpCls .propterRowCls .propertyColCls .homeCardLink {
   color: orangered;
 }
 .propterHelpCls .propterRowCls {
   margin-top: 5%;
 }
 
-/* .propterHelpCls{
-  padding-top: 3%;
-} */
 
-/* .ant-col .ant-card .ant-card-cover .homeImgCls {
-  width: 90px;
-  height: 80px;
-  align-content: center;
-  margin: 0 auto;
-  padding: 50px;
-} 
-.ant-col .ant-card .ant-card-cover{
-  height: 20vh;
-}
-.ant-col .ant-card .ant-card-body .homeCardLink{
-  color: orangered;
+.propterRowCls .propertyColCls .propterHelpMetaCls .ant-card-meta-title{
+  text-align: center;
+  font-size: 14px;
+  font-weight: 700;
 }
 
-.propterRowCls .propertyColCls .mainCardCls{
-  width: 240px;
-  height: 65vh;
-}
-.ant-col .ant-card .ant-card-body .ant-card-meta .ant-card-meta-description{
-  height: 25vh;
-} */
+
+.propterHelpCls .propterRowCls{
+    width: 100%;
+    /* transform: translate(13%, 0%); */
+    transform: translate(9%, 0%);
+
+  }
+
+  .propterHelpCls .propterRowCls .propterHelpMetaCls .ant-card-meta-description {
+    font-size: 10px;
+  }
+
+  .propterCardLinkCls {
+    transform: translate(25%, 5%);
+    margin-top: 10%;
+  }
+
+
+
+
+  
 /* ================================================================ */
-.videoClass{
-  margin-top: 10rem;
-  margin-bottom: 5rem;
+.videoClass {
+  margin-top: 10%;
+  margin-bottom: 5%;
   background-color: gray;
   width: 100%;
-  height: 40vh;
+  padding-top: 16%;
 }
 
-.videoClass .videoBtnCls{
+.videoClass .videoBtnCls {
   background-color: white;
   margin: 0 auto;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -140%);
   left: 50%;
   top: 50%;
   width: 80px;
   height: 80px;
 }
 
-
-.topContentCls{
-  background-image: url('/assets/bg.jpg');
+.topContentCls {
+  background-image: url("/assets/bg.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   width: 100vw;
   height: 70vh;
   padding-top: 13%;
-  }
+}
 
-  /* ============================================================================= */
+/* ============================================================================= */
 
-  .aminitiesCls .aminitieColCls .aminitiBtnCls{
-    top: -18px;
-      position: relative;
-      left: 43%
-  }
-  .aminitiesCls .aminitieRowcls1 .aminitieColCls .aminiteImgCls{
+
+.aminitiesCls .aminitieColCls .aminitiBtnCls {
+  top: -18px;
+  position: relative;
+  left: 43%;
+}
+.aminitiesCls .aminitieRowcls1 .aminitieColCls .aminiteImgCls {
   padding: 10px 30px;
 }
-.aminitiesCls .aminitieRowcls1{
+.aminitiesCls .aminitieRowcls1 {
   margin-top: 5%;
 }
-.aminitiesCls .aminitieRowcls1 .aminitieColCls .aminitieMetaCls{
+.aminitiesCls .aminitieRowcls1 .aminitieColCls .aminitieMetaCls {
   text-align: center;
 }
 
-/* .aminitiesCls .aminitieRowcls1 .aminitieColCls .ant-card-cover .aminiteImgCls{
-    width: 35%;
-    transform: translate(50%, 0%);
-    margin-top: 13%;
-    margin-left: 13%;
-}
-.aminitiesCls .aminitieRowcls1 .aminitieColCls .ant-card-cover{
-  height: 10vh;
-}
-.aminitiesCls .aminitieColCls .aminitieCardCls{
-  width: 250px;
-  height: auto;
-margin-top: 20px;
-}
 
-.aminitiesCls .aminitieColCls .aminitiBtnCls{
-  top: -18px;
-    position: relative;
-    left: 43%
-} */
 
 /* ========================================================= */
 
-.realStateCls{
+.realStateCls {
   margin-bottom: 40px;
 }
-.realStateRow{
+.realStateRow {
   margin-top: 7%;
 }
-.realStateCls .realStateRow .realStateColCls .realStateCardCls{
+.realStateCls .realStateRow .realStateColCls .realStateCardCls {
   background-color: gray;
   color: white;
-  height: 40vh;
+  /* height: 40vh; */
   width: 330px;
   display: flex;
   box-shadow: none;
-    border-radius: 5px;
+  border-radius: 5px;
+  padding-top: 70%;
+  padding-left: 5%;
 }
-
+.realStateCls .realStateRow .realStateColCls .realStateCardCls1 {
+  background-color: gray;
+  color: white;
+  /* height: 40vh; */
+  width: 330px;
+  display: flex;
+  box-shadow: none;
+  border-radius: 5px;
+  margin-top: 10%;
+  margin-bottom: 10%;
+  padding-top: 5%;
+}
 
 .realStateCls .realStateRow .realStateColCls .realStateCardCls .firstCardBtn {
   margin-top: 0px;
@@ -146,27 +149,58 @@ margin-top: 20px;
   border-color: white;
   font-size: 12px;
 }
+.realStateCls .realStateRow .realStateColCls .realStateCardCls1 .firstCardBtn {
+  margin-top: 0px;
+  border: solid;
+  margin-left: 91px;
+  border-width: 2px 4px;
+  border-radius: 40px;
+  border-color: white;
+  font-size: 12px;
+}
 
-.realStateCls .realStateRow .realStateColCls .realStateCardCls .spanCls{
+.realStateCls .realStateRow .realStateColCls .realStateCardCls .spanCls {
   font-size: 10px;
 }
 
 
-/* ------------------------------------------------------------- -------------------------------------------*/
-.footerLayout .footMainRow .gutter-row .footerListItem{
-  display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 4px 24px;
-    color: rgba(0, 0, 0, 0.88);
+.realStateCls .realStateRow .realStateColCls .realStateCardCls1 .spanCls {
+  font-size: 10px;
 }
-.footerLayout .footMainRow{
+/* ------------------------------------------------------------- -------------------------------------------*/
+.footerLayout .footMainRow .gutter-row .footerListItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 24px;
+  color: rgba(0, 0, 0, 0.88);
+}
+.footerLayout .footMainRow {
   padding-top: 5rem;
   padding-bottom: 5rem;
 }
 
-
 /* ======================================================================================== */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+body {
+  overflow-x: hidden;
+}
 .menuBar {
   padding: 0 20px;
   border-bottom: solid 1px #e8e8e8;
@@ -179,14 +213,16 @@ margin-top: 20px;
 }
 .logo a {
   display: inline-block;
-  font-size: 20px;
-  padding: 12px 20px;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: system-ui;
+  padding: 5px 5px;
   text-transform: capitalize;
   color: black;
-    text-decoration: none;
+  text-decoration: none;
 }
 .menuCon {
-  width: calc(100% - 150px);  
+  width: calc(100% - 150px);
   float: left;
 }
 .menuCon .ant-menu-item {
@@ -203,7 +239,8 @@ margin-top: 20px;
   border-bottom: none;
 }
 .menuCon .leftMenu {
-  float: left;
+  float: none;
+  display: inline-block;
 }
 .menuCon .rightMenu {
   float: right;
@@ -252,6 +289,14 @@ margin-top: 20px;
   border-bottom-color: transparent;
 }
 
+.ant-menu-overflow-item.ant-menu-overflow-item-rest.ant-menu-submenu.ant-menu-submenu-horizontal {
+  display: none !important;
+}
+
+.menuCon {
+  text-align: center;
+}
+
 @media (max-width: 767px) {
   .barsMenu {
     display: inline-block;
@@ -269,5 +314,22 @@ margin-top: 20px;
   }
   .logo a {
     padding: 10px 20px;
+  }
+  .ant-menu-overflow-item.ant-menu-overflow-item-rest.ant-menu-submenu.ant-menu-submenu-horizontal {
+    display: none !important;
+  }
+  .ant-drawer-body .ant-menu-horizontal > .ant-menu-item {
+    opacity: 1 !important;
+    visibility: visible !important;
+    position: static !important;
+    height: auto !important;
+    /* width: auto; */
+    display: block;
+  }
+  ul.ant-menu-overflow.ant-menu.ant-menu-root.ant-menu-horizontal.ant-menu-light {
+    flex-wrap: wrap;
+  }
+  .menuCon .leftMenu {
+    display: none;
   }
 }

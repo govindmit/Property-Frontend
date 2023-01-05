@@ -13,9 +13,22 @@ class userService  {
   }
 
 
-  updateprofile(id:number, data:any) {
-    return http.put(`api/user/${id}`, data)
+  updateprofile(id:number, data:any ) {
+    return http.put(`api/user/${id}`, data,{
+      headers:{
+        "Content-Type": "multipart/form-data"
+      }
+    })
+  
   }
+  // addUser(userData, onUploadProgress) {
+  //   return http.post("/register", userData, {
+  //     headers: {
+  //       "Content-Type": "multipart/form-data"
+  //     },
+  //     onUploadProgress
+  //   });
+  // }
 
 
 }

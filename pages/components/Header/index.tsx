@@ -2,9 +2,10 @@ import React, { Component, useState } from "react";
 import { Drawer, Button } from "antd";
 import LeftMenu from "./left";
 import RightMenu from "./right";
-import logo from "../../../public/assets/logo.png";
+import logo from "../../../public/assets/aa.png";
 import { Image } from "antd";
 import Router from "next/router";
+import Link from "next/link";
 
 const Header: React.FC = () => {
   const [current, setCurrent] = useState("mail");
@@ -35,7 +36,7 @@ const Header: React.FC = () => {
             style={{ cursor: "pointer" }}
             onClick={handleClick}
           />
-          <a href="/">Propter</a>
+          <Link href="/">Propter</Link>
         </div>
         <div className="menuCon">
           <div className="leftMenu">
