@@ -49,15 +49,15 @@ input#form_item_path_user_data_password {
   margin-left: 30%;
 }
 .forgotcss {
-  margin-left: 11.3%;
+  margin-left: 9.1%;
 }
-.createcss{
-    margin-left: 9.1%;
+.createcss {
+  margin-left: 9.1%;
 }
-.creatediv{
+.creatediv {
   margin-top: 8px;
 }
-.line{
+.line {
   border-bottom: 1px solid grey;
   width: 64%;
   margin-left: -14%;
@@ -70,13 +70,13 @@ input#form_item_path_user_data_password {
   border-radius: 2px;
   background-color: #1b283a !important;
 }
-.submitbuttonfb{
+.submitbuttonfb {
   width: 36%;
   height: 29px !important;
   border-radius: 2px;
 }
 .submitbutton3 {
-  width: 36% ;
+  width: 36%;
   height: 29px !important;
   border-radius: 2px;
   background-color: white !important;
@@ -86,7 +86,6 @@ input#form_item_path_user_data_password {
 .submitbutton3 :hover {
   color: black !important;
   background-color: white !important;
- 
 }
 span.anticon.anticon-google.googleee {
   color: aqua !important;
@@ -94,6 +93,14 @@ span.anticon.anticon-google.googleee {
 span.anticon.anticon-google.googleee :hover {
   color: aqua !important;
 }
-.marginleftcss{
-  margin-left: 41% ;
+.marginleftcss {
+  margin-left: 41%;
+}
+.submitbutton22 {
+  width: 36%;
+  /* border-radius: 2px; */
+  background-color: #ffffff !important;
+}
+span.ant-input-affix-wrapper.ant-input-password.ant-input-affix-wrapper-has-feedback.css-dev-only-do-not-override-k83k30 {
+  width: 40% !important;
 }

@@ -3,7 +3,7 @@ import axios from "axios";
 import { Divider, Layout, Typography } from "antd";
 import { Form, Input, Button } from "antd";
 import type { FormItemProps } from "antd";
-
+import { toast } from 'react-toastify';
 import {
   AppleFilled,
   AppleOutlined,
@@ -31,13 +31,25 @@ export default function App(props: IAppProps) {
     };
     try {
       await axios
-        .post(`http://localhost:6001/api/user/signin`, requestData)
+        .post(`https://api-property.mangoitsol.com/api/user/signin`, requestData)
         .then((res) => {
-          if (res?.data?.data?.role === 1) {
-            localStorage.setItem('token',res.data.accessToken)
-            Router.push("/admin/dashboard");
+          if (res?.status === 200) {
+            localStorage.setItem("token", res.data.accessToken);
+            if (res?.data?.data?.role === 1) {
+              Router.push("/admin/dashboard");
+            } else if (res?.data?.data?.role === 2) {
+              Router.push("/users/favorite");
+            } else if (res?.data?.data?.role === 3) {
+              console.log("Landloard login");
+            } else if (res?.data?.data?.role === 4) {
+              console.log("Brokerage login");
+            } else if (res?.data?.data?.role === 5) {
+              console.log("");
+            } else {
+              console.log("Work in progress");
+            }
           } else {
-            console.log("useertv");
+            toast.error(res?.data?.message);
           }
         });
     } catch (err) {
@@ -75,19 +87,18 @@ export default function App(props: IAppProps) {
   const handleMove = () => {
     Router.push({ pathname: "/signUp" });
   };
+  const handleForgot = () => {
+    Router.push({ pathname: "/forgotPassword" });
+  };
 
   return (
     <div className="mainlogindivsign">
       <div className="textCentersign">
         <h2 className="h2marginsign">Welcome to Propter</h2>
-        <h3 style={{marginBottom:"18px"}}>Sign In</h3>
+        <h3 style={{ marginBottom: "18px" }}>Sign In</h3>
       </div>
       <div className="marginleftcss">
-        <Form
-          name="form_item_path"
-          layout="vertical"
-          onFinish={onFinish}
-        >
+        <Form name="form_item_path" layout="vertical" onFinish={onFinish}>
           <div>
             <MyFormItemGroup prefix={["user"]}>
               <MyFormItemGroup prefix={["data"]}>
@@ -134,7 +145,11 @@ export default function App(props: IAppProps) {
             </Button>
             <br />
             <br />
-            <Text className="forgotcss">Forgot Password?</Text>
+            <Text className="forgotcss">
+              <Button type="link" onClick={handleForgot}>
+                Forgot Password?
+              </Button>
+            </Text>
             <br />
             <div className="creatediv">
               <Text className="createcss">

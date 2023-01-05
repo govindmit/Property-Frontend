@@ -6,21 +6,18 @@ const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 
 const RightMenu = () => {
-
   const handleLogin = () => {
     Router.push("/login");
   };
-  let token;
-  useEffect(() => {
-    token = localStorage.getItem("token");
-  }, []);
-
+  const token = {
+    access: typeof window !== "undefined" ? window.localStorage.getItem('token') : null,
+    isAuthenticated: null,
+    user: null
+};
   const handleLogout = () => {
     localStorage.removeItem("token");
     Router.push("/login");
   };
- 
-
   return (
     <div style={{ marginTop: "10px" }}>
       <Menu mode="horizontal">
@@ -30,7 +27,7 @@ const RightMenu = () => {
           <Menu.Item key="app">
           <a href="">Signup</a>
         </Menu.Item> */}
-        {token && token !== "" ? (
+        {token && token?.access !== null ? (
           <Button
             style={{ backgroundColor: "orangered", color: "white" }}
             onClick={handleLogout}
