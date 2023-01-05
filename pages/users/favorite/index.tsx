@@ -1,22 +1,7 @@
 import React from "react";
-import {
-  Col,
-  Row,
-  Avatar,
-  Card,
-  Typography,
-  List,
-  Skeleton,
-  Button,
-  Image,
-  Space,
-  Divider,
-} from "antd";
-import {
-  CloseOutlined,
-  EnvironmentOutlined,
-  HeartOutlined,
-} from "@ant-design/icons";
+import {  Col,  Row,  Avatar,  Card,  Typography,  List,  Skeleton,  Button,  Image,  Space,  Divider,} from "antd";
+import { CloseOutlined, EnvironmentOutlined, HeartOutlined,} from "@ant-design/icons";
+import UserHeader from '../userHeader'
 const { Meta } = Card;
 
 interface DataType {
@@ -36,6 +21,7 @@ const rorData = [
 const FavoriteComp = () => {
   return (
     <div className="favoriteCls">
+      <UserHeader/>
       <div className="favoritesHeading">
         <Row>
           <Col xs={{ span: 5, offset: 1 }} lg={{ span: 6, offset: 2 }}>
@@ -58,6 +44,7 @@ const FavoriteComp = () => {
                 <Image
                   alt="example"
                   src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+                  preview={false}
                 />
               }
             >
@@ -146,6 +133,7 @@ const FavoriteComp = () => {
                 <Image
                   alt="example"
                   src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+                  preview={false}
                 />
               }
             >
@@ -235,6 +223,7 @@ const FavoriteComp = () => {
                 <Image
                   alt="example"
                   src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+                  preview={false}
                 />
               }
             >

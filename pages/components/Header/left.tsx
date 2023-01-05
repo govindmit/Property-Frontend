@@ -6,6 +6,7 @@ const MenuItemGroup = Menu.ItemGroup;
 class LeftMenu extends Component {
   render() {
     return (
+  <>
    <Menu mode="horizontal">
        <Menu.Item key="buy">
           <Link href="#">Buy</Link>
@@ -19,7 +20,11 @@ class LeftMenu extends Component {
         <Menu.Item key="brokerage">
           <Link href="/brokerage">Brokerage</Link>
         </Menu.Item>
+        <Menu.Item key="brokerage">
+          <Link href="/brokerage">Brokerage1</Link>
+        </Menu.Item>
       </Menu>
+  </>
     );
   }
 }

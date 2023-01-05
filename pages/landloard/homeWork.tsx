@@ -69,6 +69,7 @@ const HomeWorkComp = () => {
             <div key={i}>
            
             <Card
+            key={e.title}
             className="landloardTopContentCard"
               style={{ width: 300 }}
               cover={

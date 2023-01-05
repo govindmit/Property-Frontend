@@ -11,6 +11,7 @@ import { userType } from "../../../types/userTypes";
 
 import userService from "../../../services/userService";
 import Router from "next/router";
+import UserHeader from "../userHeader";
 type LayoutType = Parameters<typeof Form>[0]["layout"];
 const { Title } = Typography;
 
@@ -118,10 +119,12 @@ const MyProfile = () => {
   };
 
   const handleEdit = () => {
-    Router.push(`/Users/UserProfile/edit/${1}`); 
+    Router.push(`/users/userProfile/edit/${1}`); 
     // window.location = `/Users/UserProfile/edit/${1}`
   };
   return (
+    <>
+      <UserHeader/>
     <div className="userProfile">
       <ToastContainer />
       {isShow ? (
@@ -217,6 +220,7 @@ const MyProfile = () => {
         </>
       )}
     </div>
+    </>
   );
 };
 

@@ -12,6 +12,9 @@ import {
   Input,
 } from "antd";
 import logo from "../../../public/assets/logo.png";
+import {  EnvironmentOutlined, } from "@ant-design/icons";
+import Router from "next/router";
+
 const { Header, Footer, Sider, Content } = Layout;
 const style: React.CSSProperties = {
   background: "cyan",
@@ -26,20 +29,24 @@ const data = [
   "Los Angeles battles huge wildfires.",
 ];
 const FooterComp = () => {
+
+  const handleClick =() =>{
+    Router.push('/')
+  }
   return (
     <>
-      <Layout>
-        <Header style={{ height: "auto" }}>
-          <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
+      <Layout className="footerLayout">
+        <Header style={{ height: "auto" }} >
+          <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className='footMainRow'>
             <Col className="gutter-row" span={6}>
               <List header={<h4>About Us.</h4>} style={{ color: "white" }}>
-                <Typography style={{ color: "white" }}>
+                <Typography style={{ color: "white",marginTop:'10px' }}>
                   With the online text generator you can process your personal
                   Lorem Ipsum enriching it with html elements that define its
                   structure, with the possibility to insert external links, but
                   not only.
                 </Typography>
-                <Space wrap>
+                <Space wrap style={{marginTop:'30px'}}>
                   <Button shape="circle">?</Button>
                   <Button
                     shape="circle"
@@ -55,50 +62,55 @@ const FooterComp = () => {
 
             <Col className="gutter-row" span={6}>
               <List header={<h4>Company</h4>} style={{ color: "white" }}>
-                <List.Item style={{ color: "white", marginLeft:'-20px'}}>About us</List.Item>
-                <List.Item style={{ color: "white", marginLeft:'-20px'}}>Leadership</List.Item>
-                <List.Item style={{ color: "white", marginLeft:'-20px'}}>Careers</List.Item>
-                <List.Item style={{ color: "white", marginLeft:'-20px'}}>Blog</List.Item>
-                <List.Item style={{ color: "white", marginLeft:'-20px'}}>
+                <List.Item style={{ color: "white", marginLeft:'-20px'}} className='footerListItem'>About us</List.Item>
+                <List.Item style={{ color: "white", marginLeft:'-20px'}} className='footerListItem'>Leadership</List.Item>
+                <List.Item style={{ color: "white", marginLeft:'-20px'}} className='footerListItem'>Careers</List.Item>
+                <List.Item style={{ color: "white", marginLeft:'-20px'}} className='footerListItem'>Blog</List.Item>
+                <List.Item style={{ color: "white", marginLeft:'-20px'}} className='footerListItem'>
                   Propter Partners
                 </List.Item>
-                <List.Item style={{ color: "white", marginLeft:'-20px'}}>Contact Us</List.Item>
+                <List.Item style={{ color: "white", marginLeft:'-20px'}} className='footerListItem'>Contact Us</List.Item>
               </List>
             </Col>
 
             <Col className="gutter-row" span={6}>
               <List header={<h4>Help?</h4>} style={{ color: "white" }}>
-                <List.Item style={{ color: "white", marginLeft:'-20px'}}>FAQ</List.Item>
-                <List.Item style={{ color: "white", marginLeft:'-20px'}}>
-                  Tearm And Condition
-                </List.Item>
-                <List.Item style={{ color: "white", marginLeft:'-20px'}}>Reporting</List.Item>
-                <List.Item style={{ color: "white", marginLeft:'-20px'}}>Documentation</List.Item>
-                <List.Item style={{ color: "white", marginLeft:'-20px'}}>Support Policy</List.Item>
-                <List.Item style={{ color: "white", marginLeft:'-20px'}}>Privacy</List.Item>
+                <List.Item style={{ color: "white", marginLeft:'-20px'}} className='footerListItem'>FAQ</List.Item>
+                <List.Item style={{ color: "white", marginLeft:'-20px'}} className='footerListItem'>Tearm And Condition </List.Item>
+                <List.Item style={{ color: "white", marginLeft:'-20px'}} className='footerListItem'>Reporting</List.Item>
+                <List.Item style={{ color: "white", marginLeft:'-20px'}} className='footerListItem'>Documentation</List.Item>
+                <List.Item style={{ color: "white", marginLeft:'-20px'}} className='footerListItem'>Support Policy</List.Item>
+                <List.Item style={{ color: "white", marginLeft:'-20px'}} className='footerListItem'>Privacy</List.Item>
               </List>
             </Col>
             <Col className="gutter-row" span={6}>
               <List
                 header={
                   <>
-                    <Image src={logo.src} alt="imagee" />
+                    <Image src={logo.src} alt="imagee" preview={false} style={{cursor:'pointer'}}/>
                     <h4 style={{ marginTop: "-30px", marginLeft: "65px" }}>
                       Propter
                     </h4>
                   </>
                 }
-                style={{ color: "white" }}
+                style={{ color: "white" ,cursor:'pointer' }}
+                
               >
-                <Typography style={{ color: "white" }}>
+                <Typography style={{ color: "white" ,marginTop:'20px'}}>
                   Read Estate transaction made simple,efficent and quicker.
                 </Typography>
-                <Row style={{backgroundColor:'white',marginTop:'15px'}}>
+                <Space style={{marginTop:'30px'}}>
+                <EnvironmentOutlined
+                  style={{ fontSize: "10px", color: "white" }}
+                />
+                  Dubai
+                </Space>
+                <Row style={{marginTop:'30px'}}>
                   <Col span={12}>
-                    <Input placeholder="Basic usage" />
+                    <Input placeholder="Basic usage"  style={{borderRadius:'0px'}}/>
                   </Col>
                   <Col span={12} >
-                    <Button style={{ backgroundColor: "orangered", color: "white" ,}}>Subscribe</Button>
+                    <Button style={{ backgroundColor: "orangered", color: "white" ,borderRadius:'0px'}}>Subscribe</Button>
                   </Col>
                 </Row>
               </List>
@@ -106,7 +118,10 @@ const FooterComp = () => {
           </Row>
         </Header>
 
-        <Footer style={{ textAlign: 'left',backgroundColor:'#484242',color:'white' }}>©Propter2022 All rights reserved</Footer>
+        <Footer style={{ textAlign: 'left',backgroundColor:'#484242',color:'white' }}>
+          <Typography style={{ textAlign: 'center',color:'white' }}>©Propter2022 All rights reserved</Typography>
+          
+        </Footer>
       </Layout>
     </>
   );
