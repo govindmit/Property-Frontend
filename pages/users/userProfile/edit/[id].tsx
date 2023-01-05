@@ -37,10 +37,17 @@ const UserProfile = () => {
     getUserProfile();
   }, []);
 
+const handleBack =() =>{
+  router.push("/users/myProfile");
+}
+ 
   const getUserProfile = async () => {
     setIsShow(true);
-    const id: number = 1;
-    await userService.getUserProfile(id).then((data) => {
+    const token:any  = (localStorage.getItem('webToken') ? localStorage.getItem('webToken'):null)
+    const a =JSON.parse(token)
+    const id: number = 12;
+    
+    await userService.getUserProfile(id,a).then((data) => {
       if (data.data != null) {
         setDataObj(data?.data);
         setIsShow(false);
@@ -78,8 +85,11 @@ const UserProfile = () => {
       setProfilePic(image.target.files[0]);
     }
   };
-console.log(profilPic);
+
   const updatepRofileFn = async () => {
+    const token:any  = (localStorage.getItem('webToken') ? localStorage.getItem('webToken'):null)
+    const a =JSON.parse(token)
+    const id: number = 12;
     if (!firstName) {
       setFNameErr(true);
     }
@@ -96,7 +106,6 @@ console.log(profilPic);
       setGenderErr(true);
     }
 
-    const id: number = 1;
     const userData = new FormData();
     const data = {
       firstName: firstName,
@@ -116,7 +125,7 @@ console.log(profilPic);
 
 
 
-    userService.updateprofile(id, data).then((data) => {
+    userService.updateprofile(id, data,a).then((data) => {
       
       if (!firstName || !lastName || !phone || !gender || !email) {
         console.log(firstName,';;',lastName,';;',phone,';;;',email,';;',gender,'ccc')
@@ -160,7 +169,7 @@ console.log(profilPic);
                 <Button
                   type="text"
                   className="btncss backbtnn"
-                  //   onClick={handleBack}
+                    onClick={handleBack}
                   icon={<ArrowLeftOutlined />}
                 >
                   Back

@@ -17,20 +17,28 @@ import Loader from "./common/loader";
 import { useRouter } from "next/router";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import userService from '../services/userService';
 
 export default function App({ Component, pageProps }: AppProps) {
+  const [token,setToken] = useState();
+
   const router = useRouter();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    router.events.on("routeChangeStart", (url) => {
+    genrateToken()
+    router.events.on('routeChangeStart', (url) => {
       setLoading(false);
     });
     router.events.on("routeChangeComplete", (url) => {
       setLoading(true);
     });
-  });
-
+  })
+  const genrateToken =async()=>{
+    userService.authToken().then((token)=>{
+     localStorage.setItem('webToken',JSON.stringify(token.data.authToken))
+    })
+  }
   return (
     <>
       {loading ? (
