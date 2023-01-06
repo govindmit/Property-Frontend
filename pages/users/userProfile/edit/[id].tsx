@@ -37,24 +37,26 @@ const UserProfile = () => {
     getUserProfile();
   }, []);
 
-const handleBack =() =>{
-  router.push("/users/myProfile");
-}
- 
+  const handleBack = () => {
+    router.push("/users/myProfile");
+  };
+
   const getUserProfile = async () => {
     setIsShow(true);
-    const token:any  = (localStorage.getItem('webToken') ? localStorage.getItem('webToken'):null)
-    const a =JSON.parse(token)
-    const id: number = 12;
-    
-    await userService.getUserProfile(id,a).then((data) => {
+    const token: any = localStorage.getItem("webToken")
+      ? localStorage.getItem("webToken")
+      : null;
+    const a = JSON.parse(token);
+    const id: number = 1;
+
+    await userService.getUserProfile(id, a).then((data) => {
       if (data.data != null) {
         setDataObj(data?.data);
         setIsShow(false);
         setFirstName(data?.data?.firstName);
         setLastName(data?.data?.lastName);
-        setPhone(data?.data?.phone)
-        setEmail(data?.data?.email)
+        setPhone(data?.data?.phone);
+        setEmail(data?.data?.email);
         setGender(data?.data?.gender);
         setProfilePic(data?.data?.profilPic);
       }
@@ -87,24 +89,16 @@ const handleBack =() =>{
   };
 
   const updatepRofileFn = async () => {
-    const token:any  = (localStorage.getItem('webToken') ? localStorage.getItem('webToken'):null)
-    const a =JSON.parse(token)
-    const id: number = 12;
-    if (!firstName) {
-      setFNameErr(true);
-    }
-    if (!lastName) {
-      setLNameErr(true);
-    }
-    if (!phone) {
-      setPhoneErr(true);
-    }
-    if (!email) {
-      setEmailErr(true);
-    }
-    if (!gender) {
-      setGenderErr(true);
-    }
+    const token: any = localStorage.getItem("webToken")
+      ? localStorage.getItem("webToken")
+      : null;
+    const a = JSON.parse(token);
+    const id: number = 1;
+    if (!firstName) { setFNameErr(true)}
+    if (!lastName) { setLNameErr(true)}
+    if (!phone) { setPhoneErr(true)}
+    if (!email) { setEmailErr(true) }
+    if (!gender) { setGenderErr(true)}
 
     const userData = new FormData();
     const data = {
@@ -116,19 +110,16 @@ const handleBack =() =>{
       email: email,
     };
 
-    userData.append(firstName, firstName)
-    userData.append(lastName, lastName)
-    userData.append(phone, phone)
-    userData.append(gender, gender)
-    userData.append(profilPic, profilPic)
-    userData.append(email, email)
+    userData.append(firstName, firstName);
+    userData.append(lastName, lastName);
+    userData.append(phone, phone);
+    userData.append(gender, gender);
+    userData.append(profilPic, profilPic);
+    userData.append(email, email);
 
-
-
-    userService.updateprofile(id, data,a).then((data) => {
-      
+    userService.updateprofile(id, data, a).then((data) => {
       if (!firstName || !lastName || !phone || !gender || !email) {
-        console.log(firstName,';;',lastName,';;',phone,';;;',email,';;',gender,'ccc')
+        
         toast.error("please fill all fields", {
           position: "top-right",
           autoClose: 5000,
@@ -139,7 +130,7 @@ const handleBack =() =>{
           progress: undefined,
           theme: "light",
         });
-      } else  {
+      } else {
         toast.success("success", {
           position: "top-right",
           autoClose: 5000,
@@ -155,193 +146,206 @@ const handleBack =() =>{
     });
   };
   return (
-    <>
-        <UserHeader/>
-    <div className="userProfile">
-      <ToastContainer />
-      {isShow ? (
-        <Spin size="large" />
-      ) : (
-        <>
-          <div className="backBtnCls">
-            <Row>
-              <Col span={18} push={6}>
-                <Button
-                  type="text"
-                  className="btncss backbtnn"
+    <div>
+      <UserHeader />
+      <div className="userProfile">
+        <ToastContainer />
+        {isShow ? (
+          <Spin size="large" />
+        ) : (
+          <>
+            <div className="backBtnCls">
+              <Row>
+                <Col span={18} push={6}>
+                  <Button
+                    type="text"
+                    className="btncss backbtnn"
                     onClick={handleBack}
-                  icon={<ArrowLeftOutlined />}
-                >
-                  Back
-                </Button>
-              </Col>
-            </Row>
-          </div>
-          <div className="userProHeadingCls">
-            <Row>
-              <Col span={18} push={6}>
-                <h1>Your Details</h1>
-              </Col>
-            </Row>
-          </div>
-          <div className="userProfilImg">
-            <Avatar
-              size={250}
-              // icon={<UserOutlined />}
-              src={dataObj?.profilPic}
-              style={{ cursor: "pointer" }}
-            />
-            <input
-              type="file"
-              multiple
-              accept=".pdf,.jpeg,.png,.csv,.doc,.docx,.txt,.xlsx,.xls"
-              className="imageTagClass"
-              onChange={(e) => setImgFn(e)}
-            />
-            <div
-              style={{ color: "gray", marginLeft: "40px", marginTop: "15px" }}
-            >
-              upload a profile picture
+                    icon={<ArrowLeftOutlined />}
+                  >
+                    Back
+                  </Button>
+                </Col>
+              </Row>
             </div>
-          </div>
+            <div className="userProHeadingCls">
+              <Row>
+                <Col span={18} push={6}>
+                  <h1>Your Details</h1>
+                </Col>
+              </Row>
+            </div>
+            <div className="userProfilImg">
+              <Avatar
+                size={250}
+                // icon={<UserOutlined />}
+                src={dataObj?.profilPic}
+                style={{ cursor: "pointer" }}
+              />
+              <input
+                type="file"
+                multiple
+                // accept=".pdf,.jpeg,.png,.csv,.doc,.docx,.txt,.xlsx,.xls"
+                className="imageTagClass"
+                onChange={(e) => setImgFn(e)}
+              />
+              <div
+                style={{ color: "gray", marginLeft: "40px", marginTop: "15px" }}
+              >
+                upload a profile picture
+              </div>
+            </div>
 
-          <div className="userProFormCls">
-            <Row>
-              <Col span={12} offset={6}>
-                <Row>
-                  <Col span={8}>
-                    <Form
-                      {...formItemLayout}
-                      layout={formLayout}
-                      form={form}
-                      initialValues={{ layout: formLayout }}
-                      onValuesChange={onFormLayoutChange}
-                    >
-                      <Form.Item
-                        label="First Name"
-                        className="userFormLableCls"
+            <div className="userProFormCls">
+              <Row>
+                <Col span={12} offset={6}>
+                  <Row>
+                    <Col span={8}>
+                      <Form
+                        {...formItemLayout}
+                        layout={formLayout}
+                        form={form}
+                        initialValues={{ layout: formLayout }}
+                        onValuesChange={onFormLayoutChange}
                       >
-                        <Input
-                          placeholder="input placeholder"
-                          defaultValue={dataObj?.firstName}
-                          onChange={(e) => {
-                            setFirstName(e.target.value);
-                          }}
-                          onKeyUp={() => { setFNameErr(false); }}
-                        />
-                        {fnameErr ? (
-                          <span style={{ color: "red" }}>
-                            Please fill first name
-                          </span>
-                        ) : (
-                          ""
-                        )}
-                      </Form.Item>
-                      <Form.Item label="Mobile" className="userFormLableCls">
-                        <Input
-                          placeholder="input placeholder"
-                          defaultValue={dataObj?.phone}
-                          onChange={(e) => {
-                            setPhone(e.target.value);
-                          }}
-                          onKeyUp={()=>{setPhoneErr(false)}}
-                        />
-                         {phoneErr ? (
-                          <span style={{ color: "red" }}>
-                            Please fill Phone number
-                          </span>
-                        ) : (
-                          ""
-                        )}
-                      </Form.Item>
+                        <Form.Item
+                          label="First Name"
+                          className="userFormLableCls"
+                        >
+                          <Input
+                            placeholder="input placeholder"
+                            defaultValue={dataObj?.firstName}
+                            onChange={(e) => {
+                              setFirstName(e.target.value);
+                            }}
+                            onKeyUp={() => {
+                              setFNameErr(false);
+                            }}
+                          />
+                          {fnameErr ? (
+                            <span style={{ color: "red" }}>
+                              Please fill first name
+                            </span>
+                          ) : (
+                            ""
+                          )}
+                        </Form.Item>
+                        <Form.Item label="Mobile" className="userFormLableCls">
+                          <Input
+                            placeholder="input placeholder"
+                            defaultValue={dataObj?.phone}
+                            onChange={(e) => {
+                              setPhone(e.target.value);
+                            }}
+                            onKeyUp={() => {
+                              setPhoneErr(false);
+                            }}
+                          />
+                          {phoneErr ? (
+                            <span style={{ color: "red" }}>
+                              Please fill Phone number
+                            </span>
+                          ) : (
+                            ""
+                          )}
+                        </Form.Item>
 
-                      <Form.Item label="Gender" className="userFormLableCls">
-                        <Input
-                          placeholder="input placeholder"
-                          defaultValue={dataObj?.gender}
-                          onChange={(e) => {
-                            setGender(e.target.value);
-                          }}
-                          onKeyUp={()=>{setGenderErr(false)}}
-                        />
-                         {genderErr ? (
-                          <span style={{ color: "red" }}>
-                            Please fill gender value
-                          </span>
-                        ) : (
-                          ""
-                        )}
-                      </Form.Item>
-                    </Form>
-                  </Col>
-                  <Col span={8} offset={8}>
-                    <Form
-                      {...formItemLayout}
-                      layout={formLayout}
-                      form={form}
-                      initialValues={{ layout: formLayout }}
-                      onValuesChange={onFormLayoutChange}
-                    >
-                      <Form.Item label="Last Name" className="userFormLableCls">
-                        <Input
-                          placeholder="input placeholder"
-                          defaultValue={dataObj?.lastName}
-                          onChange={(e) => {
-                            setLastName(e.target.value);
-                          }}
-                          onKeyUp={()=>{setLNameErr(false)}}
-                        />
-                         {lnameErr ? (
-                          <span style={{ color: "red" }}>
-                            Please fill last name
-                          </span>
-                        ) : (
-                          ""
-                        )}
-                      </Form.Item>
-                      <Form.Item label="Email" className="userFormLableCls">
-                        <Input
-                          placeholder="input placeholder"
-                          defaultValue={dataObj?.email}
-                          onChange={(e) => {
-                            setEmail(e.target.value);
-                          }}
-                          onKeyUp={()=>{setEmailErr(false)}}
-                        />
-                         {emailErr ? (
-                          <span style={{ color: "red" }}>
-                            Please fill email
-                          </span>
-                        ) : (
-                          ""
-                        )}
-                      </Form.Item>
-                    </Form>
-                  </Col>
-                </Row>
-              </Col>
-            </Row>
+                        <Form.Item label="Gender" className="userFormLableCls">
+                          <Input
+                            placeholder="input placeholder"
+                            defaultValue={dataObj?.gender}
+                            onChange={(e) => {
+                              setGender(e.target.value);
+                            }}
+                            onKeyUp={() => {
+                              setGenderErr(false);
+                            }}
+                          />
+                          {genderErr ? (
+                            <span style={{ color: "red" }}>
+                              Please fill gender value
+                            </span>
+                          ) : (
+                            ""
+                          )}
+                        </Form.Item>
+                      </Form>
+                    </Col>
+                    <Col span={8} offset={8}>
+                      <Form
+                        {...formItemLayout}
+                        layout={formLayout}
+                        form={form}
+                        initialValues={{ layout: formLayout }}
+                        onValuesChange={onFormLayoutChange}
+                      >
+                        <Form.Item
+                          label="Last Name"
+                          className="userFormLableCls"
+                        >
+                          <Input
+                            placeholder="input placeholder"
+                            defaultValue={dataObj?.lastName}
+                            onChange={(e) => {
+                              setLastName(e.target.value);
+                            }}
+                            onKeyUp={() => {
+                              setLNameErr(false);
+                            }}
+                          />
+                          {lnameErr ? (
+                            <span style={{ color: "red" }}>
+                              Please fill last name
+                            </span>
+                          ) : (
+                            ""
+                          )}
+                        </Form.Item>
+                        <Form.Item label="Email" className="userFormLableCls">
+                          <Input
+                            placeholder="input placeholder"
+                            defaultValue={dataObj?.email}
+                            onChange={(e) => {
+                              setEmail(e.target.value);
+                            }}
+                            onKeyUp={() => {
+                              setEmailErr(false);
+                            }}
+                          />
+                          {emailErr ? (
+                            <span style={{ color: "red" }}>
+                              Please fill email
+                            </span>
+                          ) : (
+                            ""
+                          )}
+                        </Form.Item>
+                      </Form>
+                    </Col>
+                  </Row>
+                </Col>
+              </Row>
 
-            <Row style={{ marginTop: "25px", marginBottom: "25px" }}>
-              <Col xs={2} sm={4} md={6} lg={8} xl={10}></Col>
-              <Col xs={20} sm={16} md={12} lg={8} xl={4}>
-                <Button
-                  type="primary"
-                  style={{ backgroundColor: "gray", width: "60%" }}
-                  onClick={() => {
-                    updatepRofileFn();
-                  }}
-                >
-                  Confirm
-                </Button>
-              </Col>
-              <Col xs={2} sm={4} md={6} lg={8} xl={10}></Col>
-            </Row>
-          </div>
-        </>
-      )}
+              <Row style={{ marginTop: "25px", marginBottom: "25px" }}>
+                <Col xs={2} sm={4} md={6} lg={8} xl={10}></Col>
+                <Col xs={20} sm={16} md={12} lg={8} xl={4}>
+                  <Button
+                    type="primary"
+                    style={{ backgroundColor: "gray", width: "60%" }}
+                    onClick={() => {
+                      updatepRofileFn();
+                    }}
+                  >
+                    Confirm
+                  </Button>
+                </Col>
+                <Col xs={2} sm={4} md={6} lg={8} xl={10}></Col>
+              </Row>
+            </div>
+          </>
+        )}
+      </div>
     </div>
-    </>
   );
 };
 

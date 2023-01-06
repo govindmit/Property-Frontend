@@ -8,7 +8,7 @@
 }
 
 .userProfile .userProfilImg {
-  transform: translate(50%, 0%);
+  transform: translate(45%, 0%);
   margin-left: -10%;
   margin-top: 2%;
   margin-bottom: 2%;
@@ -71,13 +71,18 @@
     transform: translate(12%, 10px);
     min-width: 0%;
 }
+.userHeaderCls .userMenuCls .ant-menu-item-active{ 
+  border-width: 2px;
+  border-bottom-color: black;
+  font-weight: 800;
+}
 /* ======================================================================================== */
 .userLayoutCls .userHeaderCls{
   background: white;
 
 }
 .userLayoutCls .userHeaderCls .userMenuCls .userMenuItem{
-  font-weight: 800;
+  font-weight: 500;
 }
 .userLayoutCls .userHeaderCls .userMenuCls{
   border: none;
@@ -85,7 +90,8 @@
 }
 .userLayoutCls .userHeaderCls .userMenuCls .ant-menu-item-selected{
   color: black;
-  border-bottom-color:black
+  border-bottom-color:black;
+  font-weight: 800;
 }
 
 .userLayoutCls .userHeaderCls .userMenuCls .ant-menu-item-selected::after{

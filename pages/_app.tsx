@@ -18,6 +18,7 @@ import { useRouter } from "next/router";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import userService from '../services/userService';
+import Head from "next/head";
 
 export default function App({ Component, pageProps }: AppProps) {
   const [token,setToken] = useState();
@@ -40,7 +41,10 @@ export default function App({ Component, pageProps }: AppProps) {
     })
   }
   return (
-    <>
+    <div>
+        <Head>
+        <link rel="icon" href="/logo.png" />
+      </Head>
       {loading ? (
         <>
           <Header />
@@ -51,6 +55,6 @@ export default function App({ Component, pageProps }: AppProps) {
       ) : (
         <Loader />
       )}
-    </>
+    </div>
   );
 }

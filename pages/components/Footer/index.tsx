@@ -1,19 +1,10 @@
 import React from "react";
 import { Layout } from "antd";
-import {
-  Col,
-  Divider,
-  Row,
-  List,
-  Typography,
-  Space,
-  Button,
-  Image,
-  Input,
-} from "antd";
+import { Col, Row, List, Typography, Space, Button, Image, Input } from "antd";
 import logo from "../../../public/assets/logo.png";
 import {  EnvironmentOutlined, } from "@ant-design/icons";
 import Router from "next/router";
+const { Title} = Typography
 
 const { Header, Footer, Sider, Content } = Layout;
 const style: React.CSSProperties = {
@@ -34,13 +25,13 @@ const FooterComp = () => {
     Router.push('/')
   }
   return (
-    <>
+    <div>
       <Layout className="footerLayout">
         <Header style={{ height: "auto" }} >
           <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className='footMainRow'>
             <Col className="gutter-row" span={6}>
               <List header={<h4>About Us.</h4>} style={{ color: "white" }}>
-                <Typography style={{ color: "white",marginTop:'10px' }}>
+                <Typography style={{ color: "white",marginTop:'10px',fontSize:'12px',width:'70%' }}>
                   With the online text generator you can process your personal
                   Lorem Ipsum enriching it with html elements that define its
                   structure, with the possibility to insert external links, but
@@ -62,25 +53,25 @@ const FooterComp = () => {
 
             <Col className="gutter-row" span={6}>
               <List header={<h4>Company</h4>} style={{ color: "white" }}>
-                <List.Item style={{ color: "white", marginLeft:'-20px'}} className='footerListItem'>About us</List.Item>
-                <List.Item style={{ color: "white", marginLeft:'-20px'}} className='footerListItem'>Leadership</List.Item>
-                <List.Item style={{ color: "white", marginLeft:'-20px'}} className='footerListItem'>Careers</List.Item>
-                <List.Item style={{ color: "white", marginLeft:'-20px'}} className='footerListItem'>Blog</List.Item>
-                <List.Item style={{ color: "white", marginLeft:'-20px'}} className='footerListItem'>
+                <List.Item style={{ color: "white", marginLeft:'-20px',fontSize:'12px'}} className='footerListItem'>About us</List.Item>
+                <List.Item style={{ color: "white", marginLeft:'-20px',fontSize:'12px'}} className='footerListItem'>Leadership</List.Item>
+                <List.Item style={{ color: "white", marginLeft:'-20px',fontSize:'12px'}} className='footerListItem'>Careers</List.Item>
+                <List.Item style={{ color: "white", marginLeft:'-20px',fontSize:'12px'}} className='footerListItem'>Blog</List.Item>
+                <List.Item style={{ color: "white", marginLeft:'-20px',fontSize:'12px'}} className='footerListItem'>
                   Propter Partners
                 </List.Item>
-                <List.Item style={{ color: "white", marginLeft:'-20px'}} className='footerListItem'>Contact Us</List.Item>
+                <List.Item style={{ color: "white", marginLeft:'-20px',fontSize:'12px'}} className='footerListItem'>Contact Us</List.Item>
               </List>
             </Col>
 
             <Col className="gutter-row" span={6}>
               <List header={<h4>Help?</h4>} style={{ color: "white" }}>
-                <List.Item style={{ color: "white", marginLeft:'-20px'}} className='footerListItem'>FAQ</List.Item>
-                <List.Item style={{ color: "white", marginLeft:'-20px'}} className='footerListItem'>Tearm And Condition </List.Item>
-                <List.Item style={{ color: "white", marginLeft:'-20px'}} className='footerListItem'>Reporting</List.Item>
-                <List.Item style={{ color: "white", marginLeft:'-20px'}} className='footerListItem'>Documentation</List.Item>
-                <List.Item style={{ color: "white", marginLeft:'-20px'}} className='footerListItem'>Support Policy</List.Item>
-                <List.Item style={{ color: "white", marginLeft:'-20px'}} className='footerListItem'>Privacy</List.Item>
+                <List.Item style={{ color: "white", marginLeft:'-20px',fontSize:'12px'}} className='footerListItem'>FAQ</List.Item>
+                <List.Item style={{ color: "white", marginLeft:'-20px',fontSize:'12px'}} className='footerListItem'>Tearm And Condition </List.Item>
+                <List.Item style={{ color: "white", marginLeft:'-20px',fontSize:'12px'}} className='footerListItem'>Reporting</List.Item>
+                <List.Item style={{ color: "white", marginLeft:'-20px',fontSize:'12px'}} className='footerListItem'>Documentation</List.Item>
+                <List.Item style={{ color: "white", marginLeft:'-20px',fontSize:'12px'}} className='footerListItem'>Support Policy</List.Item>
+                <List.Item style={{ color: "white", marginLeft:'-20px',fontSize:'12px'}} className='footerListItem'>Privacy</List.Item>
               </List>
             </Col>
             <Col className="gutter-row" span={6}>
@@ -120,10 +111,11 @@ const FooterComp = () => {
 
         <Footer style={{ textAlign: 'left',backgroundColor:'#484242',color:'white' }}>
           <Typography style={{ textAlign: 'center',color:'white' }}>©Propter2022 All rights reserved</Typography>
+          <Typography style={{ textAlign: 'center',color:'white' }}>©Propter2022 All rights reserved</Typography>
           
         </Footer>
       </Layout>
-    </>
+    </div>
   );
 };
 

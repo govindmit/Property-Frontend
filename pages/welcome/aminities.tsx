@@ -38,7 +38,7 @@ const Aminities = () => {
       <Row
         gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}
         style={{
-          transform: "translate(-45%, 0%)",
+          transform: "translate(-44%, 0%)",
           marginLeft: "50%",
           maxWidth: "1088px",
           width: "100%",
@@ -54,6 +54,7 @@ const Aminities = () => {
                   <Card
                     className="aminitieCardCls"
                     hoverable
+                    style={{boxShadow: '0px 0px 10px 0px rgba(0,0,0,10%)'}}
                   >
                      <Image
                         className="aminiteImgCls"
