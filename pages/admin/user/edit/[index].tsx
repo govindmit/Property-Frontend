@@ -18,7 +18,7 @@ import Link from "next/link";
 import type { FormItemProps } from "antd";
 import { useRouter } from "next/router";
 import Router, { withRouter } from "next/router";
-import API from "../../../config/config";
+
 import axios from "axios";
 import Image from "next/image";
 

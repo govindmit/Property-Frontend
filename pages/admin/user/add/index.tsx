@@ -13,7 +13,6 @@ import {
 } from "antd";
 import { Button, Form, Input, Select, Upload } from "antd";
 import type { FormInstance } from "antd/es/form";
-import API from "../../../config/config";
 import Router, { withRouter } from "next/router";
 import {
   ArrowLeftOutlined,
@@ -143,7 +142,7 @@ export default function AddUser(props: IAppProps) {
     }
     try {
       await axios
-        .post(API.createuser, formData, {
+        .post(`https://api-property.mangoitsol.com/api/user/createuser`, formData, {
           headers: {
             Authorization: `Bearer ${web}`,
           },

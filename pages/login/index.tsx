@@ -4,7 +4,6 @@ import { Divider, Layout, Typography } from "antd";
 import { Form, Input, Button } from "antd";
 import type { FormItemProps } from "antd";
 import { toast } from 'react-toastify';
-import API from '../config/config'
 
 import {
   AppleFilled,
@@ -33,7 +32,7 @@ export default function App(props: IAppProps) {
     };
     try {
       await axios
-        .post(API.signin, requestData)
+        .post(`https://api-property.mangoitsol.com/api/user/signin`, requestData)
         .then((res) => {
           if (res?.status === 200) {
             localStorage.setItem("token", res.data.accessToken);

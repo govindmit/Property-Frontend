@@ -30,7 +30,6 @@ export interface UserDataTypes {
   lastName: String;
   status: String;
 }
-import API from "../../config/config";
 import Image from "next/image";
 
 export default function UserListing() {
@@ -165,7 +164,7 @@ export default function UserListing() {
     let web = webtoken?.substring(1, webtoken?.length - 1);
     try {
       await axios
-        .get(API.getUser, {
+        .get(`https://api-property.mangoitsol.com/api/user/getusers`, {
           headers: {
             Authorization: `Bearer ${web}`,
           },
