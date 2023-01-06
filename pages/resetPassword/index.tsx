@@ -4,6 +4,7 @@ import { Divider, Layout, Typography } from "antd";
 import { Form, Input, Button } from "antd";
 import { toast } from "react-toastify";
 import Router, { withRouter } from "next/router";
+import API from "../config/config";
 
 const MyFormItemContext = React.createContext<(string | number)[]>([]);
 export interface IAppProps {}
@@ -30,7 +31,7 @@ export default function App(props: IAppProps) {
     };
     try {
       await axios
-        .post(`https://api-property.mangoitsol.com/api/user/resetPassword`, requestData, {
+        .post(API.resetPassword, requestData, {
           headers: {
             Authorization: `Bearer ${tokenn}`,
           },

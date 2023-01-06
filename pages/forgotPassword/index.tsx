@@ -4,6 +4,7 @@ import { Divider, Layout, Typography } from "antd";
 import { Form, Input, Button } from "antd";
 import type { FormItemProps } from "antd";
 import { toast } from 'react-toastify';
+import API from '../config/config';
 
 import {
   AppleFilled,
@@ -37,7 +38,7 @@ const antIcon = <LoadingOutlined style={{ fontSize: 24,color:"orangered" }} spin
     try {
         setLoading(true);
       await axios
-        .post(`https://api-property.mangoitsol.com/api/user/forgotpassword`, requestData)
+        .post(API.forgotpassword, requestData)
         .then((res) => {
             toast.success('Mail Sent Successfully ! Please Check Your Email');
             setLoading(false);
@@ -65,7 +66,7 @@ const antIcon = <LoadingOutlined style={{ fontSize: 24,color:"orangered" }} spin
 
     return (
       <MyFormItemContext.Provider value={concatPath}>
-        {children}
+        { children }
       </MyFormItemContext.Provider>
     );
   };

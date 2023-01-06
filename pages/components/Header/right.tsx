@@ -10,10 +10,13 @@ const RightMenu = () => {
     Router.push("/login");
   };
   const token = {
-    access: typeof window !== "undefined" ? window.localStorage.getItem('token') : null,
+    access:
+      typeof window !== "undefined"
+        ? window.localStorage.getItem("token")
+        : null,
     isAuthenticated: null,
-    user: null
-};
+    user: null,
+  };
   const handleLogout = () => {
     localStorage.removeItem("token");
     Router.push("/login");
@@ -27,22 +30,14 @@ const RightMenu = () => {
           <Menu.Item key="app">
           <a href="">Signup</a>
         </Menu.Item> */}
-        {token && token?.access !== null ? (
-          <Button
-            style={{ backgroundColor: "orangered", color: "white" }}
-            onClick={handleLogout}
-          >
-            Log out
-          </Button>
-        ) : (
-          // <Avatar onClick={handleProfile} icon={<UserOutlined />} style={{ cursor: 'pointer' }} />
-          <Button
-            style={{ backgroundColor: "orangered", color: "white" }}
-            onClick={handleLogin}
-          >
-            Login Or SignUp
-          </Button>
-        )}
+
+        {/* <Avatar onClick={handleProfile} icon={<UserOutlined />} style={{ cursor: 'pointer' }} /> */}
+        <Button
+          style={{ backgroundColor: "orangered", color: "white" }}
+          onClick={token && token?.access !== null ? handleLogout : handleLogin}
+        >
+          {token && token?.access !== null ? "Logout" : "Login Or SignUp"}
+        </Button>
       </Menu>
     </div>
   );

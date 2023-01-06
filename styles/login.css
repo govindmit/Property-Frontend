@@ -107,3 +107,9 @@ span.ant-input-affix-wrapper.ant-input-password.ant-input-affix-wrapper-has-feed
 span.ant-input-affix-wrapper.ant-input-password.ant-input-affix-wrapper-has-feedback.css-k83k30 {
   width: 40% !important;
 }
+:where(.css-dev-only-do-not-override-k83k30).ant-tooltip .ant-tooltip-inner {
+  display: none !important;
+}
+.ant-input-number.ant-input-number-in-form-item.css-dev-only-do-not-override-k83k30 {
+  width: -webkit-fill-available !important;
+}
