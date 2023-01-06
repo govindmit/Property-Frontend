@@ -46,7 +46,7 @@ const antIcon = <LoadingOutlined style={{ fontSize: 24,color:"orangered" }} spin
             }, 2000);
         });
     } catch (err) {
-      console.log("#####", err);
+      console.log("#errr", err);
     }
   };
 
