@@ -18,7 +18,7 @@ const Sidebar: React.FC = () => {
     function handleClick(e: any) {
         location.push(e.key)
     }
-
+    // console.log('##############', current);
     return (
         <Sider
             breakpoint="lg"

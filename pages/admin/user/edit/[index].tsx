@@ -6,6 +6,7 @@ import type { FormInstance } from 'antd/es/form';
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import type { FormItemProps } from 'antd';
+import { useRouter } from "next/router";
 
 const MyFormItemContext = React.createContext<(string | number)[]>([]);
 
@@ -28,6 +29,7 @@ export interface IAppProps { }
 
 export default function UserListing(props: IAppProps) {
     const { Option } = Select;
+    const { query } = useRouter();
     const MyFormItem = ({ name, ...props }: FormItemProps) => {
         const prefixPath = React.useContext(MyFormItemContext);
         const concatName = name !== undefined ? [...prefixPath, ...toArr(name)] : undefined;
@@ -59,7 +61,7 @@ export default function UserListing(props: IAppProps) {
         console.log(values);
     };
 
-
+    console.log('@@@@@@@@@@query', query?.index);
     return (
         <Layout>
             <Sidebar />
