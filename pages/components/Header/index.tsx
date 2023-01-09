@@ -1,5 +1,5 @@
 import React, { Component, useState } from "react";
-import { Drawer, Button } from "antd";
+import { Drawer, Button, Space } from "antd";
 import LeftMenu from "./left";
 import RightMenu from "./right";
 import logo from "../../../public/assets/aa.png";
@@ -26,7 +26,7 @@ const Header: React.FC = () => {
     Router.push("/");
   };
   return (
-    <>
+    <div>
       <nav className="menuBar">
         <div className="logo">
           <Image
@@ -45,23 +45,38 @@ const Header: React.FC = () => {
           <div className="rightMenu">
             <RightMenu />
           </div>
-          <Button className="barsMenu" type="primary" onClick={showDrawer}>
+          <Button className="barsMenu" type="default" onClick={showDrawer}>
             <span className="barsBtn"></span>
           </Button>
-          <Drawer
+          {/* <Drawer
             title="Basic Drawer"
             placement="right"
             closable={false}
             onClose={onClose}
-            visible={visible}
+            open={visible}
+          >
+            <LeftMenu />
+            <RightMenu />
+          </Drawer> */}
+
+          <Drawer
+            title="Drawer with extra actions"
+           
+            width={500}
+            onClose={onClose}
+            open={visible}
+            extra={
+              <Space>
+                <Button onClick={onClose}>Cancel</Button>
+              </Space>
+            }
           >
             <LeftMenu />
             <RightMenu />
           </Drawer>
         </div>
-        
       </nav>
-    </>
+    </div>
   );
 };
 

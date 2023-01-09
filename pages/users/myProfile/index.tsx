@@ -11,6 +11,7 @@ import { userType } from "../../../types/userTypes";
 
 import userService from "../../../services/userService";
 import Router from "next/router";
+import jwt from 'jsonwebtoken'
 import UserHeader from "../userHeader";
 type LayoutType = Parameters<typeof Form>[0]["layout"];
 const { Title } = Typography;
@@ -37,10 +38,14 @@ const MyProfile = () => {
 
 
   const getUserProfile = async () => {
+    const t:any = localStorage.getItem('token')
+    const decode:any  =jwt.decode(t);
+  
     const token:any  = (localStorage.getItem('webToken') ? localStorage.getItem('webToken'):null)
     const a =JSON.parse(token)
     setIsShow(true);
-    const id: number = 12;
+    // const id: number = 1;
+    const id:number = decode.data.id
     await userService.getUserProfile(id,a).then((data) => {
       if (data.data != null) {
         setDataObj(data?.data);
@@ -77,61 +82,25 @@ const MyProfile = () => {
       setProfilePic(image.target.files[0]);
     }
   };
+  const handleBack =() =>{
+    Router.push(`/users/favorite`); 
+  }
 
-  // const updatepRofileFn = async () => {
-  //   if (!firstName) {
-  //     setNameErr(true);
-  //   }
-  //   const id: number = 1;
-  //   const data = {
-  //     firstName: firstName,
-  //     lastName: lastName,
-  //     phone: phone,
-  //     gender: gender,
-  //     profilPic: profilPic,
-  //     email: email,
-  //     reraNumber: reraNumber,
-  //   };
-
-  //   userService.updateprofile(id, data,token).then((data) => {
-  //     console.log(data);
-  //     if (!firstName) {
-  //       toast.error("please fill all fields", {
-  //         position: "top-right",
-  //         autoClose: 5000,
-  //         hideProgressBar: false,
-  //         closeOnClick: true,
-  //         pauseOnHover: true,
-  //         draggable: true,
-  //         progress: undefined,
-  //         theme: "light",
-  //       });
-  //     } else if (data.status === 200) {
-  //       toast.success("success", {
-  //         position: "top-right",
-  //         autoClose: 5000,
-  //         hideProgressBar: false,
-  //         closeOnClick: true,
-  //         pauseOnHover: true,
-  //         draggable: true,
-  //         progress: undefined,
-  //         theme: "light",
-  //       });
-  //       window.location.reload();
-  //     }
-  //   });
-  // };
-
+  
   const handleEdit = () => {
-    Router.push(`/users/userProfile/edit/${11}`); 
+    const t:any = localStorage.getItem('token')
+    const decode:any  =jwt.decode(t);
+    const id:number = decode.data.id
+
+    Router.push(`/users/userProfile/edit/${id}`); 
   };
   return (
-    <>
+    <div>
       <UserHeader/>
     <div className="userProfile">
       <ToastContainer />
       {isShow ? (
-        <Spin size="large" />
+        <Spin size="large"/>
       ) : (
         <>
           <div className="backBtnCls">
@@ -140,7 +109,7 @@ const MyProfile = () => {
                 <Button
                   type="text"
                   className="btncss backbtnn"
-                  //   onClick={handleBack}
+                    onClick={handleBack}
                   icon={<ArrowLeftOutlined />}
                 >
                   Back
@@ -212,7 +181,7 @@ const MyProfile = () => {
         </>
       )}
     </div>
-    </>
+    </div>
   );
 };
 

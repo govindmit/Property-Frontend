@@ -37,7 +37,7 @@ const RealState = () => {
                 <span className="spanCls">Buyer Guide</span>
                 <Button className="firstCardBtn">25 jul 2022</Button>
               </div>
-              <h3>What you should Be Prepared with before buying ?</h3>
+              <h3 className="h3Cls">What you should Be Prepared with before buying ?</h3>
             </Card>
             <Card
               className="realStateCardCls1"
@@ -48,7 +48,7 @@ const RealState = () => {
                 <span className="spanCls">Buyer Guide</span>
                 <Button className="firstCardBtn">25 jul 2022</Button>
               </div>
-              <h3>What you should Be Prepared with before buying ?</h3>
+              <h3 className="h3Cls">What you should Be Prepared with before buying ?</h3>
             </Card>
           </Col>
         </Space>
