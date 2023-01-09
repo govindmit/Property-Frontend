@@ -65,7 +65,7 @@ const antIcon = <LoadingOutlined style={{ fontSize: 24,color:"orangered" }} spin
 
     return (
       <MyFormItemContext.Provider value={concatPath}>
-        {children}
+        { children }
       </MyFormItemContext.Provider>
     );
   };

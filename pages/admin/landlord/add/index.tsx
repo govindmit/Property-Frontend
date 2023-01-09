@@ -22,7 +22,7 @@ const MyFormItemGroup = ({ prefix, children }: MyFormItemGroupProps) => {
   const prefixPath = React.useContext(MyFormItemContext);
   const concatPath = React.useMemo(() => [...prefixPath, ...toArr(prefix)], [prefixPath, prefix]);
 
-  return <MyFormItemContext.Provider value={concatPath}>{children}</MyFormItemContext.Provider>;
+  return <MyFormItemContext.Provider value={concatPath}>{ children }</MyFormItemContext.Provider>;
 };
 export interface IAppProps { }
 
