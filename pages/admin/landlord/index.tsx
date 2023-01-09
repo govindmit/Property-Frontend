@@ -16,7 +16,6 @@ export interface UserDataTypes {
 
 export default function UserListing() {
   const { Header, Sider, Content } = Layout;
-  const onSearch = (value: string) => console.log(value);
   const { confirm } = Modal;
   const [state, setstate] = useState<UserDataTypes | any>({ query: "", list: [] });
   const [userData, setUserData] = useState<UserDataTypes | any>('')

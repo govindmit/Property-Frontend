@@ -24,6 +24,7 @@ import Link from "next/link";
 import type { FormItemProps } from "antd";
 import axios from "axios";
 import { Spin } from "antd";
+import Image from "next/image";
 
 const MyFormItemContext = React.createContext<(string | number)[]>([]);
 
@@ -65,6 +66,8 @@ export interface UserDataTypes {
 export default function AddUser(props: IAppProps) {
   const { Option } = Select;
   const [image, setImage] = useState<any>();
+  const [photo, setPhoto] = useState<any>();
+
   const [loading, setLoading] = useState<Boolean>(false);
   const antIcon = (
     <LoadingOutlined style={{ fontSize: 24, color: "orangered" }} spin />
@@ -99,6 +102,12 @@ export default function AddUser(props: IAppProps) {
   };
   const normFile = (e: any) => {
     setImage(e.target.files[0]);
+    let reader = new FileReader();
+    let file = e.target.files[0];
+    reader.onloadend = () => {
+      setPhoto(reader.result);
+    };
+    reader.readAsDataURL(file);
   };
   const prefixSelector = (
     <Form.Item name="prefix" noStyle>
@@ -125,16 +134,16 @@ export default function AddUser(props: IAppProps) {
   const onRoleChange = (value: string) => {
     switch (value) {
       case "1":
-        form.setFieldsValue('1');
+        form.setFieldsValue("1");
         return;
       case "2":
-        form.setFieldsValue('2');
+        form.setFieldsValue("2");
         return;
-        case "3":
-        form.setFieldsValue('3');
+      case "3":
+        form.setFieldsValue("3");
         return;
-        case "4":
-        form.setFieldsValue('4');
+      case "4":
+        form.setFieldsValue("4");
         return;
       case "other":
         form.setFieldsValue({ note: "Hi there!" });
@@ -305,21 +314,48 @@ export default function AddUser(props: IAppProps) {
                       <Option value="female">female</Option>
                     </Select>
                   </MyFormItem>
-                  <MyFormItem name="phone" label="Phone">
+                  <MyFormItem
+                    name="phone"
+                    label="Phone"
+                    rules={[
+                      {
+                        min: 10,
+                        max: 10,
+                        message: "Mobile number must be 10 digit",
+                      },
+                    ]}
+                  >
                     <Input
+                      type="number"
                       // addonBefore={prefixSelector}
                       style={{ width: "100%" }}
                     />
                   </MyFormItem>
-                  <Form.Item name="upload" label="" valuePropName="fileList">
-                    <input
-                      type="file"
-                      multiple
-                      accept=".pdf,.jpeg,.png,.csv,.doc,.docx,.txt,.xlsx,.xls"
-                      className="imageTagClass"
-                      onChange={(e) => normFile(e)}
-                    />
-                  </Form.Item>
+                  <span style={{ display: "flex" }}>
+                    {photo && (
+                      <Image
+                        src={photo}
+                        alt="img"
+                        width={70}
+                        height={60}
+                        className="addimage"
+                      />
+                    )}
+                    <Form.Item
+                      name="upload"
+                      label=""
+                      valuePropName="fileList"
+                      style={{ marginTop: "15px" }}
+                    >
+                      <input
+                        type="file"
+                        multiple
+                        accept=".pdf,.jpeg,.png,.csv,.doc,.docx,.txt,.xlsx,.xls"
+                        className="imageTagClass"
+                        onChange={(e) => normFile(e)}
+                      />
+                    </Form.Item>
+                  </span>
                 </MyFormItemGroup>
               </MyFormItemGroup>
 

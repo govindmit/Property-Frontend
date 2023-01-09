@@ -18,7 +18,7 @@ export default function BrokerageListing(props: IAppProps) {
             minHeight: 280,
           }}
         >
-         <h1>varuuuun</h1>
+         <h1>Brokerage </h1>
         </Content>
         
     </Layout>

@@ -19,6 +19,7 @@ import {
   DeleteOutlined,
   EditFilled,
   ExclamationCircleFilled,
+  EyeOutlined,
   MoreOutlined,
 } from "@ant-design/icons";
 import axios from "axios";
@@ -87,21 +88,21 @@ export default function UserListing() {
 
   const content = (
     <div>
-      <p style={{ textAlign: "center", cursor: "pointer" }}>
-        <Link href={`/admin/user/edit/${userData.id}`}>
-          <EditFilled style={{ color: "#4096ff" }} />
-        </Link>
-      </p>
-      <p style={{ textAlign: "center", cursor: "pointer" }}>
-        {" "}
-        <DeleteOutlined style={{ color: "red" }} onClick={handleDelete} />
-      </p>
       <Link href={`/admin/user/view/${userData.id}`}>
-        {" "}
         <Button style={{ textAlign: "center" }} type="link">
-          View
+        <EyeOutlined style={{ color: "#0014ff" }} /> 
+        <span style={{    marginLeft: "14px",color:"#0014ff"}}> View</span>
         </Button>
       </Link>
+      <p style={{ textAlign: "center", cursor: "pointer" ,marginBottom:"5px"}}>
+        <Link href={`/admin/user/edit/${userData.id}`}>
+          <EditFilled style={{ color: "#4096ff" }} /> &emsp;Edit
+        </Link>
+      </p>
+      {" "}
+      <p style={{ textAlign: "center", cursor: "pointer",color:"red" }}>
+        <DeleteOutlined style={{ color: "red" }} onClick={handleDelete} /> &ensp;&ensp; Del
+      </p>
     </div>
   );
   const columns = [

@@ -63,11 +63,18 @@ export default function UserListing(props: IAppProps) {
   const [loading,setLoading]=useState<Boolean>(false)
   const { query } = useRouter();
   const [user, setUser] = useState<UserDataTypes | any>("");
+  const [photo, setPhoto] = useState<any>();
   const antIcon = <LoadingOutlined style={{ fontSize: 24,color:"orangered" }} spin />;
 
   const normFile = (e: any) => {
     if (e !== null) {
       setImage(e.target.files[0]);
+      let reader = new FileReader();
+      let file = e.target.files[0];
+      reader.onloadend = () => {
+        setPhoto(reader.result);
+      };
+      reader.readAsDataURL(file);
     }
   };
   const onRoleChange = (value: string) => {
@@ -210,7 +217,12 @@ export default function UserListing(props: IAppProps) {
                   <MyFormItem name="lastName" label="Last Name">
                     <Input defaultValue={user && user.lastName} />
                   </MyFormItem>
-                  <MyFormItem name="email" label="Email">
+                  <MyFormItem name="email" label="Email"  rules={[
+                      {
+                        type: "email",
+                        message: "Email is not valid!",
+                      }
+                    ]}>
                     <Input defaultValue={user && user.email} />
                   </MyFormItem>
 
@@ -228,12 +240,6 @@ export default function UserListing(props: IAppProps) {
                    <MyFormItem
                     name="role"
                     label="Role"
-                    // rules={[
-                    //   {
-                    //     required: true,
-                    //     message: "Role is required!",
-                    //   },
-                    // ]}
                   >
                     <Select
                       placeholder="Select role"
@@ -260,8 +266,15 @@ export default function UserListing(props: IAppProps) {
                       <Option value="female">female</Option>
                     </Select>
                   </MyFormItem>
-                  <MyFormItem name="phone" label="Phone">
+                  <MyFormItem name="phone" label="Phone"  rules={[
+                      {
+                        min: 10,
+                        max: 10,
+                        message: "Mobile number must be 10 digit",
+                      },
+                    ]}>
                     <Input
+                    type="number"
                       // addonBefore={prefixSelector}
                       style={{ width: "100%" }}
                       defaultValue={
@@ -269,8 +282,7 @@ export default function UserListing(props: IAppProps) {
                       }
                     />
                   </MyFormItem>
-                  <div>
-                    {/* {image !==null? */}
+                  <span style={{ display: "flex" }}>
                     <Image
                       src={
                         user && user?.profilPic === "" ? "" : user?.profilPic
@@ -283,7 +295,7 @@ export default function UserListing(props: IAppProps) {
                       width={80}
                       height={80}
                     />
-                  </div>
+                  </span>
                   <Form.Item
                     name="upload"
                     label=""
