@@ -59,7 +59,7 @@ export default function App(props: IAppProps) {
 
     return (
       <MyFormItemContext.Provider value={concatPath}>
-        {children}
+        { children }
       </MyFormItemContext.Provider>
     );
   };
