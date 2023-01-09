@@ -31,7 +31,7 @@ const UserProfile = () => {
   const [emailErr, setEmailErr] = useState(false);
   const [genderErr, setGenderErr] = useState(false);
 
-  const { id } = router.query;
+  const  {id} :any = router.query;
 
   useEffect(() => {
     getUserProfile();
@@ -47,7 +47,8 @@ const UserProfile = () => {
       ? localStorage.getItem("webToken")
       : null;
     const a = JSON.parse(token);
-    const id: number = 1;
+    // const id: number = 1;
+    console.log(";;;;;;",id)
 
     await userService.getUserProfile(id, a).then((data) => {
       if (data.data != null) {
@@ -131,6 +132,7 @@ const UserProfile = () => {
           theme: "light",
         });
       } else {
+        console.log("data ======",data);
         toast.success("success", {
           position: "top-right",
           autoClose: 5000,
