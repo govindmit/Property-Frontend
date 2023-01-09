@@ -7,7 +7,10 @@ import { userType } from "../../../../types/userTypes";
 import { useRouter } from "next/router";
 import userService from "../../../../services/userService";
 import UserHeader from "../../userHeader";
-import axios from "axios";
+import { Upload } from "antd";
+import ImgCrop from "antd-img-crop";
+import type { RcFile, UploadFile, UploadProps } from "antd/es/upload/interface";
+
 type LayoutType = Parameters<typeof Form>[0]["layout"];
 
 const UserProfile = () => {
@@ -82,11 +85,11 @@ const UserProfile = () => {
         }
       : null;
 
-  const setImgFn = (image: any) => {
-    if (image != null) {
-      setProfilePic(image.target.files[0]);
-    }
-  };
+  // const setImgFn = (image: any) => {
+  //   if (image != null) {
+  //     setProfilePic(image.target.files[0]);
+  //   }
+  // };
 
   const updatepRofileFn = async () => {
     const token: any = localStorage.getItem("webToken")
@@ -143,6 +146,50 @@ const UserProfile = () => {
       });
     }
   };
+
+
+
+
+
+
+
+
+  
+
+  const [fileList, setFileList] = useState<UploadFile[]>([
+    {
+      uid: "-1",
+      name: "image.png",
+      status: "done",
+      url: dataObj?.profilPic
+    },
+  ]);
+
+  const setImgFn: UploadProps["onChange"] = (image:any) => {
+    if (image != null) {
+      setProfilePic(image?.target?.files[0]);
+    }
+
+    // setFileList(newFileList);
+  };
+
+  const onPreview = async (e: any) => {
+    let src = e?.target?.files[0];
+    if (!src) {
+      src = await new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(e.originFileObj as RcFile);
+        reader.onload = () => resolve(reader.result as string);
+      });
+    }
+
+    const image = new Image();
+    image.src = src;
+    const imgWindow = window.open(src);
+    imgWindow?.document.write(image.outerHTML);
+  };
+
+
   return (
     <div>
       <UserHeader />
@@ -174,19 +221,31 @@ const UserProfile = () => {
               </Row>
             </div>
             <div className="userProfilImg">
-              <Avatar
+              {/* <Avatar
                 size={250}
                 // icon={<UserOutlined />}
                 src={dataObj?.profilPic}
                 style={{ cursor: "pointer" }}
-              />
-              <input
+              /> */}
+              {/* <input
                 type="file"
                 multiple
-                // accept=".pdf,.jpeg,.png,.csv,.doc,.docx,.txt,.xlsx,.xls"
                 className="imageTagClass"
-                onChange={(e) => setImgFn(e)}
-              />
+                onChange={(e:any) => setImgFn(e)}
+              /> */}
+
+              <ImgCrop rotate>
+                <Upload
+                  action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                  listType="picture-card"
+                  // fileList={fileList}
+                  onChange={(e)=>{setImgFn(e)}}
+                  onPreview={(e)=>{onPreview(e)}}
+                >
+                  {fileList.length < 5 && "+ Upload"}
+                </Upload>
+              </ImgCrop>
+
               <div
                 style={{ color: "gray", marginLeft: "40px", marginTop: "15px" }}
               >
@@ -209,6 +268,13 @@ const UserProfile = () => {
                         <Form.Item
                           label="First Name"
                           className="userFormLableCls"
+                          // name="First Name"
+                          rules={[
+                            {
+                              required: true,
+                              message: "Please input your First Name!",
+                            },
+                          ]}
                         >
                           <Input
                             placeholder="input placeholder"
@@ -228,7 +294,16 @@ const UserProfile = () => {
                             ""
                           )}
                         </Form.Item>
-                        <Form.Item label="Mobile" className="userFormLableCls">
+                        <Form.Item
+                          label="Mobile"
+                          className="userFormLableCls"
+                          rules={[
+                            {
+                              required: true,
+                              message: "Please input your Mobile number",
+                            },
+                          ]}
+                        >
                           <Input
                             placeholder="input placeholder"
                             defaultValue={dataObj?.phone}
@@ -261,7 +336,16 @@ const UserProfile = () => {
                           )}
                         </Form.Item>
 
-                        <Form.Item label="Gender" className="userFormLableCls">
+                        <Form.Item
+                          label="Gender"
+                          className="userFormLableCls"
+                          rules={[
+                            {
+                              required: true,
+                              message: "Please input your Gender",
+                            },
+                          ]}
+                        >
                           <Input
                             placeholder="input placeholder"
                             defaultValue={dataObj?.gender}
@@ -293,6 +377,12 @@ const UserProfile = () => {
                         <Form.Item
                           label="Last Name"
                           className="userFormLableCls"
+                          rules={[
+                            {
+                              required: true,
+                              message: "Please input your last name",
+                            },
+                          ]}
                         >
                           <Input
                             placeholder="input placeholder"
@@ -312,7 +402,16 @@ const UserProfile = () => {
                             ""
                           )}
                         </Form.Item>
-                        <Form.Item label="Email" className="userFormLableCls">
+                        <Form.Item
+                          label="Email"
+                          className="userFormLableCls"
+                          rules={[
+                            {
+                              required: true,
+                              message: "Please input your email",
+                            },
+                          ]}
+                        >
                           <Input
                             placeholder="input placeholder"
                             defaultValue={dataObj?.email}

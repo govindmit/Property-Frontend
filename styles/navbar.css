@@ -141,7 +141,7 @@
   border-radius: 5px;
   margin-top: 10%;
   margin-bottom: 10%;
-  padding-top: 5%;
+  padding-top: 4%;
 }
 
 .realStateCls .realStateRow .realStateColCls .realStateCardCls .firstCardBtn {
@@ -203,17 +203,17 @@
 
 /* ======================================================================================== */
 
+.arroDownCls{
+  margin-top: 15px;
+  margin-left: 5px;
+  cursor: pointer;
+}
 
-
-
-
-
-
-
-
-
-
-
+/* ============================================================================================ */
+.footerCls{
+  display: flex;
+  justify-content: space-around;
+}
 
 
 
@@ -223,14 +223,27 @@ body {
   overflow-x: hidden;
 }
 .menuBar {
-  padding: 0 20px;
+  padding: 10px 20px;
   border-bottom: solid 1px #e8e8e8;
   overflow: auto;
   box-shadow: 0 0 30px #f3f1f1;
+  display: flex;
 }
 .logo {
-  width: 150px;
+  /* width: 150px; */
   float: left;
+  margin-top: 8px;
+}
+.logo .logoCls{
+  width: none;
+}
+.logo .searchCls{
+  margin-left: 40px;
+ width: 250px;
+}
+.logo .searchCls .css-dev-only-do-not-override-k83k30{
+  border: none !important;
+  background: aliceblue !important;
 }
 .logo a {
   display: inline-block;

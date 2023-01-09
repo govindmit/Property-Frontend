@@ -9,32 +9,27 @@ const HomeWorkComp = () => {
     {
       img: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png",
       title: "property information",
-      description:
-        "www.instagram. comwww.instagram .comwww.instagram.comwww.insta",
+      description: "Fill in basic information about your property like, expected income, property address,document etc and submit to propter",
     },
     {
       img: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png",
       title: "Valuation",
-      description:
-        "www.instagram.comwww.instagram .com www.instagram.comwww.instagram.com",
+      description:"Fill in basic information about your property like, expected income, property address,document etc and submit to propter",
     },
     {
       img: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png",
       title: "Listing creation and assignment",
-      description:
-        "www.instagram.comwww .instagram.com www.instagram.comwww.instagram.com",
+      description:"Fill in basic information about your property like, expected income, property address,document etc and submit to propter",
     },
     {
       img: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png",
       title: "Monitor",
-      description:
-        "www.instagram.comwww.instagram.com www.instagram .comwww.instagram.com",
+      description:"Fill in basic information about your property like, expected income, property address,document etc and submit to propter",
     },
     {
       img: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png",
       title: "Pay",
-      description:
-        "www.instagram.comwww.instagram.com www.instagram.comwww .instagram.com",
+      description:"Fill in basic information about your property like, expected income, property address,document etc and submit to propter"
     },
   ];
   return (
@@ -58,7 +53,7 @@ const HomeWorkComp = () => {
           marginTop:'2%'
         }}
       >
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+       We aree there with you in every step of the transaction
       </Typography>
 
 
@@ -66,12 +61,12 @@ const HomeWorkComp = () => {
         {array?.map((e,i)=>{
           return(
             // <Col span={4}>
-            <div key={i}>
+            <div key={i} style={{marginTop:'10px'}}>
            
             <Card
             key={e.title}
             className="landloardTopContentCard"
-              style={{ width: 300 }}
+              style={{ width: 220 }}
               cover={
                 <Image
                   alt="example"
@@ -91,7 +86,7 @@ const HomeWorkComp = () => {
            </div>
             </Card>
             </div>
-          // </Col>
+          //  </Col>
           )
         })}
        

@@ -1,11 +1,27 @@
-import React, { Component, useEffect } from "react";
-import { Button, Menu, Avatar } from "antd";
+import React, { Component, useEffect, useState } from "react";
+import { Button, Menu, Avatar, Popconfirm } from "antd";
 import Router, { useRouter } from "next/router";
-import { UserOutlined } from "@ant-design/icons";
+import { UserOutlined, CaretDownOutlined } from "@ant-design/icons";
+import jwt from "jsonwebtoken";
+
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 
 const RightMenu = () => {
+  const [name,setName] = useState();
+
+  useEffect(() => {
+    const token:any = localStorage.getItem("token");
+    const decode: any = jwt.decode(token);
+    setName(decode?.data?.firstName)
+   
+  });
+ 
+  const confirm = () => {
+    localStorage.removeItem("token");
+    Router.push("/login");
+  };
+
   const handleLogin = () => {
     Router.push("/login");
   };
@@ -17,10 +33,17 @@ const RightMenu = () => {
     isAuthenticated: null,
     user: null,
   };
+
   const handleLogout = () => {
+    console.log("jfdkfgkdhj");
     localStorage.removeItem("token");
     Router.push("/login");
   };
+
+  const handleAvtar =() =>{
+    Router.push('/users/myProfile')
+  }
+
   return (
     <div style={{ marginTop: "10px" }}>
       <Menu mode="horizontal">
@@ -31,13 +54,35 @@ const RightMenu = () => {
           <a href="">Signup</a>
         </Menu.Item> */}
 
-        {/* <Avatar onClick={handleProfile} icon={<UserOutlined />} style={{ cursor: 'pointer' }} /> */}
-        <Button
+        {/* <Button
           style={{ backgroundColor: "orangered", color: "white" }}
           onClick={token && token?.access !== null ? handleLogout : handleLogin}
         >
-          {token && token?.access !== null ? "Logout" : "Login Or SignUp"}
-        </Button>
+          {token && token?.access !== null ? "Logout" : "Login Or Signup"}
+        </Button> */}
+
+        {token && token?.access !== null ? (
+          <>
+            <span>{name}</span>
+            <Popconfirm
+              title="Are You sure want to Logout"
+              onConfirm={confirm}
+              okText="Yes"
+              cancelText="No"
+            >
+              <CaretDownOutlined className="arroDownCls" />
+            </Popconfirm>
+            <Avatar
+            onClick={handleAvtar}
+              icon={<UserOutlined />}
+              style={{ cursor: "pointer", marginTop: "5px", marginLeft: "5px" }}
+            />
+          </>
+        ) : (
+          <Button style={{ backgroundColor: "orangered", color: "white" }} onClick={handleLogin}>
+            Login Or Signup
+          </Button>
+        )}
       </Menu>
     </div>
   );
