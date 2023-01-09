@@ -30,8 +30,8 @@ const UserProfile = () => {
   const [phoneErr, setPhoneErr] = useState(false);
   const [emailErr, setEmailErr] = useState(false);
   const [genderErr, setGenderErr] = useState(false);
-
-  const  {id} :any = router.query;
+  const [isError, setIsError] = useState(false);
+  const { id }: any = router.query;
 
   useEffect(() => {
     getUserProfile();
@@ -47,8 +47,7 @@ const UserProfile = () => {
       ? localStorage.getItem("webToken")
       : null;
     const a = JSON.parse(token);
-    // const id: number = 1;
-    console.log(";;;;;;",id)
+    console.log(";;;;;;", id);
 
     await userService.getUserProfile(id, a).then((data) => {
       if (data.data != null) {
@@ -94,12 +93,21 @@ const UserProfile = () => {
       ? localStorage.getItem("webToken")
       : null;
     const a = JSON.parse(token);
-    const id: number = 1;
-    if (!firstName) { setFNameErr(true)}
-    if (!lastName) { setLNameErr(true)}
-    if (!phone) { setPhoneErr(true)}
-    if (!email) { setEmailErr(true) }
-    if (!gender) { setGenderErr(true)}
+    if (!firstName) {
+      setFNameErr(true);
+    }
+    if (!lastName) {
+      setLNameErr(true);
+    }
+    if (!phone) {
+      setPhoneErr(true);
+    }
+    if (!email) {
+      setEmailErr(true);
+    }
+    if (!gender) {
+      setGenderErr(true);
+    }
 
     const userData = new FormData();
     const data = {
@@ -118,34 +126,22 @@ const UserProfile = () => {
     userData.append(profilPic, profilPic);
     userData.append(email, email);
 
-    userService.updateprofile(id, data, a).then((data) => {
-      if (!firstName || !lastName || !phone || !gender || !email) {
-        
-        toast.error("please fill all fields", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-      } else {
-        console.log("data ======",data);
-        toast.success("success", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
+    if (!firstName || !lastName || !phone || !gender || !email || isError) {
+      toast.error("please fill all fields correctly", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } else {
+      userService.updateprofile(id, data, a).then((data) => {
         router.push("/users/myProfile");
-      }
-    });
+      });
+    }
   };
   return (
     <div>
@@ -238,11 +234,24 @@ const UserProfile = () => {
                             defaultValue={dataObj?.phone}
                             onChange={(e) => {
                               setPhone(e.target.value);
+                              if (e.target.value.length > 10) {
+                                setIsError(true);
+                              }
                             }}
-                            onKeyUp={() => {
+                            onKeyUp={(e: any) => {
                               setPhoneErr(false);
+                              if (e.target.value.length === 10) {
+                                setIsError(false);
+                              }
                             }}
                           />
+                          {isError ? (
+                            <span style={{ color: "red" }}>
+                              Phone number must be 10 digits
+                            </span>
+                          ) : (
+                            ""
+                          )}
                           {phoneErr ? (
                             <span style={{ color: "red" }}>
                               Please fill Phone number
