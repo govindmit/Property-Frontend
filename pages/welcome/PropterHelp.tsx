@@ -66,7 +66,7 @@ const PropterHelp = () => {
                 <Col className="gutter-row propertyColCls" span={32}>
                   <Card
                     hoverable
-                    style={{ width: '260px',marginTop:'5%' }}
+                    style={{ width: '220px',marginTop:'5%' ,  boxShadow: '0px 0px 10px 0px rgba(0,0,0,10%)'}}
                     
                   >
                      <Image
@@ -85,6 +85,7 @@ const PropterHelp = () => {
                     <div className="propterCardLinkCls"> <a className="homeCardLink">{e.link}</a>
                     <ArrowRightOutlined
                       style={{
+                        fontSize:'12px',
                         color: "orangered",
                         marginLeft: "3%",
                         marginTop: "1%",

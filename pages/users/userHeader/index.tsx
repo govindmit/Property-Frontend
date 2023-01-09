@@ -14,14 +14,13 @@ const UserHeader = () => {
   } = theme.useToken();
 
   const handleClick =()=>{
-    Router.push('/users/favorite')
+    Router.replace('/users/favorite')
   }
   const handleAccSetting =()=>{
     Router.push("/users/myProfile");
   }
   return (
     <div>
-
       <Layout style={{backgroundClip:'white'}} className='userLayoutCls'>
         <Header style={{backgroundClip:'white'}} className='userHeaderCls'>
           <div className="logo" />
@@ -32,8 +31,8 @@ const UserHeader = () => {
             defaultSelectedKeys={["2"]}
             className='userMenuCls'
           >
-            <Menu.Item onClick={handleClick} className='userMenuItem'>Favorites</Menu.Item>
-            <Menu.Item className='userMenuItem'>Saved Search</Menu.Item>
+            <Menu.Item onClick={handleClick} className='userMenuItem' key={'/users/favorite'}>Favorites</Menu.Item>
+            <Menu.Item className='userMenuItem' >Saved Search</Menu.Item>
             <Menu.Item className='userMenuItem'>Open House Shedule</Menu.Item>
             <Menu.Item className='userMenuItem'>Home Tours</Menu.Item>
             <Menu.Item className='userMenuItem'>Transaction Updates</Menu.Item>
