@@ -86,10 +86,10 @@ export default function App(props: IAppProps) {
     return <Form.Item name={concatName} {...props} />;
   };
   const handleMove = () => {
-    Router.push({ pathname: "/signUp" });
+    Router.push({ pathname: "/signup" });
   };
   const handleForgot = () => {
-    Router.push({ pathname: "/forgotPassword" });
+    Router.push({ pathname: "/forgotpassword" });
   };
   return (
     <div className="mainlogindivsign">

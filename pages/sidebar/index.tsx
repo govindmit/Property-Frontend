@@ -11,14 +11,14 @@ const Sidebar: React.FC = () => {
     const {
         token: { colorBgContainer },
     } = theme.useToken();
-    let location = useRouter();
+    const location = useRouter();
+    const getPath=location.pathname
     const [current, setCurrent] = useState(location.pathname);
-
 
     function handleClick(e: any) {
         location.push(e.key)
     }
-    // console.log('##############', current);
+
     return (
         <Sider
             breakpoint="lg"
@@ -36,25 +36,26 @@ const Sidebar: React.FC = () => {
                     onClick={(e) => handleClick(e)}
                     mode="vertical"
                     selectedKeys={[current]}
+                   
                 >
-                    <Menu.Item key="/admin/dashboard" icon={<DashboardOutlined />}>
-                        Dashboard
+                    <Menu.Item  className="sidebarcsstop" key={!getPath.includes('dashboard') ? '/admin/dashboard' : getPath} >
+                       &emsp; Dashboard
                     </Menu.Item>
 
-                    <Menu.Item key="/admin/user" icon={<UsergroupAddOutlined />}>
-                        User Listing
+                    <Menu.Item key={!getPath.includes('user') ? '/admin/user' : getPath}>
+                    &emsp; User Listing
                     </Menu.Item>
 
-                    <Menu.Item key="/admin/brokerage" icon={<AlignCenterOutlined />}>
-                        Brokerage Listing
+                    <Menu.Item key={!getPath.includes('brokerage') ? '/admin/brokerage' : getPath} >
+                    &emsp;  Brokerage Listing
                     </Menu.Item>
 
-                    <Menu.Item key="#" icon={<FontColorsOutlined />}>
-                        Agent Listing
+                    <Menu.Item key="#" >
+                    &emsp;  Agent Listing
                     </Menu.Item>
 
-                    <Menu.Item key="/admin/landlord" icon={<IdcardOutlined />}>
-                        Landlord Listing
+                    <Menu.Item key={!getPath.includes('landlord') ? '/admin/landlord' : getPath} >
+                    &emsp;  Landlord Listing
                     </Menu.Item>
                 </Menu>
             </div>

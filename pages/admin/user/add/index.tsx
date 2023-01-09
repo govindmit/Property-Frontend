@@ -12,6 +12,7 @@ import {
   theme,
 } from "antd";
 import { Button, Form, Input, Select, Upload } from "antd";
+import { Avatar, Col, Radio, Row, Tabs } from "antd";
 import type { FormInstance } from "antd/es/form";
 import Router, { withRouter } from "next/router";
 import {
@@ -193,172 +194,215 @@ export default function AddUser(props: IAppProps) {
     }
     console.log(values);
   };
+  const inputStyle: React.CSSProperties = {
+    padding: "8px 0",
+    borderRadius: "inherit",
+  };
+  
+  const style: React.CSSProperties = { fontWeight: 558 };
+  const landlordcs: React.CSSProperties = { fontSize: "21px" };
+
   return (
     <Layout>
       <Sidebar />
       <Content className="contentcss">
-        <div className="editusercss">
-          <div className="backflex">
-            <Link href="/admin/user">
-              <Button
-                type="text"
-                className=" backbtnn"
-                icon={<ArrowLeftOutlined />}
-              >
-                Back
-              </Button>
-            </Link>
-            <h2 className="textuseruser">Add New User</h2>
-          </div>
-          <div className="lanlordmain">
-            <Form name="form_item_path" layout="vertical" onFinish={onFinish}>
-              <MyFormItemGroup prefix={["user"]}>
+        <div className="backflex">
+          <Link href="/admin/user">
+            <Button
+              type="text"
+              className=" backbtnn"
+              icon={<ArrowLeftOutlined />}
+            >
+              Back
+            </Button>
+          </Link>
+          <h2 className="textuseruser">Add New User</h2>
+        </div>
+        <div className="btncontainer">
+          <Form name="form_item_path" layout="vertical" onFinish={onFinish}>
+            <div>
+            <MyFormItemGroup prefix={["user"]}>
                 <MyFormItemGroup prefix={["name"]}>
-                  <MyFormItem
-                    name="firstName"
-                    label="First Name"
-                    rules={[
-                      {
-                        required: true,
-                        message: "FirstName is required!",
-                      },
-                    ]}
-                  >
-                    <Input />
-                  </MyFormItem>
-                  <MyFormItem
-                    name="lastName"
-                    label="Last Name"
-                    rules={[
-                      {
-                        required: true,
-                        message: "LastName is required!",
-                      },
-                    ]}
-                  >
-                    <Input />
-                  </MyFormItem>
-                  <MyFormItem
-                    name="email"
-                    label="Email"
-                    rules={[
-                      {
-                        type: "email",
-                        message: "Email is not valid!",
-                      },
-                      {
-                        required: true,
-                        message: "Email is required!",
-                      },
-                    ]}
-                  >
-                    <Input />
-                  </MyFormItem>
-                  <MyFormItem
-                    name="status"
-                    label="Status"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Status is required!",
-                      },
-                    ]}
-                  >
-                    <Select
-                      placeholder="Select a option and change status"
-                      onChange={onStatusChange}
-                      allowClear
-                    >
-                      <Option value="Active">Active</Option>
-                      <Option value="Inactive">InActive</Option>
-                    </Select>
-                  </MyFormItem>
-                  <MyFormItem
-                    name="role"
-                    label="Role"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Role is required!",
-                      },
-                    ]}
-                  >
-                    <Select
-                      placeholder="Select role"
-                      onChange={onRoleChange}
-                      allowClear
-                    >
-                      <Option value="1">Admin</Option>
-                      <Option value="2">User</Option>
-                      <Option value="3">Brokerage</Option>
-                      <Option value="4">Landlord</Option>
-                      {/* <Option value="5">Agent</Option> */}
-                    </Select>
-                  </MyFormItem>
-                  <MyFormItem
-                    name="gender"
-                    label="Gender"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Gender is required!",
-                      },
-                    ]}
-                  >
-                    <Select
-                      placeholder="Select your gender"
-                      onChange={onGenderChange}
-                      allowClear
-                    >
-                      <Option value="male">male</Option>
-                      <Option value="female">female</Option>
-                    </Select>
-                  </MyFormItem>
-                  <MyFormItem
-                    name="phone"
-                    label="Phone"
-                    rules={[
-                      {
-                        min: 10,
-                        max: 10,
-                        message: "Mobile number must be 10 digit",
-                      },
-                    ]}
-                  >
-                    <Input
-                      type="number"
-                      // addonBefore={prefixSelector}
-                      style={{ width: "100%" }}
-                    />
-                  </MyFormItem>
-                  <span style={{ display: "flex" }}>
-                    {photo && (
-                      <Image
-                        src={photo}
-                        alt="img"
-                        width={70}
-                        height={60}
-                        className="addimage"
-                      />
-                    )}
-                    <Form.Item
-                      name="upload"
-                      label=""
-                      valuePropName="fileList"
-                      style={{ marginTop: "15px" }}
-                    >
-                      <input
-                        type="file"
-                        multiple
-                        accept=".pdf,.jpeg,.png,.csv,.doc,.docx,.txt,.xlsx,.xls"
-                        className="imageTagClass"
-                        onChange={(e) => normFile(e)}
-                      />
-                    </Form.Item>
-                  </span>
+                  <div>
+                    <Row gutter={{ xs: 4, sm: 8, md: 12, lg: 20 }}>
+                      <Col className="gutter-row" span={11}>
+                        <MyFormItem
+                          name="firstName"
+                          label="First Name"
+                          style={style}
+                          rules={[
+                            {
+                              required: true,
+                              message: "FirstName is required!",
+                            },
+                          ]}
+                        >
+                          <Input style={inputStyle} />
+                        </MyFormItem>
+                      </Col>
+                      <Col className="gutter-row" span={2}></Col>
+                      <Col className="gutter-row" span={11}>
+                        <MyFormItem
+                          name="lastName"
+                          style={style}
+                          label="Last Name"
+                          rules={[
+                            {
+                              required: true,
+                              message: "LastName is required!",
+                            },
+                          ]}
+                        >
+                          <Input style={inputStyle} />
+                        </MyFormItem>
+                      </Col>
+                    </Row>
+                    <Row gutter={{ xs: 4, sm: 8, md: 12, lg: 20 }}>
+                      <Col className="gutter-row" span={11}>
+                        <MyFormItem
+                          name="email"
+                          label="Email"
+                          style={style}
+                          rules={[
+                            {
+                              type: "email",
+                              message: "Email is not valid!",
+                            },
+                            {
+                              required: true,
+                              message: "Email is required!",
+                            },
+                          ]}
+                        >
+                          <Input style={inputStyle} />
+                        </MyFormItem>
+                      </Col>
+                      <Col className="gutter-row" span={2}></Col>
+                      <Col className="gutter-row" span={11}>
+                        <MyFormItem
+                          name="status"
+                          label="Status"
+                          style={style}
+                          rules={[
+                            {
+                              required: true,
+                              message: "Status is required!",
+                            },
+                          ]}
+                        >
+                          <Select
+                            placeholder="Select a option and change status"
+                            onChange={onStatusChange}
+                            allowClear
+                          >
+                            <Option value="Active">Active</Option>
+                            <Option value="Inactive">InActive</Option>
+                          </Select>
+                        </MyFormItem>
+                      </Col>
+                    </Row>
+                    <Row gutter={{ xs: 4, sm: 8, md: 12, lg: 20 }}>
+                      <Col className="gutter-row" span={11}>
+                        <MyFormItem
+                          name="role"
+                          label="Role"
+                          style={style}
+                          rules={[
+                            {
+                              required: true,
+                              message: "Role is required!",
+                            },
+                          ]}
+                        >
+                          <Select
+                            placeholder="Select role"
+                            onChange={onRoleChange}
+                            allowClear
+                          >
+                            <Option value="1">Admin</Option>
+                            <Option value="2">User</Option>
+                            <Option value="3">Brokerage</Option>
+                            <Option value="4">Landlord</Option>
+                            {/* <Option value="5">Agent</Option> */}
+                          </Select>
+                        </MyFormItem>
+                      </Col>
+                      <Col className="gutter-row" span={2}></Col>
+                      <Col className="gutter-row" span={11}>
+                        <MyFormItem
+                          name="gender"
+                          label="Gender"
+                          style={style}
+                          rules={[
+                            {
+                              required: true,
+                              message: "Gender is required!",
+                            },
+                          ]}
+                        >
+                          <Select
+                            placeholder="Select your gender"
+                            onChange={onGenderChange}
+                            allowClear
+                          >
+                            <Option value="male">male</Option>
+                            <Option value="female">female</Option>
+                          </Select>
+                        </MyFormItem>
+                      </Col>
+                    </Row>
+                    <Row gutter={{ xs: 4, sm: 8, md: 12, lg: 20 }}>
+                      <Col className="gutter-row" span={11}>
+                        <MyFormItem
+                          name="phone"
+                          label="Phone"
+                          style={style}
+                          rules={[
+                            {
+                              min: 10,
+                              max: 10,
+                              message: "Mobile number must be 10 digit",
+                            },
+                          ]}
+                        >
+                          <Input
+                            type="number"
+                            // addonBefore={prefixSelector}
+                            style={inputStyle}
+                          />
+                        </MyFormItem>
+                      </Col>
+                    </Row>
+                    <span style={{ display: "flex" }}>
+                      {photo && (
+                        <Image
+                          src={photo}
+                          alt="img"
+                          width={70}
+                          height={60}
+                          className="addimage"
+                        />
+                      )}
+                      <Form.Item
+                        name="upload"
+                        label=""
+                        valuePropName="fileList"
+                        style={{ marginTop: "15px" }}
+                      >
+                        <input
+                          type="file"
+                          multiple
+                          accept=".pdf,.jpeg,.png,.csv,.doc,.docx,.txt,.xlsx,.xls"
+                          className="imageTagClass"
+                          onChange={(e) => normFile(e)}
+                        />
+                      </Form.Item>
+                    </span>
+                  </div>
                 </MyFormItemGroup>
               </MyFormItemGroup>
-
+              <br />
+              <br />
               <div className="btnsubland">
                 {loading ? (
                   <Button type="primary" className="submitbutton22">
@@ -370,8 +414,8 @@ export default function AddUser(props: IAppProps) {
                   </Button>
                 )}
               </div>
-            </Form>
-          </div>
+            </div>
+          </Form>
         </div>
       </Content>
     </Layout>

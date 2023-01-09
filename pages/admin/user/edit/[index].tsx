@@ -284,8 +284,8 @@ export default function UserListing(props: IAppProps) {
                   </MyFormItem>
                   <span style={{ display: "flex" }}>
                     <Image
-                      src={
-                        user && user?.profilPic === "" ? "" : user?.profilPic
+                       src={
+                        !photo ? (user && user?.profilPic === "" ? "" : user?.profilPic) : photo
                       }
                       alt={
                         user && user?.profilPic === ""

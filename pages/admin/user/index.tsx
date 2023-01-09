@@ -101,7 +101,7 @@ export default function UserListing() {
       </p>
       {" "}
       <p style={{ textAlign: "center", cursor: "pointer",color:"red" }}>
-        <DeleteOutlined style={{ color: "red" }} onClick={handleDelete} /> &ensp;&ensp; Del
+      <Button type="link" onClick={handleDelete} style={{color:"red"}}><DeleteOutlined style={{ color: "red" }} />&ensp; Del</Button>
       </p>
     </div>
   );
@@ -291,7 +291,6 @@ export default function UserListing() {
   const searchActiveData = state?.query !== "" ? state?.Activedata : Activedata;
   const searchInActiveData =
     state?.query !== "" ? state?.inActiveData : inActiveData;
-
   return (
     <Layout>
       <Sidebar />

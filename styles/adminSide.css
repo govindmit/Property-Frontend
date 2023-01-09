@@ -12,12 +12,9 @@ aside.ant-layout-sider.ant-layout-sider-dark {
   background: border-box !important;
 }
 .contentcss {
-  /* margin: 24px 16px;
-    padding: 24;
-    min-height: 280; */
   margin: 24px 16px !important;
   padding: 10px !important;
-  border: 10px solid #e3e3e3 !important;
+  /* border: 10px solid #e3e3e3 !important; */
   min-height: 280px !important;
 }
 .btndivsearch {
@@ -182,4 +179,20 @@ button.ant-btn.css-k83k30.ant-btn-link.active {
 }
 img.addimage {
   margin-right: 18px;
+}
+:where(.css-dev-only-do-not-override-k83k30).ant-form-item .ant-form-item-label >label.ant-form-item-required:not(.ant-form-item-required-mark-optional)::before {
+  content: "" !important;
+}
+
+.btnresetcss {
+  margin-left: -60% !important;
+  margin-bottom: 40px;
+}
+:where(.css-dev-only-do-not-override-k83k30).ant-menu-light:not(.ant-menu-horizontal) .ant-menu-item-selected {
+  background-color: orangered !important;
+  border-radius: 0px !important;
+  color: white !important;
+}
+.sidebarcsstop{
+  margin-top: 30px !important;
 }

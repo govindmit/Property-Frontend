@@ -144,7 +144,7 @@ const onFinish4=()=>{
         <TabPane tab="Tab 1" key="1" className="mainnnnn">
           <div className="textCenter">
             <h2 className="h2margin">Welcome to Propter</h2>
-            <h3>Create an Account</h3>
+            <h3 style={{marginBottom:"11px"}}>Create an Account</h3>
           </div>
           <div className="marginleftcss">
             <Form name="form_item_path" layout="vertical" onFinish={onFinish}>
