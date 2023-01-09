@@ -111,7 +111,6 @@ const FooterComp = () => {
 
         <Footer style={{ textAlign: 'left',backgroundColor:'#484242',color:'white' }}>
           <Typography style={{ textAlign: 'center',color:'white' }}>©Propter2022 All rights reserved</Typography>
-          <Typography style={{ textAlign: 'center',color:'white' }}>©Propter2022 All rights reserved</Typography>
           
         </Footer>
       </Layout>
