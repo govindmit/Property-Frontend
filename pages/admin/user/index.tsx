@@ -118,13 +118,13 @@ export default function UserListing() {
     {
       key: "email",
       title: "Email",
-      dataIndex: "email",
+      dataIndex: "email",  
     },
     {
       key: "profilPic",
       title: "Image",
       dataIndex:"profilPic",
-      render:  () => <Image alt="image" src={""} width={20} height={20}/>
+      render: (t:any) => <Image alt="image" src={t} width={50} height={50}/>
     },
     {
       key: "phone",
@@ -194,7 +194,6 @@ export default function UserListing() {
   useEffect(() => {
     getUserData();
   }, []);
-console.log('@@@@@@@@@@@',user);
   const handleAlldata = (val: String) => {
     if (val === "all") {
       if (allData === "1") {

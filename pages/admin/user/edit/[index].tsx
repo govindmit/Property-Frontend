@@ -11,14 +11,14 @@ import {
   theme,
   Upload,
 } from "antd";
-import { Button, Form, Input, Select,InputNumber } from "antd";
+import { Button, Form, Input, Select, InputNumber } from "antd";
 import type { FormInstance } from "antd/es/form";
-import { ArrowLeftOutlined, UploadOutlined } from "@ant-design/icons";
+import { ArrowLeftOutlined, LoadingOutlined, UploadOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import type { FormItemProps } from "antd";
 import { useRouter } from "next/router";
 import Router, { withRouter } from "next/router";
-
+import { Spin } from 'antd';
 import axios from "axios";
 import Image from "next/image";
 
@@ -59,16 +59,36 @@ export interface UserDataTypes {
 }
 export default function UserListing(props: IAppProps) {
   const { Option } = Select;
-  const [image, setImage] = useState<any>("");
+  const [image, setImage] = useState<any>();
+  const [loading,setLoading]=useState<Boolean>(false)
   const { query } = useRouter();
   const [user, setUser] = useState<UserDataTypes | any>("");
+  const antIcon = <LoadingOutlined style={{ fontSize: 24,color:"orangered" }} spin />;
+
   const normFile = (e: any) => {
-    console.log("Upload event:", e);
-    setImage(e?.file.originFileObj);
-    if (Array.isArray(e)) {
-      return e;
+    if (e !== null) {
+      setImage(e.target.files[0]);
     }
-    return e?.fileList;
+  };
+  const onRoleChange = (value: string) => {
+    switch (value) {
+      case "1":
+        form.setFieldsValue('1');
+        return;
+      case "2":
+        form.setFieldsValue('2');
+        return;
+        case "3":
+        form.setFieldsValue('3');
+        return;
+        case "4":
+        form.setFieldsValue('4');
+        return;
+      case "other":
+        form.setFieldsValue({ note: "Hi there!" });
+        break;
+      default:
+    }
   };
   const prefixSelector = (
     <Form.Item name="prefix" noStyle>
@@ -130,30 +150,34 @@ export default function UserListing(props: IAppProps) {
   const onFinish = async (values: any) => {
     const webtoken = localStorage.getItem("webToken");
     let web = webtoken?.substring(1, webtoken?.length - 1);
-    let { firstName, lastName, email, status,role,phone,gender } = values.user.name;
+    let { firstName, lastName, email, status, role, phone, gender } =
+      values.user.name;
     let requesData = {
       firstName: firstName === undefined ? user.firstName : firstName,
       lastName: lastName === undefined ? user.lastName : lastName,
       email: email === undefined ? user.email : email,
       status: status === undefined ? user.status : status,
-      role: role?.id === undefined ? user.role?.id : role?.id,
+      role: role === undefined ? user.role?.id : role,
       phone: phone === undefined ? user.phone : phone,
       gender: gender === undefined ? user.gender : gender,
-      // profilPic: image === "" ? "" : image,
+      profilPic: image,
     };
+    setLoading(true);
     try {
       await axios
         .put(
           `https://api-property.mangoitsol.com/api/user/${query?.index}`,
-           requesData,
+          requesData,
           {
             headers: {
+              "Content-Type": "multipart/form-data",
               Authorization: `Bearer ${web}`,
             },
           }
         )
         .then((res) => {
-            Router.push("/admin/user");
+          setLoading(false);
+          Router.push("/admin/user");
         });
     } catch (err) {
       console.log("#####", err);
@@ -201,10 +225,31 @@ export default function UserListing(props: IAppProps) {
                       <Option value="Inactive">InActive</Option>
                     </Select>
                   </MyFormItem>
-                  <MyFormItem name="role" label="Role" >
-                    <InputNumber defaultValue={user && user?.role?.id}/>
+                   <MyFormItem
+                    name="role"
+                    label="Role"
+                    // rules={[
+                    //   {
+                    //     required: true,
+                    //     message: "Role is required!",
+                    //   },
+                    // ]}
+                  >
+                    <Select
+                      placeholder="Select role"
+                      onChange={onRoleChange}
+                      allowClear
+                      defaultValue={user && user?.role?.title
+                      }
+                    >
+                      <Option value="1">Admin</Option>
+                      <Option value="2">User</Option>
+                      <Option value="3">Brokerage</Option>
+                      <Option value="4">Landlord</Option>
+                      {/* <Option value="5">Agent</Option> */}
+                    </Select>
                   </MyFormItem>
-                  <MyFormItem name="gender" label="Gender" >
+                  <MyFormItem name="gender" label="Gender">
                     <Select
                       placeholder="Select your gender"
                       onChange={onGenderChange}
@@ -217,32 +262,58 @@ export default function UserListing(props: IAppProps) {
                   </MyFormItem>
                   <MyFormItem name="phone" label="Phone">
                     <Input
-                      addonBefore={prefixSelector}
+                      // addonBefore={prefixSelector}
                       style={{ width: "100%" }}
-                      defaultValue={user && user.phone}
+                      defaultValue={
+                        user && user.phone === "undefined" ? "" : user.phone
+                      }
                     />
                   </MyFormItem>
                   <div>
-                  <Image src={user && user.profilPic} alt="imgg" width={50} height={50}/>
+                    {/* {image !==null? */}
+                    <Image
+                      src={
+                        user && user?.profilPic === "" ? "" : user?.profilPic
+                      }
+                      alt={
+                        user && user?.profilPic === ""
+                          ? "No Image"
+                          : user?.profilPic
+                      }
+                      width={80}
+                      height={80}
+                    />
                   </div>
                   <Form.Item
                     name="upload"
-                    label="Image"
+                    label=""
                     valuePropName="fileList"
-                    getValueFromEvent={normFile}
                   >
-                    <Upload name="logo" action="/upload.do" listType="picture">
-                      <Button icon={<UploadOutlined />}>Click to upload</Button>
-                    </Upload>
-                   
+                    <input
+                      type="file"
+                      multiple
+                      accept=".pdf,.jpeg,.png,.csv,.doc,.docx,.txt,.xlsx,.xls"
+                      className="imageTagClass"
+                      onChange={(e) => normFile(e)}
+                    />
                   </Form.Item>
                 </MyFormItemGroup>
               </MyFormItemGroup>
 
               <div className="btnsubland">
-                <Button htmlType="submit" className="btnupdate">
+               
+                {
+                loading?
+                
+                <Button type="primary" className="submitbutton22">
+               <Spin indicator={antIcon} />
+              </Button>
+            :
+            <Button htmlType="submit" className="btnupdate">
                   Update
                 </Button>
+            
+            }
               </div>
             </Form>
           </div>
