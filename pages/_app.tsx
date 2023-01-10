@@ -25,7 +25,8 @@ export default function App({ Component, pageProps }: AppProps) {
 
   const router = useRouter();
   const [loading, setLoading] = useState(true);
-
+  // let roleType;
+  // roleType=localStorage.getItem("role");
   useEffect(() => {
     genrateToken()
     router.events.on('routeChangeStart', (url) => {

@@ -1,11 +1,12 @@
 import React, { Component, useEffect } from "react";
-import { Button, Menu, Avatar } from "antd";
+import { Button, Menu, Avatar ,Layout} from "antd";
 import Router, { useRouter } from "next/router";
 import { UserOutlined } from "@ant-design/icons";
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
+const { Header, Sider, Content } = Layout;
 
-const RightMenu = () => {
+const AdminHeader = () => {
   const handleLogin = () => {
     Router.push("/login");
   };
@@ -20,28 +21,20 @@ const RightMenu = () => {
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("role");
-
     Router.push("/login");
   };
   return (
-    <div style={{ marginTop: "10px" }}>
-      <Menu mode="horizontal">
-        {/* <Menu.Item key="mail">
-          <a href="">Signin</a>
-          </Menu.Item>
-          <Menu.Item key="app">
-          <a href="">Signup</a>
-        </Menu.Item> */}
-
-        {/* <Avatar onClick={handleProfile} icon={<UserOutlined />} style={{ cursor: 'pointer' }} /> */}
+    <Header>
+    <div className="adminheadercss">
         <Button
           style={{ backgroundColor: "orangered", color: "white" }}
           onClick={token && token?.access !== null ? handleLogout : handleLogin}
-        >
+          >
           {token && token?.access !== null ? "Logout" : "Login Or SignUp"}
         </Button>
-      </Menu>
     </div>
+          </Header>
+        
   );
 };
-export default RightMenu;
+export default AdminHeader;

@@ -4,6 +4,9 @@ import { AlignCenterOutlined, AppstoreOutlined, DashboardOutlined, FontColorsOut
 import { Layout, Menu, theme } from 'antd';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import logo from "../../public/assets/aa.png";
+import Image from "next/image";
+
 const { Header, Content, Footer, Sider } = Layout;
 
 const Sidebar: React.FC = () => {
@@ -29,16 +32,30 @@ const Sidebar: React.FC = () => {
             onCollapse={(collapsed, type) => {
                 console.log(collapsed, type);
             }}
+          
         >
-            <div className="logo" />
-            <div className='slidercss'>
+            <div className="logo cssbide" />
+            <div className='slidercss' style={{  position: 'relative',top: '-11%'}}>
+            <div className="logo adminsideslider" >
+  <Image
+  src={logo.src}
+  alt="imageee"
+  style={{ cursor: "pointer" }}
+  width={30}
+  height={30}
+//   onClick={handleClick}
+  />
+
+  <p className="csslink">Propter</p>
+</div>
                 <Menu
                     onClick={(e) => handleClick(e)}
                     mode="vertical"
                     selectedKeys={[current]}
                    
                 >
-                    <Menu.Item  className="sidebarcsstop" key={!getPath.includes('dashboard') ? '/admin/dashboard' : getPath} >
+
+                   <Menu.Item  className="sidebarcsstop" key="#" >
                        &emsp; Dashboard
                     </Menu.Item>
 
@@ -46,7 +63,7 @@ const Sidebar: React.FC = () => {
                     &emsp; User Listing
                     </Menu.Item>
 
-                    <Menu.Item key={!getPath.includes('brokerage') ? '/admin/brokerage' : getPath} >
+                    <Menu.Item key="#" >
                     &emsp;  Brokerage Listing
                     </Menu.Item>
 

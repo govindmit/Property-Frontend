@@ -10,22 +10,58 @@ import {
   Table,
   theme,
 } from "antd";
+import type { FormItemProps } from "antd";
 import { Button, Form, Input, Select } from "antd";
 import Router, { withRouter } from "next/router";
 import type { FormInstance } from "antd/es/form";
-import { ArrowLeftOutlined, ExclamationCircleFilled } from "@ant-design/icons";
+import {
+  ArrowLeftOutlined,
+  ExclamationCircleFilled,
+  LoadingOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
 import Link from "next/link";
+import { Avatar, Col, Radio, Row, Tabs } from "antd";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import axios from "axios";
+
+const MyFormItemContext = React.createContext<(string | number)[]>([]);
+
+interface MyFormItemGroupProps {
+  prefix: string | number | (string | number)[];
+  children: React.ReactNode;
+}
+
+function toArr(
+  str: string | number | (string | number)[]
+): (string | number)[] {
+  return Array.isArray(str) ? str : [str];
+}
+
+const MyFormItemGroup = ({ prefix, children }: MyFormItemGroupProps) => {
+  const prefixPath = React.useContext(MyFormItemContext);
+  const concatPath = React.useMemo(
+    () => [...prefixPath, ...toArr(prefix)],
+    [prefixPath, prefix]
+  );
+
+  return (
+    <MyFormItemContext.Provider value={concatPath}>
+      {children}
+    </MyFormItemContext.Provider>
+  );
+};
 export interface IAppProps {}
 export interface UserDataTypes {
-  address: String;
-  email: String;
-  id: Number;
-  firstName: String;
-  lastName: String;
-  status: String;
+  firstName: string;
+  lastName: string;
+  email: string;
+  status: string;
+  phone: string;
+  gender: string;
+  profilePic: string;
+  role: string;
 }
 
 export default function AddUser(props: IAppProps) {
@@ -34,6 +70,32 @@ export default function AddUser(props: IAppProps) {
   const { confirm } = Modal;
   const { query } = useRouter();
   const [user, setUser] = useState<UserDataTypes | any>("");
+  const inputStyle: React.CSSProperties = {
+    padding: "5px 12px",
+    borderRadius: "inherit",
+    background: "#d1d1d1",
+  };
+  const style: React.CSSProperties = { color: "grey",fontFamily: "ui-serif",fontWeight: "600",fontSize: "15px"}
+  const landlordcs: React.CSSProperties = { fontSize: "21px" };
+  const layout = {
+    labelCol: { span: 8 },
+    wrapperCol: { span: 16 },
+  };
+  const tailLayout = {
+    wrapperCol: { offset: 8, span: 16 },
+  };
+  const [form] = Form.useForm();
+
+  const antIcon = (
+    <LoadingOutlined style={{ fontSize: 24, color: "orangered" }} spin />
+  );
+
+  const MyFormItem = ({ name, ...props }: FormItemProps) => {
+    const prefixPath = React.useContext(MyFormItemContext);
+    const concatName =
+      name !== undefined ? [...prefixPath, ...toArr(name)] : undefined;
+    return <Form.Item name={concatName} {...props} />;
+  };
 
   const handleDelete = () => {
     confirm({
@@ -89,57 +151,92 @@ export default function AddUser(props: IAppProps) {
   useEffect(() => {
     getUserData();
   }, []);
+
   return (
     <Layout>
       <Sidebar />
       <Content className="contentcss">
-        <div className="editusercss">
-          <div className="backflex">
-            <Link href="/admin/user">
-              <Button
-                type="text"
-                className=" backbtnn"
-                icon={<ArrowLeftOutlined />}
-              >
-                Back
-              </Button>
-            </Link>
-            <h2 className="textuseruser">User Details</h2>
-          </div>
-          <div className="card1">
-            <Image
-              src={
-                user && user?.profilPic === ""
-                  ? "data:image/jpeg;base64,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"
-                  : user?.profilPic
-              }
-              alt="Image"
-              width={150}
-              height={150}
-            />
-            <h1>
-              {user && user.firstName} {user && user.lastName}
-            </h1>
-            <div style={{ marginTop: "10px" }}>
-              <p className="titlee">{user && user.email}</p>
+        <Link href="/admin/user">
+          <Button
+            type="text"
+            className=" backbtnn"
+            icon={<ArrowLeftOutlined />}
+            style={{ marginLeft: "-5px" }}
+          >
+            Back
+          </Button>
+        </Link>
+        <h2 className="textuseruser">User Detail</h2>
+        <div>
+          <div className="borderview">
+            <div className="imagecenter1" style={{marginTop:"10px"}}>
+              {user && user.profilPic != "" ? (
+                <Image
+                  style={{ borderRadius: "65px" }}
+                  src={user?.profilPic}
+                  alt="image"
+                  width={100}
+                  height={100}
+                />
+              ) : (
+                <Avatar
+                  size={64}
+                  icon={<UserOutlined />}
+                  className="avatarcss"
+                />
+              )}
             </div>
-            <div
-              style={{
-                display: "flex",
-                marginTop: "10px",
-                marginLeft: "100px",
-                marginBottom: "10px",
-              }}
-            >
-              <p>Status : </p>
-              <p className="title2"> &nbsp;{user && user.status}</p>
-              <br />
-            </div>
-            <div style={{ marginTop: "10px" }}>
-              <p className="titlee">{user && user.phone ==="undefined"?"":user.phone}</p>
-            </div>
+            <Row gutter={{ xs: 4, sm: 8, md: 12, lg: 20 }}>
+              <Col className="gutter-row" span={6}></Col>
+              <Col className="gutter-row" span={5}>
+                <MyFormItem name="firstName" label="First Name" style={style}>
+                  <p className="datashow"> {user && user.firstName}</p>
+                </MyFormItem>
+              </Col>
+              <Col className="gutter-row" span={3}></Col>
 
-            <div className="landlordeditSection">
+              <Col className="gutter-row" span={5}>
+                <MyFormItem name="lastName" style={style} label="Last Name">
+                  <p className="datashow">{user && user.lastName} </p>
+                </MyFormItem>
+              </Col>
+            </Row>
+            <Row gutter={{ xs: 4, sm: 8, md: 12, lg: 20 }}>
+              <Col className="gutter-row" span={6}></Col>
+              <Col className="gutter-row" span={8}>
+                <MyFormItem name="email" label="Email" style={style}>
+                  <p className="datashow">{user && user.email} </p>
+                </MyFormItem>
+              </Col>
+              <Col className="gutter-row" span={0}></Col>
+              <Col className="gutter-row" span={6}>
+                <MyFormItem name="phone" label="Phone" style={style}>
+                  <p className="datashow">{user && user.phone} </p>
+                </MyFormItem>
+              </Col>
+            </Row>
+            <Row gutter={{ xs: 4, sm: 8, md: 12, lg: 20 }}>
+              <Col className="gutter-row" span={6}></Col>
+              <Col className="gutter-row" span={4}>
+                <MyFormItem name="role" label="Role" style={style}>
+                  <p className="datashow">{user && user?.role?.title}</p>
+                </MyFormItem>
+              </Col>
+              <Col className="gutter-row" span={4}></Col>
+              <Col className="gutter-row" span={10}>
+                <MyFormItem name="gender" label="Gender" style={style}>
+                  <p className="datashow">{user && user?.gender}</p>
+                </MyFormItem>
+              </Col>
+            </Row>
+            <Row gutter={{ xs: 4, sm: 8, md: 12, lg: 20 }}>
+              <Col className="gutter-row" span={6}></Col>
+              <Col className="gutter-row" span={4}>
+                <MyFormItem name="status" label="Status" style={style}>
+                  <p className="datashow">{user && user?.status}</p>
+                </MyFormItem>
+              </Col>
+              <span className="landlordeditSectionview">
               <Link href={`/admin/user/edit/${query?.index}`}>
                 <Button type="primary">Edit</Button>
               </Link>
@@ -147,8 +244,11 @@ export default function AddUser(props: IAppProps) {
               <Button danger onClick={handleDelete}>
                 Delete
               </Button>
-            </div>
+            </span>
+            </Row>
           </div>
+          <br />
+          <br />
         </div>
       </Content>
     </Layout>

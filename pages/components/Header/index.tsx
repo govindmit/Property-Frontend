@@ -25,19 +25,28 @@ const Header: React.FC = () => {
   const handleClick = () => {
     Router.push("/");
   };
+  const roleIdentifier=((typeof window !== 'undefined' && window?.localStorage?.getItem("role") === '1') ?'menuBar adminlogin':'menuBar')
+  const role=typeof window !== 'undefined' && window?.localStorage?.getItem("role");
+
   return (
     <div>
-      <nav className="menuBar">
+      <nav className={roleIdentifier}>
+{
+  role&& role==="1"?
+ ""
+  :
         <div className="logo">
           <Image
-            src={logo.src}
-            preview={false}
-            alt="imageee"
-            style={{ cursor: "pointer" }}
-            onClick={handleClick}
+          src={logo.src}
+          preview={false}
+          alt="imageee"
+          style={{ cursor: "pointer" }}
+          onClick={handleClick}
           />
+   
           <Link href="/">Propter</Link>
         </div>
+        }
         <div className="menuCon">
           <div className="leftMenu">
             <LeftMenu />

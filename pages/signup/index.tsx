@@ -717,7 +717,7 @@ const onFinish4=()=>{
                       <Row gutter={{ xs: 4, sm: 8, md: 12, lg: 20 }}>
                         <Col className="gutter-row" span={21}>
                           <MyFormItem name="emaill" label="Email" style={style}>
-                            <Input style={inputStyle1} />
+                            <Input style={{borderRadius: "inherit",height:"41px"}} />
                           </MyFormItem>
                         </Col>
                       </Row>

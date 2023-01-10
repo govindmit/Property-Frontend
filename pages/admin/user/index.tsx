@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
 import Sidebar from "../../sidebar";
+import AdminHeader from "../adminheader";
 import {
   Divider,
   Layout,
@@ -47,7 +48,7 @@ export default function UserListing() {
   const [ActiveData, setActiveNewData] = useState<UserDataTypes | any>("");
   const [inActiveData, setINactiveData] = useState<UserDataTypes | any>("");
   const [Activedata, setActiveData] = useState<UserDataTypes | any>("");
-  const [tabClassName, setTabClassName] = useState<UserDataTypes | any>("");
+  const [tabClassName, setTabClassName] = useState<UserDataTypes | any>("active");
   const [tab1ClassName, setTab1ClassName] = useState<UserDataTypes | any>("");
   const [tab2ClassName, setTab2ClassName] = useState<UserDataTypes | any>("");
   const [user, setUser] = useState<UserDataTypes | any>("");
@@ -294,6 +295,7 @@ export default function UserListing() {
   return (
     <Layout>
       <Sidebar />
+       {/* <AdminHeader /> */}
       <Content className="contentcss">
         <div className="backflex">
           <div className="btndivsearch">

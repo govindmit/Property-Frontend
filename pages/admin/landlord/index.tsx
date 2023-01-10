@@ -48,14 +48,14 @@ export default function UserListing() {
   const [ActiveData, setActiveNewData] = useState<UserDataTypes | any>("");
   const [inActiveData, setINactiveData] = useState<UserDataTypes | any>("");
   const [Activedata, setActiveData] = useState<UserDataTypes | any>("");
-  const [tabClassName, setTabClassName] = useState<UserDataTypes | any>("");
+  const [tabClassName, setTabClassName] = useState<UserDataTypes | any>("active");
   const [tab1ClassName, setTab1ClassName] = useState<UserDataTypes | any>("");
   const [tab2ClassName, setTab2ClassName] = useState<UserDataTypes | any>("");
   const [user, setUser] = useState<UserDataTypes | any>("");
 
   const handleDelete = () => {
     confirm({
-      title: "Are you sure delete this user?",
+      title: "Are you sure delete this landlord?",
       icon: <ExclamationCircleFilled />,
       content: "",
       okText: "Yes",

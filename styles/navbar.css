@@ -356,3 +356,15 @@ body {
     display: none;
   }
 }
+.logo .searchCls .ant-input-wrapper, .logo .searchCls .ant-input-affix-wrapper, .logo .searchCls .ant-input-affix-wrapper input, .logo .searchCls button {
+  border: none !important;
+  background: aliceblue !important;
+  box-shadow: none;
+}
+nav.menuBar.adminlogin{
+  margin-left: 200px;
+}
+.ant-layout-sider-children.adminsidebar {
+  position: relative;
+  top: -14%;
+}
