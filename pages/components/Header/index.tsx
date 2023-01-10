@@ -18,7 +18,7 @@ const Header: React.FC = () => {
     const token: any = localStorage.getItem("token");
     const decode: any = jwt.decode(token);
     setRole(decode?.data?.role?.title);
-  });
+  },[]);
   
   interface valueInterface {
     visible: Boolean;

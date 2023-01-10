@@ -1,7 +1,24 @@
-import React from "react";
-import {  Col,  Row,  Avatar,  Card,  Typography,  List,  Skeleton,  Button,  Image,  Space,  Divider,} from "antd";
-import { CloseOutlined, EnvironmentOutlined, HeartOutlined,} from "@ant-design/icons";
-import UserHeader from '../userHeader'
+import React, { useState } from "react";
+import {
+  Col,
+  Row,
+  Avatar,
+  Card,
+  Typography,
+  List,
+  Skeleton,
+  Button,
+  Image,
+  Space,
+  Divider,
+  Radio,
+} from "antd";
+import {
+  CloseOutlined,
+  EnvironmentOutlined,
+  HeartOutlined,
+} from "@ant-design/icons";
+import UserHeader from "../userHeader";
 const { Meta } = Card;
 
 interface DataType {
@@ -11,7 +28,6 @@ interface DataType {
 const { Title } = Typography;
 const rorData = [
   { key: "Open House Shedule", value: "Fri 29th july22" },
-
   { key: "Date posted", value: "Mon 22th june22" },
   { key: "year build", value: "2005" },
   { key: "sqft", value: "1323" },
@@ -19,9 +35,10 @@ const rorData = [
   { key: "Status", value: "Active" },
 ];
 const FavoriteComp = () => {
+  const [disabled, setDisabled] = useState(true);
   return (
     <div className="favoriteCls">
-      <UserHeader/>
+      <UserHeader />
       <div className="favoritesHeading">
         <Row>
           <Col xs={{ span: 5, offset: 1 }} lg={{ span: 6, offset: 2 }}>
@@ -31,15 +48,10 @@ const FavoriteComp = () => {
       </div>
 
       <div className="favoritsListCls">
-
-        <Row style={{marginTop:'15px',marginBottom:'15px'}}>
-          <Col
-            xs={{ span: 12, offset: 1 }}
-            lg={{ span: 4, offset: 2 }}
-            md={{ span: 12, offset: 2 }}
-          >
+        <Row className="favRow">
+          <div className="col1">
             <Card
-              style={{ width: 300 }}
+              className="col1Card"
               cover={
                 <Image
                   alt="example"
@@ -48,87 +60,81 @@ const FavoriteComp = () => {
                 />
               }
             >
-             
               <div>
-                <Title level={4} style={{display:"inline-block"}} >AED 80,000/Year</Title><HeartOutlined style={{marginLeft:'4rem'}} />
+                <Title level={4} style={{ display: "inline-block" }}>
+                  AED 80,000/Year
+                </Title>
+                <HeartOutlined style={{ marginLeft: "4rem" }} />
               </div>
-      
+
               <div>New Apartment Nice view</div>
-              <div style={{marginTop:'5px'}}>
+              <div style={{ marginTop: "5px" }}>
                 <Space>
-                <EnvironmentOutlined
-                  style={{ fontSize: "10px", color: "orangered" }}
-                />
-                 Business Bay, Dubai
+                  <EnvironmentOutlined
+                    style={{ fontSize: "10px", color: "orangered" }}
+                  />
+                  Business Bay, Dubai
                 </Space>
-               
               </div>
-              
-              <div style={{marginTop:'5px'}}>
+
+              <div style={{ marginTop: "5px" }}>
                 <Space>
-                   <b>3</b>Beds
-                  &nbsp;
-                   <b>2</b>Bath
-                  &nbsp;
-                <b>3450</b> sq ft
+                  <b>3</b>Beds &nbsp;
+                  <b>2</b>Bath &nbsp;
+                  <b>3450</b> sq ft
                 </Space>
               </div>
             </Card>
-          </Col>
-
-          <Col
-            xs={{ span: 12, offset: 1 }}
-            lg={{ span: 4, offset: 2 }}
-            md={{ span: 12, offset: 2 }}
-          >
-            {rorData.map((e) => {
-              return (
-                <div key={e.key}>
-                <Row style={{ marginTop: "15px" }}>
-                  <Col span={12} style={{ fontWeight: "bold", color: "black" }}>
-                    {" "}
-                    {e.key}{" "}
-                  </Col>
-                  {e.value ==='Active'?<Col span={12} style={{ color: "green" }}>
-                    {e.value}
-                  </Col>:
-                   <Col span={12} style={{ color: "#4d4dc3" }}>
-                   {e.value}
-                 </Col>}
-                </Row>
-                </div>
-              );
-            })}
-          </Col>
-
-          <Col
-            xs={{ span: 12, offset: 1 }}
-            lg={{ span: 4, offset: 2 }}
-            md={{ span: 12, offset: 2 }}
-          >
-            <div>
-              <Button type="primary" className="favoriteReqBtnCls">
+          </div>
+          <div className="col2">
+            {" "}
+            <div style={{ marginTop: "25%" }}>
+              {rorData.map((e) => {
+                return (
+                  <div key={e.key}>
+                    <Row style={{ marginTop: "15px" }}>
+                      <Col
+                        span={12}
+                        style={{ fontWeight: "bold", color: "black" }}
+                      >
+                        {" "}
+                        {e.key}{" "}
+                      </Col>
+                      {e.value === "Active" ? (
+                        <Col span={12} style={{ color: "green" }}>
+                          {e.value}
+                        </Col>
+                      ) : (
+                        <Col span={12} style={{ color: "#4d4dc3" }}>
+                          {e.value}
+                        </Col>
+                      )}
+                    </Row>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+          <div className="col3">
+            {" "}
+            <div style={{ marginTop: "35%" }}>
+              <Button type="primary" className="tourBtn">
                 Request A tour
               </Button>
-              <div className="favoritCloseIconCls">
+              <div className="removeCls">
                 <Space>
-                <CloseOutlined />
-                Remove
+                  <CloseOutlined className="removeIconCls" />
+                  Remove
                 </Space>
               </div>
             </div>
-          </Col>
+          </div>
         </Row>
-        {/* ======================================2nd================================================== */}
-        <Divider className="dividerCls"/>
-        <Row style={{marginTop:'15px',marginBottom:'15px'}}>
-          <Col
-            xs={{ span: 12, offset: 1 }}
-            lg={{ span: 4, offset: 2 }}
-            md={{ span: 12, offset: 2 }}
-          >
+        <Divider className="dividerCls" />
+        <Row className="favRow">
+          <div className="col1">
             <Card
-              style={{ width: 300 }}
+              className="col1Card"
               cover={
                 <Image
                   alt="example"
@@ -137,88 +143,83 @@ const FavoriteComp = () => {
                 />
               }
             >
-             
               <div>
-                <Title level={4} style={{display:"inline-block"}} >AED 80,000/Year</Title><HeartOutlined style={{marginLeft:'4rem'}} />
+                <Title level={4} style={{ display: "inline-block" }}>
+                  AED 80,000/Year
+                </Title>
+                <HeartOutlined style={{ marginLeft: "4rem" }} />
               </div>
-      
+
               <div>New Apartment Nice view</div>
-              <div style={{marginTop:'5px'}}>
+              <div style={{ marginTop: "5px" }}>
                 <Space>
-                <EnvironmentOutlined
-                  style={{ fontSize: "10px", color: "orangered" }}
-                />
-                 Business Bay, Dubai
+                  <EnvironmentOutlined
+                    style={{ fontSize: "10px", color: "orangered" }}
+                  />
+                  Business Bay, Dubai
                 </Space>
-               
               </div>
-              
-              <div style={{marginTop:'5px'}}>
+
+              <div style={{ marginTop: "5px" }}>
                 <Space>
-                   <b>3</b>Beds
-                  &nbsp;
-                   <b>2</b>Bath
-                  &nbsp;
-                <b>3450</b> sq ft
+                  <b>3</b>Beds &nbsp;
+                  <b>2</b>Bath &nbsp;
+                  <b>3450</b> sq ft
                 </Space>
               </div>
             </Card>
-          </Col>
-
-          <Col
-            xs={{ span: 12, offset: 1 }}
-            lg={{ span: 4, offset: 2 }}
-            md={{ span: 12, offset: 2 }}
-          >
-            {rorData.map((e) => {
-              return (
-                <div key={e.key}>
-                <Row style={{ marginTop: "15px" }}>
-                  <Col span={12} style={{ fontWeight: "bold", color: "black" }}>
-                    {" "}
-                    {e.key}{" "}
-                  </Col>
-                  {e.value ==='Active'?<Col span={12} style={{ color: "green" }}>
-                    {e.value}
-                  </Col>:
-                   <Col span={12} style={{ color: "#4d4dc3" }}>
-                   {e.value}
-                 </Col>}
-                </Row>
-                </div>
-              );
-            })}
-          </Col>
-
-          <Col
-            xs={{ span: 12, offset: 1 }}
-            lg={{ span: 4, offset: 2 }}
-            md={{ span: 12, offset: 2 }}
-          >
-            <div>
-              <Button type="primary" className="favoriteReqBtnCls">
+          </div>
+          <div className="col2">
+            {" "}
+            <div style={{ marginTop: "25%" }}>
+              {rorData.map((e) => {
+                return (
+                  <div key={e.key}>
+                    <Row style={{ marginTop: "15px" }}>
+                      <Col
+                        span={12}
+                        style={{ fontWeight: "bold", color: "black" }}
+                      >
+                        {" "}
+                        {e.key}{" "}
+                      </Col>
+                      {e.value === "Active" ? (
+                        <Col span={12} style={{ color: "green" }}>
+                          {e.value}
+                        </Col>
+                      ) : (
+                        <Col span={12} style={{ color: "#4d4dc3" }}>
+                          {e.value}
+                        </Col>
+                      )}
+                    </Row>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+          <div className="col3">
+            {" "}
+            <div style={{ marginTop: "35%" }}>
+              <Button type="primary" className="tourBtn">
                 Request A tour
               </Button>
-              <div className="favoritCloseIconCls">
+              <div className="removeCls">
                 <Space>
-                <CloseOutlined />
-                Remove
+                  <CloseOutlined className="removeIconCls" />
+                  Remove
                 </Space>
               </div>
             </div>
-          </Col>
+          </div>
         </Row>
-        {/* =================================3rd=================================================== */}
-        <Divider className="dividerCls"/>
+        <Divider className="dividerCls" />
 
-        <Row style={{marginTop:'15px',marginBottom:'15px'}}>
-          <Col
-            xs={{ span: 12, offset: 1 }}
-            lg={{ span: 4, offset: 2 }}
-            md={{ span: 12, offset: 2 }}
-          >
+
+        <Row className="favRow">
+          <div className="col1">
             <Card
-              style={{ width: 300 }}
+              className="col1Card"
               cover={
                 <Image
                   alt="example"
@@ -227,79 +228,76 @@ const FavoriteComp = () => {
                 />
               }
             >
-             
               <div>
-                <Title level={4} style={{display:"inline-block"}} >AED 80,000/Year</Title><HeartOutlined style={{marginLeft:'4rem'}} />
+                <Title level={4} style={{ display: "inline-block" }}>
+                  AED 80,000/Year
+                </Title>
+                <HeartOutlined style={{ marginLeft: "4rem" }} />
               </div>
-      
+
               <div>New Apartment Nice view</div>
-              <div style={{marginTop:'5px'}}>
+              <div style={{ marginTop: "5px" }}>
                 <Space>
-                <EnvironmentOutlined
-                  style={{ fontSize: "10px", color: "orangered" }}
-                />
-                 Business Bay, Dubai
+                  <EnvironmentOutlined
+                    style={{ fontSize: "10px", color: "orangered" }}
+                  />
+                  Business Bay, Dubai
                 </Space>
-               
               </div>
-              
-              <div style={{marginTop:'5px'}}>
+
+              <div style={{ marginTop: "5px" }}>
                 <Space>
-                   <b>3</b>Beds
-                  &nbsp;
-                   <b>2</b>Bath
-                  &nbsp;
-                <b>3450</b> sq ft
+                  <b>3</b>Beds &nbsp;
+                  <b>2</b>Bath &nbsp;
+                  <b>3450</b> sq ft
                 </Space>
               </div>
             </Card>
-          </Col>
-
-          <Col
-            xs={{ span: 12, offset: 1 }}
-            lg={{ span: 4, offset: 2 }}
-            md={{ span: 12, offset: 2 }}
-          >
-            {rorData.map((e) => {
-              return (
-                <div key={e.key}>   
-                <Row style={{ marginTop: "15px" }}>
-                  <Col span={12} style={{ fontWeight: "bold", color: "black" }}>
-                    {" "}
-                    {e.key}{" "}
-                  </Col>
-                  {e.value ==='Active'?<Col span={12} style={{ color: "green" }}>
-                    {e.value}
-                  </Col>:
-                   <Col span={12} style={{ color: "#4d4dc3" }}>
-                   {e.value}
-                 </Col>}
-                </Row>
-                     </div>
-              );
-            })}
-          </Col>
-
-          <Col
-            xs={{ span: 12, offset: 1 }}
-            lg={{ span: 4, offset: 2 }}
-            md={{ span: 12, offset: 2 }}
-          >
-            <div>
-              <Button type="primary" className="favoriteReqBtnCls">
+          </div>
+          <div className="col2">
+            {" "}
+            <div style={{ marginTop: "25%" }}>
+              {rorData.map((e) => {
+                return (
+                  <div key={e.key}>
+                    <Row style={{ marginTop: "15px" }}>
+                      <Col
+                        span={12}
+                        style={{ fontWeight: "bold", color: "black" }}
+                      >
+                        {" "}
+                        {e.key}{" "}
+                      </Col>
+                      {e.value === "Active" ? (
+                        <Col span={12} style={{ color: "green" }}>
+                          {e.value}
+                        </Col>
+                      ) : (
+                        <Col span={12} style={{ color: "#4d4dc3" }}>
+                          {e.value}
+                        </Col>
+                      )}
+                    </Row>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+          <div className="col3">
+            {" "}
+            <div style={{ marginTop: "35%" }}>
+              <Button type="primary" className="tourBtn">
                 Request A tour
               </Button>
-              <div className="favoritCloseIconCls">
+              <div className="removeCls">
                 <Space>
-                <CloseOutlined />
-                Remove
+                  <CloseOutlined className="removeIconCls" />
+                  Remove
                 </Space>
               </div>
             </div>
-          </Col>
+          </div>
         </Row>
-        <Divider className="dividerCls"/>
-
       </div>
     </div>
   );

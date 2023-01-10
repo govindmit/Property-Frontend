@@ -33,34 +33,27 @@
   margin-top: 5%;
 }
 
-
-.propterRowCls .propertyColCls .propterHelpMetaCls .ant-card-meta-title{
+.propterRowCls .propertyColCls .propterHelpMetaCls .ant-card-meta-title {
   text-align: center;
   font-size: 14px;
   font-weight: 700;
 }
 
+.propterHelpCls .propterRowCls {
+  width: 100%;
+  /* transform: translate(13%, 0%); */
+  transform: translate(15%, 0%);
+}
 
-.propterHelpCls .propterRowCls{
-    width: 100%;
-    /* transform: translate(13%, 0%); */
-    transform: translate(15%, 0%);
+.propterHelpCls .propterRowCls .propterHelpMetaCls .ant-card-meta-description {
+  font-size: 10px;
+}
 
-  }
+.propterCardLinkCls {
+  transform: translate(25%, 5%);
+  margin-top: 10%;
+}
 
-  .propterHelpCls .propterRowCls .propterHelpMetaCls .ant-card-meta-description {
-    font-size: 10px;
-  }
-
-  .propterCardLinkCls {
-    transform: translate(25%, 5%);
-    margin-top: 10%;
-  }
-
-
-
-
-  
 /* ================================================================ */
 .videoClass {
   margin-top: 10%;
@@ -91,7 +84,7 @@
 
 /* ============================================================================= */
 
-.aminitiesCls .aminitieColCls  {
+.aminitiesCls .aminitieColCls {
   padding-left: 15px;
   padding-right: 30px;
 }
@@ -109,8 +102,6 @@
 .aminitiesCls .aminitieRowcls1 .aminitieColCls .aminitieMetaCls {
   text-align: center;
 }
-
-
 
 /* ========================================================= */
 
@@ -132,7 +123,7 @@
   padding-left: 5%;
 }
 .realStateCls .realStateRow .realStateColCls .realStateCardCls1 {
-  background-color:  rgb(38 36 36/90%);
+  background-color: rgb(38 36 36/90%);
   color: white;
   /* height: 40vh; */
   width: 330px;
@@ -154,12 +145,20 @@
   font-size: 12px;
 }
 
-.realStateCls .realStateRow .realStateColCls .realStateCardCls .firstCardBtn:hover{
-  color:black;
+.realStateCls
+  .realStateRow
+  .realStateColCls
+  .realStateCardCls
+  .firstCardBtn:hover {
+  color: black;
 }
-.realStateCls .realStateRow .realStateColCls .realStateCardCls1 .firstCardBtn:hover{
-  color:black;
-}  
+.realStateCls
+  .realStateRow
+  .realStateColCls
+  .realStateCardCls1
+  .firstCardBtn:hover {
+  color: black;
+}
 .realStateCls .realStateRow .realStateColCls .realStateCardCls1 .firstCardBtn {
   margin-top: 0px;
   border: solid;
@@ -174,18 +173,17 @@
   font-size: 10px;
 }
 
-
 .realStateCls .realStateRow .realStateColCls .realStateCardCls1 .spanCls {
   font-size: 10px;
 }
 
-.textCls .h3Cls{
+.textCls .h3Cls {
   font-size: 12px;
   font-weight: 800;
   margin-top: 10px;
 }
 /* ------------------------------------------------------------- -------------------------------------------*/
-.footerListItem{
+.footerListItem {
   color: white;
   margin-left: -20px;
 }
@@ -203,21 +201,17 @@
 
 /* ======================================================================================== */
 
-.arroDownCls{
+.arroDownCls {
   margin-top: 15px;
   margin-left: 5px;
   cursor: pointer;
 }
 
 /* ============================================================================================ */
-.footerCls{
+.footerCls {
   display: flex;
   justify-content: space-around;
 }
-
-
-
-
 
 body {
   overflow-x: hidden;
@@ -234,16 +228,18 @@ body {
   float: left;
   margin-top: 8px;
 }
-.logo .logoCls{
+.logo .logoCls {
   width: none;
 }
-.logo .searchCls{
+.logo .searchCls {
   margin-left: 40px;
- width: 250px;
+  width: 250px;
 }
-.logo .searchCls .css-dev-only-do-not-override-k83k30{
+
+.logo .searchCls .ant-input-wrapper, .logo .searchCls .ant-input-affix-wrapper, .logo .searchCls .ant-input-affix-wrapper input, .logo .searchCls button {
   border: none !important;
   background: aliceblue !important;
+  box-shadow: none;
 }
 .logo a {
   display: inline-block;
@@ -330,8 +326,6 @@ body {
 .menuCon {
   text-align: center;
 }
-
-
 
 @media (max-width: 767px) {
   .barsMenu {

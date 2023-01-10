@@ -22,7 +22,7 @@ const UserHeader = () => {
 
   useEffect(()=>{
     Router.pathname.includes("/users/favorite") ? setActiveTab('favorite') :  Router.pathname.includes("/users/myProfile") ? setActiveTab('Account'):''
-  })
+  },[])
 
   const handleClick = () => {
    

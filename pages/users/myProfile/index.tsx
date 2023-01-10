@@ -46,7 +46,6 @@ const MyProfile = () => {
     setIsShow(true);
     // const id: number = 1;
     const id: number = decode.data.id;
-    console.log(";;;;;;;;;;;;;;;;;;",id)
     await userService.getUserProfile(id, a).then((data) => {
       if (data.data != null) {
         setDataObj(data?.data);

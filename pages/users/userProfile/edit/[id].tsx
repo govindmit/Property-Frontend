@@ -97,13 +97,13 @@ const UserProfile = () => {
       ? {
           wrapperCol: { span: 14, offset: 4 },
         }
-      : null;
-
+        : null;
+        
   const updatepRofileFn = async () => {
     setLoadings(true);
     const token: any = localStorage.getItem("webToken")
-      ? localStorage.getItem("webToken")
-      : null;
+    ? localStorage.getItem("webToken")
+    : null;
     const a = JSON.parse(token);
     if (!firstName) {
       setFNameErr(true);
@@ -130,15 +130,16 @@ const UserProfile = () => {
       profilPic: profilPic,
       email: email,
     };
-
+    
     userData.append(firstName, firstName);
     userData.append(lastName, lastName);
     userData.append(phone, phone);
     userData.append(gender, gender);
     userData.append(profilPic, profilPic);
     userData.append(email, email);
-
+    
     if (!firstName || !lastName || !phone || !gender || !email || isError) {
+      setLoadings(false)
       toast.error("please fill all fields correctly", {
         position: "top-right",
         autoClose: 5000,
