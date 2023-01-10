@@ -15,12 +15,13 @@
   position: relative;
 }
 .userProfile .userProfilImg .imageTagClass{
-  position: absolute;
-  cursor: pointer;
-    left: 0;
+    position: absolute;
+    cursor: pointer;
+    left: 80px;
     width: 250px;
-    height: 250px;
+    /* height: 250px; */
     opacity: 0;
+    top: 60px;
 }
 
 .userProfile .userProFormCls .userFormLableCls {
@@ -81,9 +82,9 @@
   background: white;
 
 }
-.userLayoutCls .userHeaderCls .userMenuCls .userMenuItem{
+/* .userLayoutCls .userHeaderCls .userMenuCls .userMenuItem{
   font-weight: 500;
-}
+} */
 .userLayoutCls .userHeaderCls .userMenuCls{
   border: none;
   transform: translate(5%,0%);
@@ -103,3 +104,15 @@
   border-width: 2px;
   border-bottom-color: black;
 }
+
+
+.userLayoutCls .userHeaderCls .userMenuCls .aa.active::after{
+  font-weight: 800;
+  border-bottom: 2px solid black;
+}
+
+
+.userLayoutCls .userHeaderCls .userMenuCls .aa.active{
+  font-weight: 800;
+}
+

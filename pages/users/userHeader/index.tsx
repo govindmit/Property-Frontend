@@ -1,49 +1,64 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import FavoriteComp from "../favorite";
 import type { MenuProps } from "antd";
-import {     Layout, Menu, theme } from "antd";
-import  Router from "next/router";
+import { Layout, Menu, theme } from "antd";
+import Router from "next/router";
+import { Tabs } from "antd";
+import type { TabsProps } from "antd";
+import Link from "next/link";
+import MyProfile from "../myProfile";
 
 const { Header, Content, Footer, Sider } = Layout;
 
 
 
 const UserHeader = () => {
+
+  const [activeTab,setActiveTab] = useState('')
+
   const {
     token: { colorBgContainer },
   } = theme.useToken();
 
-  const handleClick =()=>{
-    Router.replace('/users/favorite')
-  }
-  const handleAccSetting =()=>{
+  useEffect(()=>{
+    Router.pathname.includes("/users/favorite") ? setActiveTab('favorite') :  Router.pathname.includes("/users/myProfile") ? setActiveTab('Account'):''
+  })
+
+  const handleClick = () => {
+   
+    Router.replace("/users/favorite");
+  };
+  const handleAccSetting = () => {
+ 
     Router.push("/users/myProfile");
-  }
+  };
+
   return (
     <div>
       <Layout style={{backgroundClip:'white'}} className='userLayoutCls'>
         <Header style={{backgroundClip:'white'}} className='userHeaderCls'>
           <div className="logo" />
           <Menu
-          style={{backgroundClip:'white'}}
+            style={{backgroundClip:'white'}}
             theme="light"
             mode="horizontal"
             defaultSelectedKeys={["2"]}
             className='userMenuCls'
           >
-            <Menu.Item onClick={handleClick} className='userMenuItem' key={'/users/favorite'}>Favorites</Menu.Item>
-            <Menu.Item className='userMenuItem' >Saved Search</Menu.Item>
-            <Menu.Item className='userMenuItem'>Open House Shedule</Menu.Item>
-            <Menu.Item className='userMenuItem'>Home Tours</Menu.Item>
-            <Menu.Item className='userMenuItem'>Transaction Updates</Menu.Item>
-            <Menu.Item className='userMenuItem'>Your voucher</Menu.Item>
-            <Menu.Item className='userMenuItem'>Review</Menu.Item>
-            <Menu.Item className='userMenuItem'>Email Setting</Menu.Item>
-            <Menu.Item onClick={handleAccSetting} className='userMenuItem'>Account Setting</Menu.Item>
+            <Menu.Item className={activeTab === "favorite" ? "aa active" : ""} onClick={handleClick} >Favorite</Menu.Item>
+            <Menu.Item  >Saved Search</Menu.Item>
+            <Menu.Item >Open House Shedule</Menu.Item>
+            <Menu.Item >Home Tours</Menu.Item>
+            <Menu.Item >Transaction Updates</Menu.Item>
+            <Menu.Item >Your voucher</Menu.Item>
+            <Menu.Item >Review</Menu.Item>
+            <Menu.Item >Email Setting</Menu.Item>
+            <Menu.Item  className={activeTab === "Account" ? "aa active" : ""} onClick={handleAccSetting}>Account</Menu.Item>
           </Menu>
         </Header>
-       
       </Layout>
+
+  
     </div>
   );
 };

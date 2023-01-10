@@ -24,11 +24,13 @@
   
 .landloardTopContentTitle{
    text-align: center;
+   height: 7vh;
 }
 .landloardTopContentDescription{
    font-size: 10px;
     text-align: center;
     color: gray;
+    padding-top: 5px;
 }
 .premiumCls .premiumRowCls .premiumCardCls .propertyImgCls{
    transform: translate(50%,0%);

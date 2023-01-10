@@ -7,11 +7,16 @@ import { userType } from "../../../../types/userTypes";
 import { useRouter } from "next/router";
 import userService from "../../../../services/userService";
 import UserHeader from "../../userHeader";
-import axios from "axios";
+import { Upload } from "antd";
+import ImgCrop from "antd-img-crop";
+import type { RcFile, UploadFile, UploadProps } from "antd/es/upload/interface";
+import Loader from "../../../common/loader";
+
 type LayoutType = Parameters<typeof Form>[0]["layout"];
 
 const UserProfile = () => {
   const router = useRouter();
+  const [showPreImage, setShowPreImage] = useState(false);
 
   const [form] = Form.useForm();
   const [formLayout, setFormLayout] = useState<LayoutType>("vertical");
@@ -23,7 +28,9 @@ const UserProfile = () => {
   const [reraNumber, setReraNumber] = useState<userType | any>();
   const [email, setEmail] = useState<userType | any>();
   const [dataObj, setDataObj] = useState<userType | any>({});
+  const [loadings, setLoadings] = useState<boolean>(false);
   const [isShow, setIsShow] = useState(false);
+  const [photo, setPhoto] = useState<any>();
 
   const [fnameErr, setFNameErr] = useState(false);
   const [lnameErr, setLNameErr] = useState(false);
@@ -32,6 +39,15 @@ const UserProfile = () => {
   const [genderErr, setGenderErr] = useState(false);
   const [isError, setIsError] = useState(false);
   const { id }: any = router.query;
+
+  const [fileList, setFileList] = useState<UploadFile[]>([
+    {
+      uid: "-1",
+      name: "image.png",
+      status: "done",
+      url: dataObj?.profilPic,
+    },
+  ]);
 
   useEffect(() => {
     getUserProfile();
@@ -82,13 +98,14 @@ const UserProfile = () => {
         }
       : null;
 
-  const setImgFn = (image: any) => {
-    if (image != null) {
-      setProfilePic(image.target.files[0]);
-    }
-  };
+  // const setImgFn = (image: any) => {
+  //   if (image != null) {
+  //     setProfilePic(image.target.files[0]);
+  //   }
+  // };
 
   const updatepRofileFn = async () => {
+    setLoadings(true);
     const token: any = localStorage.getItem("webToken")
       ? localStorage.getItem("webToken")
       : null;
@@ -138,18 +155,52 @@ const UserProfile = () => {
         theme: "light",
       });
     } else {
-      userService.updateprofile(id, data, a).then((data) => {
+      await userService.updateprofile(id, data, a).then((data) => {
+        if (data) {
+          setLoadings(false);
+        }
         router.push("/users/myProfile");
       });
     }
   };
+
+  const onChange: UploadProps["onChange"] = ({
+    fileList: newFileList,
+  }: any) => {
+    setFileList(newFileList);
+    setProfilePic(newFileList[0].originFileObj);
+
+    let reader = new FileReader();
+    let file = newFileList[0].originFileObj;
+    reader.onloadend = () => {
+      setShowPreImage(true);
+      setPhoto(reader.result);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const onPreview = async (file: UploadFile) => {
+    let src = file.url as string;
+    if (!src) {
+      src = await new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file.originFileObj as RcFile);
+        reader.onload = () => resolve(reader.result as string);
+      });
+    }
+    const image = new Image();
+    image.src = src;
+    const imgWindow = window.open(src);
+    imgWindow?.document.write(image.outerHTML);
+  };
+
   return (
     <div>
       <UserHeader />
       <div className="userProfile">
         <ToastContainer />
         {isShow ? (
-          <Spin size="large" />
+          <Loader/>
         ) : (
           <>
             <div className="backBtnCls">
@@ -174,23 +225,28 @@ const UserProfile = () => {
               </Row>
             </div>
             <div className="userProfilImg">
-              <Avatar
-                size={250}
-                // icon={<UserOutlined />}
-                src={dataObj?.profilPic}
-                style={{ cursor: "pointer" }}
-              />
-              <input
-                type="file"
-                multiple
-                // accept=".pdf,.jpeg,.png,.csv,.doc,.docx,.txt,.xlsx,.xls"
-                className="imageTagClass"
-                onChange={(e) => setImgFn(e)}
-              />
+              {showPreImage ? (
+                <Avatar size={250} src={photo} />
+              ) : (
+                <Avatar size={250} src={dataObj?.profilPic} />
+              )}
+
+              <ImgCrop rotate>
+                <Upload
+                  className="imageTagClass"
+                  action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                  listType="picture-card"
+                  onChange={onChange}
+                >
+                  {fileList.length < 5 && "+ Upload"}
+                </Upload>
+              </ImgCrop>
+
               <div
                 style={{ color: "gray", marginLeft: "40px", marginTop: "15px" }}
               >
-                upload a profile picture
+                {" "}
+                upload a profile picture{" "}
               </div>
             </div>
 
@@ -209,6 +265,13 @@ const UserProfile = () => {
                         <Form.Item
                           label="First Name"
                           className="userFormLableCls"
+                          // name="First Name"
+                          rules={[
+                            {
+                              required: true,
+                              message: "Please input your First Name!",
+                            },
+                          ]}
                         >
                           <Input
                             placeholder="input placeholder"
@@ -222,13 +285,22 @@ const UserProfile = () => {
                           />
                           {fnameErr ? (
                             <span style={{ color: "red" }}>
-                              Please fill first name
+                              Please fill first name.
                             </span>
                           ) : (
                             ""
                           )}
                         </Form.Item>
-                        <Form.Item label="Mobile" className="userFormLableCls">
+                        <Form.Item
+                          label="Mobile"
+                          className="userFormLableCls"
+                          rules={[
+                            {
+                              required: true,
+                              message: "Please input your Mobile number",
+                            },
+                          ]}
+                        >
                           <Input
                             placeholder="input placeholder"
                             defaultValue={dataObj?.phone}
@@ -247,21 +319,30 @@ const UserProfile = () => {
                           />
                           {isError ? (
                             <span style={{ color: "red" }}>
-                              Phone number must be 10 digits
+                              Phone number must be 10 digits.
                             </span>
                           ) : (
                             ""
                           )}
                           {phoneErr ? (
                             <span style={{ color: "red" }}>
-                              Please fill Phone number
+                              Please fill Phone number.
                             </span>
                           ) : (
                             ""
                           )}
                         </Form.Item>
 
-                        <Form.Item label="Gender" className="userFormLableCls">
+                        <Form.Item
+                          label="Gender"
+                          className="userFormLableCls"
+                          rules={[
+                            {
+                              required: true,
+                              message: "Please input your Gender",
+                            },
+                          ]}
+                        >
                           <Input
                             placeholder="input placeholder"
                             defaultValue={dataObj?.gender}
@@ -274,7 +355,7 @@ const UserProfile = () => {
                           />
                           {genderErr ? (
                             <span style={{ color: "red" }}>
-                              Please fill gender value
+                              Please fill gender value.
                             </span>
                           ) : (
                             ""
@@ -293,6 +374,12 @@ const UserProfile = () => {
                         <Form.Item
                           label="Last Name"
                           className="userFormLableCls"
+                          rules={[
+                            {
+                              required: true,
+                              message: "Please input your last name",
+                            },
+                          ]}
                         >
                           <Input
                             placeholder="input placeholder"
@@ -306,13 +393,22 @@ const UserProfile = () => {
                           />
                           {lnameErr ? (
                             <span style={{ color: "red" }}>
-                              Please fill last name
+                              Please fill last name.
                             </span>
                           ) : (
                             ""
                           )}
                         </Form.Item>
-                        <Form.Item label="Email" className="userFormLableCls">
+                        <Form.Item
+                          label="Email"
+                          className="userFormLableCls"
+                          rules={[
+                            {
+                              required: true,
+                              message: "Please input your email",
+                            },
+                          ]}
+                        >
                           <Input
                             placeholder="input placeholder"
                             defaultValue={dataObj?.email}
@@ -325,7 +421,7 @@ const UserProfile = () => {
                           />
                           {emailErr ? (
                             <span style={{ color: "red" }}>
-                              Please fill email
+                              Please fill email.
                             </span>
                           ) : (
                             ""
@@ -340,8 +436,10 @@ const UserProfile = () => {
               <Row style={{ marginTop: "25px", marginBottom: "25px" }}>
                 <Col xs={2} sm={4} md={6} lg={8} xl={10}></Col>
                 <Col xs={20} sm={16} md={12} lg={8} xl={4}>
+          
                   <Button
                     type="primary"
+                    loading={loadings}
                     style={{ backgroundColor: "gray", width: "60%" }}
                     onClick={() => {
                       updatepRofileFn();
