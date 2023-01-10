@@ -3,7 +3,7 @@ import Sidebar from '../../sidebar';
 import { Layout, Menu, theme } from 'antd';
 import { UserOutlined, UploadOutlined, VideoCameraOutlined } from '@ant-design/icons';
 import Link from 'next/link';
-import AdminHeader from "../adminheader";
+
 const { Header, Sider, Content } = Layout;
 export interface IAppProps {
 }

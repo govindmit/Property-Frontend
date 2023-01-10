@@ -13,7 +13,8 @@ import {
   theme,
 } from "antd";
 import { Button, Form, Input, Select, Upload } from "antd";
-import ImgCrop from "antd-img-crop";
+// import ImgCrop from "antd-img-crop";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import { Avatar, Col, Radio, Row, Tabs } from "antd";
 import type { FormInstance } from "antd/es/form";
@@ -33,7 +34,7 @@ import { Spin } from "antd";
 import type { RcFile, UploadFile, UploadProps } from "antd/es/upload/interface";
 
 const MyFormItemContext = React.createContext<(string | number)[]>([]);
-
+const ImgCrop=dynamic(import('antd-img-crop'), { ssr: false } )
 interface MyFormItemGroupProps {
   prefix: string | number | (string | number)[];
   children: React.ReactNode;
