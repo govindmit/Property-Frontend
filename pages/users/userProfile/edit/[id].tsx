@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
 import { Col, Row, Button, Avatar, Form, Input, Spin } from "antd";
 import { ArrowLeftOutlined, UserOutlined } from "@ant-design/icons";
 import { ToastContainer, toast } from "react-toastify";
@@ -8,10 +9,10 @@ import { useRouter } from "next/router";
 import userService from "../../../../services/userService";
 import UserHeader from "../../userHeader";
 import { Upload } from "antd";
-import ImgCrop from "antd-img-crop";
+// import ImgCrop from "antd-img-crop";
 import type { RcFile, UploadFile, UploadProps } from "antd/es/upload/interface";
 import Loader from "../../../common/loader";
-
+const ImgCrop = dynamic(import('antd-img-crop'), { ssr: false })
 type LayoutType = Parameters<typeof Form>[0]["layout"];
 
 const UserProfile = () => {
@@ -97,12 +98,6 @@ const UserProfile = () => {
           wrapperCol: { span: 14, offset: 4 },
         }
       : null;
-
-  // const setImgFn = (image: any) => {
-  //   if (image != null) {
-  //     setProfilePic(image.target.files[0]);
-  //   }
-  // };
 
   const updatepRofileFn = async () => {
     setLoadings(true);
@@ -242,12 +237,7 @@ const UserProfile = () => {
                 </Upload>
               </ImgCrop>
 
-              <div
-                style={{ color: "gray", marginLeft: "40px", marginTop: "15px" }}
-              >
-                {" "}
-                upload a profile picture{" "}
-              </div>
+              <div style={{ color: "gray", marginLeft: "40px", marginTop: "15px" }}> {" "} upload a profile picture{" "} </div>
             </div>
 
             <div className="userProFormCls">
