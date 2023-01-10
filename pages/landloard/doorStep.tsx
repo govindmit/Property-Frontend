@@ -24,8 +24,8 @@ const TopMainComp = () => {
         }}
       >
         Digitize your space with content created by Propter  
-        <br/> and get it accross to the right buyers and renters.pay us
-        <br/>only when we get you a successful deal.
+        <br/> and get it accross to the right buyers and renters pay us
+        <br/>only when we get you a successful deal
            
       </Typography>
       <Button type="primary" className="mainContentBtn">List Your Property</Button>

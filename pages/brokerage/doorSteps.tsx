@@ -23,10 +23,9 @@ const BrokerTopContent = () => {
         fontSize: "1rem",
       }}
     >
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-      <br/> Aliquam ut ullamcorper lorem. Etiam massa urna,
-      <br/> condimentum at nunc ut, vehicula
-      vulputate mi. 
+     We offer you an immersive marketing platform complete with tools, analytics,
+      <br/> transaction management etc,to pu your properties across quality audience and 
+      <br/> generate high quality leads- The best part is you dont need to pay us any fee for listing
       
     </Typography>
     <Button type="primary" className="brokermainContentBtn">Become A partner</Button>

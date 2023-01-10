@@ -10,7 +10,7 @@ const TopContent = () => {
   const [buyText, setBuyText] = useState(true);
 
   const onChange = (key: any) => {
-    console.log(key);
+    // console.log(key);
     if (key === "2") {
       setBuyText(false);
     } else {

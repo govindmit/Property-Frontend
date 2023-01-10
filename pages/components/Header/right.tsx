@@ -15,7 +15,7 @@ const RightMenu = () => {
     const decode: any = jwt.decode(token);
     setName(decode?.data?.firstName)
    
-  });
+  },[]);
  
   const confirm = () => {
     localStorage.removeItem("token");
@@ -35,7 +35,6 @@ const RightMenu = () => {
   };
 
   const handleLogout = () => {
-    console.log("jfdkfgkdhj");
     localStorage.removeItem("token");
     Router.push("/login");
   };
@@ -45,7 +44,7 @@ const RightMenu = () => {
   }
 
   return (
-    <div style={{ marginTop: "10px" }}>
+    <div style={{ marginTop: "0px" }}>
       <Menu mode="horizontal">
         {/* <Menu.Item key="mail">
           <a href="">Signin</a>
