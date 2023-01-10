@@ -1,6 +1,6 @@
 import React from "react";
 import { Col, Card, Row, Space, Button, Typography } from "antd";
-
+import {QuestionCircleOutlined} from '@ant-design/icons'
 const style: React.CSSProperties = { background: "#0092ff", padding: "8px 0" };
 const RealState = () => {
   return (
@@ -63,7 +63,7 @@ const RealState = () => {
                 <Button className="firstCardBtn">25 jul 2023</Button>
               </div>
               <h3>Have an ear to the groundon what real estate invest</h3>
-              <span className="spanCls">Read more</span>
+              <span className="spanCls">Read more <QuestionCircleOutlined style={{marginLeft:'10px'}}/></span>
             </Card>
           </Col>
         </Space>
@@ -75,7 +75,7 @@ const RealState = () => {
                 <Button className="firstCardBtn">25 jul 2022</Button>
               </div>
               <h3>apprisial skills and realestate career?Mckissock</h3>
-              <span className="spanCls">Read more</span>
+              <span className="spanCls">Read more <QuestionCircleOutlined style={{marginLeft:'10px'}}/></span>
             </Card>
           </Col>
         </Space>

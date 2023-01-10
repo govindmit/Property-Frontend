@@ -2,7 +2,7 @@ import React from 'react'
 import RealState from '../welcome/realState'
 import VideoContent from '../welcome/VideoContent'
 import TopMainComp from './doorStep'
-import HomeWorkComp from './homeWork'
+import HomeWorkComp from './howWorks'
 import PrimiumTool from './premiumTool'
 
 const LandloardComp = () => {

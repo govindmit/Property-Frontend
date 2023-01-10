@@ -23,11 +23,10 @@ const TopMainComp = () => {
           fontSize: "1rem",
         }}
       >
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        <br/> Aliquam ut ullamcorper lorem. Etiam massa urna,
-        <br/> condimentum at nunc ut, vehicula
-        vulputate mi. 
-        
+        Digitize your space with content created by Propter  
+        <br/> and get it accross to the right buyers and renters.pay us
+        <br/>only when we get you a successful deal.
+           
       </Typography>
       <Button type="primary" className="mainContentBtn">List Your Property</Button>
     </div>

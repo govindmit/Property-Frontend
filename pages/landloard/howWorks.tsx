@@ -53,14 +53,14 @@ const HomeWorkComp = () => {
           marginTop:'2%'
         }}
       >
-       We aree there with you in every step of the transaction
+       We are there with you in every step of the transaction
       </Typography>
 
 
       <Row justify="space-around" className="landloardTopContentRow">
         {array?.map((e,i)=>{
           return(
-            // <Col span={4}>
+            
             <div key={i} style={{marginTop:'10px'}}>
            
             <Card
@@ -75,7 +75,6 @@ const HomeWorkComp = () => {
                 />
               }
             >
-            {/* <Meta className="landloardTopContentMeta" title={e.title} description={e.description} /> */}
             <div>
             <Title className="landloardTopContentTitle" level={5}>
             {e.title}
@@ -86,7 +85,7 @@ const HomeWorkComp = () => {
            </div>
             </Card>
             </div>
-          //  </Col>
+         
           )
         })}
        
