@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Layout, Menu, theme } from "antd";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import logo from "../../public/assets/aa.png";
 import Image from "next/image";
@@ -32,7 +31,7 @@ const Sidebar: React.FC = () => {
       }}
     >
       <div className="logo cssbide" />
-      <div className="" style={{ position: "relative", top: "-14%" }}>
+      <div className="" style={{ position: "absolute", top: "-17%" ,width:"100%"}}>
         <div className="logo adminsideslider">
           <Image
             src={logo.src}
@@ -40,7 +39,6 @@ const Sidebar: React.FC = () => {
             style={{ cursor: "pointer" }}
             width={30}
             height={30}
-            //   onClick={handleClick}
           />
 
           <p className="csslink">Propter</p>
