@@ -323,3 +323,10 @@ button:focus {
   box-shadow: none !important;
   outline: none !important;
 }
+.btnview{
+  width: 73px !important;
+  height: 35px !important;
+}
+:where(.css-dev-only-do-not-override-k83k30).ant-btn-default {
+  box-shadow: none !important;
+}

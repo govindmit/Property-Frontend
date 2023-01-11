@@ -251,7 +251,7 @@ export default function AddUser(props: IAppProps) {
               </Col>
               <span className="landlordeditSectionland">
                 <Link href={`/admin/landlord/edit/${query?.index}`}>
-                  <Button type="primary">Edit</Button>
+                  <Button type="default" className="btnview">Edit</Button>
                 </Link>
                 &emsp;&emsp;
                 <Button danger onClick={handleDelete}>
