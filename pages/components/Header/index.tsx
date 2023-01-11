@@ -10,7 +10,6 @@ import jwt from "jsonwebtoken";
 
 const { Search } = Input;
 const Header: React.FC = () => {
-  const [current, setCurrent] = useState("mail");
   const [visible, setVisible] = useState(false);
   const [role, setRole] = useState();
 
@@ -88,6 +87,7 @@ const Header: React.FC = () => {
           </Drawer>
         </div>
       </nav>
+      
     </div>
   );
 };

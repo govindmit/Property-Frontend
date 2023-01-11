@@ -1,57 +1,55 @@
-.landloardMainContent{
-    background-image: url('/assets/bg.jpg');
+.landloardMainContent {
+  background-image: url("/assets/bg.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   width: 100vw;
-  height: 70vh;
-  padding-top: 13%;
-  }
-
-
-  .landLoardHomeWorks .landloardTopContentRow{
-   margin-top: 4%;
-  }
-  .landloardMainContent .mainContentBtn{
-    transform: translate(-50%, 0%);
-      margin-left: 50%;
-      margin-top: 5%;
-      width: 20%;
-      height: 8%;
-      border-radius: 0;
-      margin-bottom: 30px;
-      font-weight: bold;
-  }
-  
-.landloardTopContentTitle{
-   text-align: center;
-   height: 7vh;
-}
-.landloardTopContentDescription{
-   font-size: 10px;
-    text-align: center;
-    color: gray;
-    padding-top: 5px;
-}
-.premiumCls .premiumRowCls .premiumCardCls .propertyImgCls{
-   transform: translate(50%,0%);
+  padding: 11% 0% !important; 
 }
 
- /* .premiumCls .premiumRowCls .premiumCardCls .premiumImgCls{
+.landLoardHomeWorks .landloardTopContentRow {
+  margin-top: 4%;
+}
+.landloardMainContent .mainContentBtn {
+  transform: translate(-50%, 0%);
+  margin-left: 50%;
+  margin-top: 5%;
+  width: 20%;
+  height: 8%;
+  border-radius: 0;
+  margin-bottom: 30px;
+  font-weight: bold;
+}
+
+.landloardTopContentTitle {
+  text-align: center;
+  height: 7vh;
+}
+.landloardTopContentDescription {
+  font-size: 10px;
+  text-align: center;
+  color: gray;
+  padding-top: 5px;
+}
+.premiumCls .premiumRowCls .premiumCardCls .propertyImgCls {
+  transform: translate(50%, 0%);
+}
+
+/* .premiumCls .premiumRowCls .premiumCardCls .premiumImgCls{
     width: 25%;
     transform: translate(50%, 50%);
     margin-left: 50px;
  } */
 
- .premiumCardTitle{
-   margin-top: 15%;
-   text-align: center;
+.premiumCardTitle {
+  margin-top: 15%;
+  text-align: center;
 }
-.premiumCardDescription{
-   text-align: center;
-   color: gray;
+.premiumCardDescription {
+  text-align: center;
+  color: gray;
 }
 
- /* .premiumCls .premiumRowCls .premiumCardCls .premiumMetaCls .ant-card-meta-title{
+/* .premiumCls .premiumRowCls .premiumCardCls .premiumMetaCls .ant-card-meta-title{
     margin-bottom: 8px;
     margin-top: 20%;
     font-weight: 800;

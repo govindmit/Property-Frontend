@@ -3,16 +3,17 @@
     background-repeat: no-repeat;
     background-size: cover;
     width: 100vw;
-    height: 70vh;
-    padding-top: 13%;
+    /* height: 70vh; */
+    /* padding-top: 13%; */
+    padding: 11% 0%;
 }
 
 .brokerMainContent .brokermainContentBtn{
     transform: translate(-50%, 0%);
       margin-left: 50%;
       margin-top: 5%;
-      width: 20%;
-      height: 8%;
+      width: 18%;
+      /* height: 8%; */
       border-radius: 0;
       margin-bottom: 30px;
       font-weight: bold;
