@@ -13,6 +13,7 @@ import userService from "../../../services/userService";
 import Router from "next/router";
 import jwt from "jsonwebtoken";
 import UserHeader from "../userHeader";
+import Loader from "../../common/loader";
 type LayoutType = Parameters<typeof Form>[0]["layout"];
 const { Title } = Typography;
 
@@ -45,7 +46,6 @@ const MyProfile = () => {
     setIsShow(true);
     // const id: number = 1;
     const id: number = decode.data.id;
-    console.log(";;;;;;;;;;;;;;;;;;",id)
     await userService.getUserProfile(id, a).then((data) => {
       if (data.data != null) {
         setDataObj(data?.data);
@@ -99,7 +99,8 @@ const MyProfile = () => {
       <div className="userProfile">
         <ToastContainer />
         {isShow ? (
-          <Spin size="large" />
+          // <Spin size="large" />
+          <Loader/>
         ) : (
           <>
             <div className="backBtnCls">

@@ -47,7 +47,9 @@ export default function UserListing() {
   const [ActiveData, setActiveNewData] = useState<UserDataTypes | any>("");
   const [inActiveData, setINactiveData] = useState<UserDataTypes | any>("");
   const [Activedata, setActiveData] = useState<UserDataTypes | any>("");
-  const [tabClassName, setTabClassName] = useState<UserDataTypes | any>("active");
+  const [tabClassName, setTabClassName] = useState<UserDataTypes | any>(
+    "active"
+  );
   const [tab1ClassName, setTab1ClassName] = useState<UserDataTypes | any>("");
   const [tab2ClassName, setTab2ClassName] = useState<UserDataTypes | any>("");
   const [user, setUser] = useState<UserDataTypes | any>("");
@@ -90,18 +92,22 @@ export default function UserListing() {
     <div>
       <Link href={`/admin/user/view/${userData.id}`}>
         <Button style={{ textAlign: "center" }} type="link">
-        <EyeOutlined style={{ color: "#0014ff" }} /> 
-        <span style={{    marginLeft: "14px",color:"#0014ff"}}> View</span>
+          <EyeOutlined style={{ color: "#0014ff" }} />
+          <span style={{ marginLeft: "14px", color: "#0014ff" }}> View</span>
         </Button>
       </Link>
-      <p style={{ textAlign: "center", cursor: "pointer" ,marginBottom:"5px"}}>
+      <p
+        style={{ textAlign: "center", cursor: "pointer", marginBottom: "5px" }}
+      >
         <Link href={`/admin/user/edit/${userData.id}`}>
           <EditFilled style={{ color: "#4096ff" }} /> &emsp;Edit
         </Link>
-      </p>
-      {" "}
-      <p style={{ textAlign: "center", cursor: "pointer",color:"red" }}>
-      <Button type="link" onClick={handleDelete} style={{color:"red"}}><DeleteOutlined style={{ color: "red" }} />&ensp; Del</Button>
+      </p>{" "}
+      <p style={{ textAlign: "center", cursor: "pointer", color: "red" }}>
+        <Button type="link" onClick={handleDelete} style={{ color: "red" }}>
+          <DeleteOutlined style={{ color: "red" }} />
+          &ensp; Del
+        </Button>
       </p>
     </div>
   );
@@ -119,19 +125,19 @@ export default function UserListing() {
     {
       key: "email",
       title: "Email",
-      dataIndex: "email",  
+      dataIndex: "email",
     },
     {
       key: "profilPic",
       title: "Image",
-      dataIndex:"profilPic",
-      render: (t:any) => <Image alt="image" src={t} width={50} height={50}/>
+      dataIndex: "profilPic",
+      render: (t: any) => <Image alt="image" src={t} width={50} height={50} />,
     },
     {
       key: "phone",
       title: "Phone",
       dataIndex: "phone",
-    }, 
+    },
     {
       key: "gender",
       title: "Gender",
@@ -294,7 +300,7 @@ export default function UserListing() {
   return (
     <Layout>
       <Sidebar />
-       {/* <AdminHeader /> */}
+      {/* <AdminHeader /> */}
       <Content className="contentcss">
         <div className="backflex">
           <div className="btndivsearch">
@@ -354,7 +360,7 @@ export default function UserListing() {
                 pageSize: 10,
                 total: searchActiveData?.length,
                 showSizeChanger: true,
-              }}  
+              }}
             />
           ) : allData === "3" && inActiveData !== null ? (
             <Table

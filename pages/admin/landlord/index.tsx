@@ -33,7 +33,6 @@ export interface UserDataTypes {
 }
 import Image from "next/image";
 
-
 export default function UserListing() {
   const { Header, Sider, Content } = Layout;
   const { confirm } = Modal;
@@ -48,7 +47,9 @@ export default function UserListing() {
   const [ActiveData, setActiveNewData] = useState<UserDataTypes | any>("");
   const [inActiveData, setINactiveData] = useState<UserDataTypes | any>("");
   const [Activedata, setActiveData] = useState<UserDataTypes | any>("");
-  const [tabClassName, setTabClassName] = useState<UserDataTypes | any>("active");
+  const [tabClassName, setTabClassName] = useState<UserDataTypes | any>(
+    "active"
+  );
   const [tab1ClassName, setTab1ClassName] = useState<UserDataTypes | any>("");
   const [tab2ClassName, setTab2ClassName] = useState<UserDataTypes | any>("");
   const [user, setUser] = useState<UserDataTypes | any>("");
@@ -91,18 +92,22 @@ export default function UserListing() {
     <div>
       <Link href={`/admin/landlord/view/${userData.id}`}>
         <Button style={{ textAlign: "center" }} type="link">
-        <EyeOutlined style={{ color: "#0014ff" }} /> 
-        <span style={{    marginLeft: "14px",color:"#0014ff"}}> View</span>
+          <EyeOutlined style={{ color: "#0014ff" }} />
+          <span style={{ marginLeft: "14px", color: "#0014ff" }}> View</span>
         </Button>
       </Link>
-      <p style={{ textAlign: "center", cursor: "pointer" ,marginBottom:"5px"}}>
+      <p
+        style={{ textAlign: "center", cursor: "pointer", marginBottom: "5px" }}
+      >
         <Link href={`/admin/landlord/edit/${userData.id}`}>
           <EditFilled style={{ color: "#4096ff" }} /> &emsp;Edit
         </Link>
-      </p>
-      {" "}
-      <p style={{ textAlign: "center", cursor: "pointer",color:"red" }}>
-        <Button type="link" onClick={handleDelete} style={{color:"red"}}><DeleteOutlined style={{ color: "red" }} />&ensp; Del</Button>
+      </p>{" "}
+      <p style={{ textAlign: "center", cursor: "pointer", color: "red" }}>
+        <Button type="link" onClick={handleDelete} style={{ color: "red" }}>
+          <DeleteOutlined style={{ color: "red" }} />
+          &ensp; Del
+        </Button>
       </p>
     </div>
   );
@@ -120,13 +125,13 @@ export default function UserListing() {
     {
       key: "email",
       title: "Email",
-      dataIndex: "email",  
+      dataIndex: "email",
     },
     {
       key: "profilPic",
       title: "Image",
-      dataIndex:"profilPic",
-      render: (t:any) => <Image alt="image" src={t} width={50} height={50}/>
+      dataIndex: "profilPic",
+      render: (t: any) => <Image alt="image" src={t} width={50} height={50} />,
     },
     {
       key: "noOfProperty",
@@ -137,7 +142,7 @@ export default function UserListing() {
       key: "phone",
       title: "Phone",
       dataIndex: "phone",
-    }, 
+    },
     {
       key: "gender",
       title: "Gender",
@@ -164,8 +169,8 @@ export default function UserListing() {
     },
   ];
   const handleClick = (data: any) => {
-    setUserData(data)
-  }
+    setUserData(data);
+  };
   const getUserData = async () => {
     const webtoken = localStorage.getItem("webToken");
     let web = webtoken?.substring(1, webtoken?.length - 1);
@@ -200,7 +205,7 @@ export default function UserListing() {
 
   useEffect(() => {
     getUserData();
-  },[])
+  }, []);
 
   const handleAlldata = (val: String) => {
     if (val === "all") {
@@ -305,7 +310,7 @@ export default function UserListing() {
       <Content className="contentcss">
         <div className="backflex">
           <div className="btndivsearch">
-          <Button
+            <Button
               onClick={() => handleAlldata("all")}
               type="link"
               className={tabClassName ? "active" : ""}
@@ -325,7 +330,8 @@ export default function UserListing() {
               className={tab2ClassName ? "active" : ""}
             >
               Inactive({NewData && NewData?.length})
-            </Button></div>
+            </Button>
+          </div>
           <div className="positioncss">
             <Input
               onChange={handleChange}
@@ -335,11 +341,13 @@ export default function UserListing() {
             />
           </div>
           <div style={{ marginLeft: "50%" }}>
-            <Link href="/admin/landlord/add"><Button>Add Landlord</Button></Link>
+            <Link href="/admin/landlord/add">
+              <Button>Add Landlord</Button>
+            </Link>
           </div>
         </div>
         <div className="mainuserdiv">
-        {allData === "1" && userData1 !== null ? (
+          {allData === "1" && userData1 !== null ? (
             //all data on active
             <Table
               dataSource={searchAllData}
@@ -358,7 +366,7 @@ export default function UserListing() {
                 pageSize: 10,
                 total: searchActiveData?.length,
                 showSizeChanger: true,
-              }}  
+              }}
             />
           ) : allData === "3" && inActiveData !== null ? (
             <Table
@@ -381,7 +389,7 @@ export default function UserListing() {
                 showSizeChanger: true,
               }}
             />
-          )}  
+          )}
         </div>
       </Content>
     </Layout>

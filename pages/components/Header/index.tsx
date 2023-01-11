@@ -1,15 +1,24 @@
-import React, { Component, useState } from "react";
-import { Drawer, Button, Space } from "antd";
+import React, { Component, useEffect, useState } from "react";
+import { Drawer, Button, Space, Input } from "antd";
 import LeftMenu from "./left";
 import RightMenu from "./right";
 import logo from "../../../public/assets/aa.png";
 import { Image } from "antd";
 import Router from "next/router";
 import Link from "next/link";
+import jwt from "jsonwebtoken";
 
+const { Search } = Input;
 const Header: React.FC = () => {
   const [current, setCurrent] = useState("mail");
   const [visible, setVisible] = useState(false);
+  const [role, setRole] = useState();
+
+  useEffect(() => {
+    const token: any = localStorage.getItem("token");
+    const decode: any = jwt.decode(token);
+    setRole(decode?.data?.role?.title);
+  }, []);
 
   interface valueInterface {
     visible: Boolean;
@@ -25,52 +34,64 @@ const Header: React.FC = () => {
   const handleClick = () => {
     Router.push("/");
   };
-  const roleIdentifier=((typeof window !== 'undefined' && window?.localStorage?.getItem("role") === '1') ?'menuBar adminlogin':'menuBar')
-  const role=typeof window !== 'undefined' && window?.localStorage?.getItem("role");
-
+  const roleIdentifier =
+    typeof window !== "undefined" &&
+    window?.localStorage?.getItem("role") === "1"
+      ? "menuBar adminlogin"
+      : "menuBar";
+  const roleType =
+    typeof window !== "undefined" && window?.localStorage?.getItem("role");
+    const adminrighticon =
+    typeof window !== "undefined" &&
+    window?.localStorage?.getItem("role") === "1"
+      ? "menuCon menuConAdmin"
+      : "menuCon";
   return (
     <div>
       <nav className={roleIdentifier}>
-{
-  role&& role==="1"?
- ""
-  :
-        <div className="logo">
+        <div className="logo" style={{ display: "flex" }}>
+           {roleType && roleType === "1" ? (
+          ""
+        ) : (
+          <>
           <Image
-          src={logo.src}
-          preview={false}
-          alt="imageee"
-          style={{ cursor: "pointer" }}
-          onClick={handleClick}
+            className="logoCls"
+            src={logo.src}
+            preview={false}
+            alt="imageee"
+            style={{ cursor: "pointer" }}
+            onClick={handleClick}
           />
-   
           <Link href="/">Propter</Link>
+          </>
+        )}
+          {role === "User" ? (
+            <Search
+              className="searchCls"
+              placeholder="Bussiness Bay"
+              allowClear
+            />
+          ) : (
+            ""
+          )}
         </div>
-        }
-        <div className="menuCon">
-          <div className="leftMenu">
-            <LeftMenu />
-          </div>
+
+        <div className={adminrighticon}>
+          {role === "Admin" ? (
+            ""
+          ) : (
+            <div className="leftMenu">
+              <LeftMenu />
+            </div>
+          )}
           <div className="rightMenu">
             <RightMenu />
           </div>
           <Button className="barsMenu" type="default" onClick={showDrawer}>
             <span className="barsBtn"></span>
           </Button>
-          {/* <Drawer
-            title="Basic Drawer"
-            placement="right"
-            closable={false}
-            onClose={onClose}
-            open={visible}
-          >
-            <LeftMenu />
-            <RightMenu />
-          </Drawer> */}
-
           <Drawer
             title="Drawer with extra actions"
-           
             width={500}
             onClose={onClose}
             open={visible}

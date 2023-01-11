@@ -1,10 +1,11 @@
 import React from 'react'
-import HomeWorkComp from '../landloard/homeWork'
+import HomeWorkComp from '../landloard/howWorks'
 import PrimiumTool from '../landloard/premiumTool'
 import RealState from '../welcome/realState'
 import VideoContent from '../welcome/VideoContent'
+import BorkerHowworks from './borkerHowworks'
 import BrokerTopContent from './doorSteps'
-import PremiumManagmentTool from './premiumManagmentTool'
+import PrimiumManagmentTool from './premiumManagmentTool'
 
 const BrokerageComp = () => {
   return (
@@ -13,14 +14,14 @@ const BrokerageComp = () => {
         <BrokerTopContent/>
       </div>
       <div>
-        <HomeWorkComp/>
+        <BorkerHowworks/>
       </div>
       <div>
         <VideoContent/>
     </div>
     <div>
-      {/* <PremiumManagmentTool/> */}
-      <PrimiumTool/>
+      <PrimiumManagmentTool/>
+      {/* <PrimiumTool/> */}
     </div>
     <div>
         <RealState/>

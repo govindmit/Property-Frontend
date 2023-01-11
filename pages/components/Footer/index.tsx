@@ -29,7 +29,7 @@ const FooterComp = () => {
       <Layout className="footerLayout">
         <Header style={{ height: "auto" }} >
           <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className='footMainRow'>
-            <Col className="gutter-row" span={6}>
+            <Col className="gutter-row" span={5}>
               <List header={<h4>About Us.</h4>} style={{ color: "white" }}>
                 <Typography style={{ color: "white",marginTop:'10px',fontSize:'12px',width:'70%' }}>
                   With the online text generator you can process your personal
@@ -51,7 +51,7 @@ const FooterComp = () => {
               </List>
             </Col>
 
-            <Col className="gutter-row" span={6}>
+            <Col className="gutter-row" span={4}>
               <List header={<h4>Company</h4>} style={{ color: "white" }}>
                 <List.Item style={{ color: "white", marginLeft:'-20px',fontSize:'12px'}} className='footerListItem'>About us</List.Item>
                 <List.Item style={{ color: "white", marginLeft:'-20px',fontSize:'12px'}} className='footerListItem'>Leadership</List.Item>
@@ -64,7 +64,18 @@ const FooterComp = () => {
               </List>
             </Col>
 
-            <Col className="gutter-row" span={6}>
+            <Col className="gutter-row" span={4}>
+              <List header={<h4>Solutions</h4>} style={{ color: "white" }}>
+                <List.Item style={{ color: "white", marginLeft:'-20px',fontSize:'12px'}} className='footerListItem'>For LandLoard us</List.Item>
+                <List.Item style={{ color: "white", marginLeft:'-20px',fontSize:'12px'}} className='footerListItem'>For Brokerage</List.Item>
+                <List.Item style={{ color: "white", marginLeft:'-20px',fontSize:'12px'}} className='footerListItem'>Blog</List.Item>
+                <List.Item style={{ color: "white", marginLeft:'-20px',fontSize:'12px'}} className='footerListItem'>Propter Partner</List.Item>
+                <List.Item style={{ color: "white", marginLeft:'-20px',fontSize:'12px'}} className='footerListItem'>Contacts</List.Item>
+              </List>
+            </Col>
+
+
+            <Col className="gutter-row" span={5}>
               <List header={<h4>Help?</h4>} style={{ color: "white" }}>
                 <List.Item style={{ color: "white", marginLeft:'-20px',fontSize:'12px'}} className='footerListItem'>FAQ</List.Item>
                 <List.Item style={{ color: "white", marginLeft:'-20px',fontSize:'12px'}} className='footerListItem'>Tearm And Condition </List.Item>
@@ -74,7 +85,7 @@ const FooterComp = () => {
                 <List.Item style={{ color: "white", marginLeft:'-20px',fontSize:'12px'}} className='footerListItem'>Privacy</List.Item>
               </List>
             </Col>
-            <Col className="gutter-row" span={6}>
+            <Col className="gutter-row" span={5}>
               <List
                 header={
                   <>
@@ -109,8 +120,9 @@ const FooterComp = () => {
           </Row>
         </Header>
 
-        <Footer style={{ textAlign: 'left',backgroundColor:'#484242',color:'white' }}>
-          <Typography style={{ textAlign: 'center',color:'white' }}>©Propter2022 All rights reserved</Typography>
+        <Footer style={{ textAlign: 'left',backgroundColor:'#484242',color:'white' }} className='footerCls'>
+          <Typography style={{ textAlign: 'center',color:'white' }}>©Propter 2022 All rights reserved</Typography>
+          <Typography style={{ textAlign: 'center',color:'white' }}>Terms of Use | Private Policy</Typography>
           
         </Footer>
       </Layout>

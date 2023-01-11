@@ -34,7 +34,7 @@ import { Spin } from "antd";
 import type { RcFile, UploadFile, UploadProps } from "antd/es/upload/interface";
 
 const MyFormItemContext = React.createContext<(string | number)[]>([]);
-const ImgCrop=dynamic(import('antd-img-crop'), { ssr: false } )
+const ImgCrop = dynamic(import("antd-img-crop"), { ssr: false });
 
 interface MyFormItemGroupProps {
   prefix: string | number | (string | number)[];
@@ -254,7 +254,7 @@ export default function AddUser(props: IAppProps) {
   const inputStyle: React.CSSProperties = {
     padding: "5px 12px",
     borderRadius: "inherit",
-     background: "#d1d1d1"
+    background: "#d1d1d1",
   };
 
   return (
@@ -289,16 +289,22 @@ export default function AddUser(props: IAppProps) {
                           onChange={onChange}
                           onPreview={onPreview}
                         >
-                          {fileList.length < 1 && (
-                           user && user.profilPic !=""?
-                           <Image style={{borderRadius:"65px"}} src={user?.profilPic} alt="image" width={100} height={100}/>
-                           : 
-                            <Avatar
-                              size={64}
-                              icon={<UserOutlined />}
-                              className="avatarcss"
-                            />
-                          )}
+                          {fileList.length < 1 &&
+                            (user && user.profilPic != "" ? (
+                              <Image
+                                style={{ borderRadius: "65px" }}
+                                src={user?.profilPic}
+                                alt="image"
+                                width={100}
+                                height={100}
+                              />
+                            ) : (
+                              <Avatar
+                                size={64}
+                                icon={<UserOutlined />}
+                                className="avatarcss"
+                              />
+                            ))}
                         </Upload>
                       </ImgCrop>
                       <Modal
@@ -333,7 +339,7 @@ export default function AddUser(props: IAppProps) {
                           style={style}
                           rules={[
                             {
-                             min:2,
+                              min: 2,
                               message: "Please enter at least 2 characters",
                             },
                           ]}
@@ -353,12 +359,15 @@ export default function AddUser(props: IAppProps) {
                           label="Last Name"
                           rules={[
                             {
-                             min:2,
+                              min: 2,
                               message: "Please enter at least 2 characters",
                             },
                           ]}
                         >
-                          <Input style={inputStyle} defaultValue={user && user.lastName}  />
+                          <Input
+                            style={inputStyle}
+                            defaultValue={user && user.lastName}
+                          />
                         </MyFormItem>
                       </Col>
                     </Row>
@@ -376,7 +385,10 @@ export default function AddUser(props: IAppProps) {
                             },
                           ]}
                         >
-                          <Input style={inputStyle} defaultValue={user && user.email}/>
+                          <Input
+                            style={inputStyle}
+                            defaultValue={user && user.email}
+                          />
                         </MyFormItem>
                       </Col>
                       <Col className="gutter-row" span={2}></Col>
@@ -405,12 +417,7 @@ export default function AddUser(props: IAppProps) {
                     <Row gutter={{ xs: 4, sm: 8, md: 12, lg: 20 }}>
                       <Col className="gutter-row" span={1}></Col>
                       <Col className="gutter-row" span={10}>
-                        <MyFormItem
-                          name="role"
-                          label="Role"
-                          style={style}
-                          
-                        >
+                        <MyFormItem name="role" label="Role" style={style}>
                           <Select
                             placeholder="Select role"
                             onChange={onRoleChange}
@@ -428,19 +435,13 @@ export default function AddUser(props: IAppProps) {
                       </Col>
                       <Col className="gutter-row" span={2}></Col>
                       <Col className="gutter-row" span={10}>
-                        <MyFormItem
-                          name="gender"
-                          label="Gender"
-                          style={style}
-                         
-                        >
+                        <MyFormItem name="gender" label="Gender" style={style}>
                           <Select
                             placeholder="Select your gender"
                             onChange={onGenderChange}
                             allowClear
                             defaultValue={user && user.gender}
                             className="dropdownadmin"
-
                           >
                             <Option value="male">male</Option>
                             <Option value="female">female</Option>
@@ -451,19 +452,13 @@ export default function AddUser(props: IAppProps) {
                     <Row gutter={{ xs: 4, sm: 8, md: 12, lg: 20 }}>
                       <Col className="gutter-row" span={1}></Col>
                       <Col className="gutter-row" span={22}>
-                        <MyFormItem
-                          name="status"
-                          label="Status"
-                          style={style}
-                         
-                        >
+                        <MyFormItem name="status" label="Status" style={style}>
                           <Select
                             placeholder="Select a option and change status"
                             onChange={onStatusChange}
                             allowClear
                             defaultValue={user && user.status}
                             className="dropdownadmin"
-
                           >
                             <Option value="Active">Active</Option>
                             <Option value="Inactive">InActive</Option>

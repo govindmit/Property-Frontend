@@ -34,7 +34,7 @@ import { Spin } from "antd";
 import type { RcFile, UploadFile, UploadProps } from "antd/es/upload/interface";
 
 const MyFormItemContext = React.createContext<(string | number)[]>([]);
-const ImgCrop=dynamic(import('antd-img-crop'), { ssr: false } )
+const ImgCrop = dynamic(import("antd-img-crop"), { ssr: false });
 interface MyFormItemGroupProps {
   prefix: string | number | (string | number)[];
   children: React.ReactNode;
@@ -379,7 +379,6 @@ export default function AddUser(props: IAppProps) {
                           />
                         </MyFormItem>
                       </Col>
-                      
                     </Row>
                     <Row gutter={{ xs: 4, sm: 8, md: 12, lg: 20 }}>
                       <Col className="gutter-row" span={1}></Col>

@@ -75,7 +75,12 @@ export default function AddUser(props: IAppProps) {
     borderRadius: "inherit",
     background: "#d1d1d1",
   };
-  const style: React.CSSProperties = { color: "grey",fontFamily: "ui-serif",fontWeight: "600",fontSize: "15px"}
+  const style: React.CSSProperties = {
+    color: "grey",
+    fontFamily: "ui-serif",
+    fontWeight: "600",
+    fontSize: "15px",
+  };
   const landlordcs: React.CSSProperties = { fontSize: "21px" };
   const layout = {
     labelCol: { span: 8 },
@@ -169,7 +174,7 @@ export default function AddUser(props: IAppProps) {
         <h2 className="textuseruser">Landlord Detail</h2>
         <div>
           <div className="borderview">
-            <div className="imagecenter1" style={{marginTop:"10px"}}>
+            <div className="imagecenter1" style={{ marginTop: "10px" }}>
               {user && user.profilPic != "" ? (
                 <Image
                   style={{ borderRadius: "65px" }}
@@ -189,14 +194,22 @@ export default function AddUser(props: IAppProps) {
             <Row gutter={{ xs: 4, sm: 8, md: 12, lg: 20 }}>
               <Col className="gutter-row" span={6}></Col>
               <Col className="gutter-row" span={6}>
-                <MyFormItem name="firstName" label="Landlord firstName" style={style}>
+                <MyFormItem
+                  name="firstName"
+                  label="Landlord firstName"
+                  style={style}
+                >
                   <p className="datashow"> {user && user.firstName}</p>
                 </MyFormItem>
               </Col>
               <Col className="gutter-row" span={2}></Col>
 
               <Col className="gutter-row" span={6}>
-                <MyFormItem name="lastName" style={style} label="Landlord lastName">
+                <MyFormItem
+                  name="lastName"
+                  style={style}
+                  label="Landlord lastName"
+                >
                   <p className="datashow">{user && user.lastName} </p>
                 </MyFormItem>
               </Col>
@@ -237,14 +250,14 @@ export default function AddUser(props: IAppProps) {
                 </MyFormItem>
               </Col>
               <span className="landlordeditSectionland">
-              <Link href={`/admin/landlord/edit/${query?.index}`}>
-                <Button type="primary">Edit</Button>
-              </Link>
-              &emsp;&emsp;
-              <Button danger onClick={handleDelete}>
-                Delete
-              </Button>
-            </span>
+                <Link href={`/admin/landlord/edit/${query?.index}`}>
+                  <Button type="primary">Edit</Button>
+                </Link>
+                &emsp;&emsp;
+                <Button danger onClick={handleDelete}>
+                  Delete
+                </Button>
+              </span>
             </Row>
           </div>
           <br />

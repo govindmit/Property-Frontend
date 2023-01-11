@@ -75,7 +75,12 @@ export default function AddUser(props: IAppProps) {
     borderRadius: "inherit",
     background: "#d1d1d1",
   };
-  const style: React.CSSProperties = { color: "grey",fontFamily: "ui-serif",fontWeight: "600",fontSize: "15px"}
+  const style: React.CSSProperties = {
+    color: "grey",
+    fontFamily: "ui-serif",
+    fontWeight: "600",
+    fontSize: "15px",
+  };
   const landlordcs: React.CSSProperties = { fontSize: "21px" };
   const layout = {
     labelCol: { span: 8 },
@@ -169,7 +174,7 @@ export default function AddUser(props: IAppProps) {
         <h2 className="textuseruser">User Detail</h2>
         <div>
           <div className="borderview">
-            <div className="imagecenter1" style={{marginTop:"10px"}}>
+            <div className="imagecenter1" style={{ marginTop: "10px" }}>
               {user && user.profilPic != "" ? (
                 <Image
                   style={{ borderRadius: "65px" }}
@@ -237,14 +242,14 @@ export default function AddUser(props: IAppProps) {
                 </MyFormItem>
               </Col>
               <span className="landlordeditSectionview">
-              <Link href={`/admin/user/edit/${query?.index}`}>
-                <Button type="primary">Edit</Button>
-              </Link>
-              &emsp;&emsp;
-              <Button danger onClick={handleDelete}>
-                Delete
-              </Button>
-            </span>
+                <Link href={`/admin/user/edit/${query?.index}`}>
+                  <Button type="primary">Edit</Button>
+                </Link>
+                &emsp;&emsp;
+                <Button danger onClick={handleDelete}>
+                  Delete
+                </Button>
+              </span>
             </Row>
           </div>
           <br />

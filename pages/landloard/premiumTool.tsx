@@ -12,10 +12,10 @@ const { Meta } = Card;
 const style: React.CSSProperties = { background: "#0092ff", padding: "8px 0" };
 
 const rowArray = [
-  { Img:buyHome, title: "parking space" ,description:"parking spaceparking spaceparking spaceparking spaceparking space"},
-  { Img:rentHome, title: "parking space" ,description:"parking spaceparking spaceparking spaceparking spaceparking space"},
-  { Img:sellProperty, title: "parking space" ,description:"parking spaceparking spaceparking spaceparking spaceparking space"},
-  { Img:buyHome, title: "parking space" ,description:"parking spaceparking spaceparking spaceparking spaceparking space"},
+  { Img:buyHome, title: "Digital marketing" ,description:"parking spaceparking spaceparking spaceparking spaceparking space"},
+  { Img:rentHome, title: "High quality vieos" ,description:"parking spaceparking spaceparking spaceparking spaceparking space"},
+  { Img:sellProperty, title: "360 walkthrough" ,description:"parking spaceparking spaceparking spaceparking spaceparking space"},
+  { Img:buyHome, title: "Dron view" ,description:"parking spaceparking spaceparking spaceparking spaceparking space"},
   
 ];
 
@@ -75,11 +75,6 @@ const PrimiumTool = () => {
                         preview={false}
                       />
                     
-                  {/* <Meta
-                    className="premiumMetaCls"
-                    title={e.title}
-                    description={e.description}
-                    />   */}
                     <div>
                       <Title className='premiumCardTitle' level={4}>{e.title}</Title>
                     </div>

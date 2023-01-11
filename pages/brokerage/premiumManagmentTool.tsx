@@ -1,38 +1,37 @@
 import React from "react";
-import { Col, Card, Row, Space, Button ,Typography,Image  } from "antd";
+import { Col, Card, Row, Space, Button ,Typography,Image} from "antd";
 import buyHome from "/public/assets/buyHome.png";
 import rentHome from "/public/assets/rentHome.png";
 import sellProperty from "/public/assets/sellProperty.png";
 import vouchers from "/public/assets/vouchers.png";
 import { ArrowRightOutlined } from "@ant-design/icons";
-// import Image from "next/image";
 const { Title } = Typography;
-
+// import Image from "next/image";
 // import Typography from "antd/es/typography/Typography";
 const { Meta } = Card;
 const style: React.CSSProperties = { background: "#0092ff", padding: "8px 0" };
 
 const rowArray = [
-  { Img:buyHome, title: "parking space" ,description:"  Our premium managemnet tool"},
-  { Img:rentHome, title: "parking space" ,description:"  Our premium managemnet toolarking space"},
-  { Img:sellProperty, title: "parking space" ,description:"parking spaceparking spaceparking spaceparking spaceparking space"},
-  { Img:buyHome, title: "parking space" ,description:"parking spaceparking spaceparking spaceparking spaceparking space"},
+  { Img:buyHome, title: "Digital marketing" ,description:"parking spaceparking spaceparking spaceparking spaceparking space"},
+  { Img:rentHome, title: "High quality vieos" ,description:"parking spaceparking spaceparking spaceparking spaceparking space"},
+  { Img:sellProperty, title: "360 walkthrough" ,description:"parking spaceparking spaceparking spaceparking spaceparking space"},
+  { Img:buyHome, title: "Dron view" ,description:"parking spaceparking spaceparking spaceparking spaceparking space"},
   
 ];
 
-const PremiumManagmentTool = () => {
+const PrimiumManagmentTool = () => {
   return (
     <div className="premiumCls">
       <h1
         style={{
           paddingTop: "10vh",
           fontFamily: "system-ui",
-          fontSize: "2.5rem",
-          fontWeight: "bold",
+          fontSize: "25px",
+          fontWeight: "800",
           textAlign: "center",
         }}
       >
-       Our premium managemnet tool
+       Our premium management tool
       </h1>
       <Typography  style={{
           textAlign: "center",
@@ -44,7 +43,7 @@ const PremiumManagmentTool = () => {
         we help showcase your property in the best possible way to attract buyers or tenant quickly
       </Typography>
 
-
+            
       <Row
         gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}
         style={{
@@ -60,14 +59,15 @@ const PremiumManagmentTool = () => {
         {rowArray.map((e,i) => {
           return (
             <div key={i}>
+
                 <Card
                   className="premiumCardCls"
                   hoverable
-                  // style={{ width: 240 }}
+                  style={{ width: 240 }}
                   
                 >
-                  <Image
-                       className="premiumManagementImgCls"
+                   <Image
+                       className="propertyImgCls"
                         alt="example"
                         src={e.Img.src}
                         width={100}
@@ -75,19 +75,15 @@ const PremiumManagmentTool = () => {
                         preview={false}
                       />
                     
-                  {/* <Meta
-                    className="premiumMetaCls"
-                    title={e.title}
-                    description={e.description}
-                    />   */}
                     <div>
-                      <Title className='premiumManagmentCardTitle' level={4}>{e.title}</Title>
+                      <Title className='premiumCardTitle' level={4}>{e.title}</Title>
                     </div>
-                    <div className="premiumManagementCardDescription">
+                    <div className="premiumCardDescription">
                       {e.description}
                     </div>
                 </Card>
-                </div>
+                    </div>
+           
           );
         })}
       </Row>
@@ -95,4 +91,4 @@ const PremiumManagmentTool = () => {
   );
 };
 
-export default PremiumManagmentTool;
+export default PrimiumManagmentTool;

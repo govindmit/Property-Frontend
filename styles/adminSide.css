@@ -90,7 +90,6 @@ button.ant-btn.css-dev-only-do-not-override-acm2ia.ant-btn-link.active {
   border-bottom: 1px solid orangered !important;
   border-radius: 0px !important;
   color: orangered;
-  ;
 }
 :where(.css-acm2ia).ant-btn-link.active {
   border-bottom: 1px solid orangered !important;
@@ -102,7 +101,7 @@ button.ant-btn.css-dev-only-do-not-override-acm2ia.ant-btn-link.active {
   border-radius: 0px !important;
   color: orangered;
 }
-button.ant-btn.css-dev-only-do-not-override-k83k30.ant-btn-link.active{
+button.ant-btn.css-dev-only-do-not-override-k83k30.ant-btn-link.active {
   border-bottom: 1px solid orangered !important;
   border-radius: 0px !important;
   color: orangered;
@@ -111,7 +110,6 @@ button.ant-btn.css-k83k30.ant-btn-link.active {
   border-bottom: 1px solid orangered !important;
   border-radius: 0px !important;
   color: orangered !important;
-
 }
 .lanlordmain {
   padding: 20px;
@@ -180,7 +178,11 @@ button.ant-btn.css-k83k30.ant-btn-link.active {
 img.addimage {
   margin-right: 18px;
 }
-:where(.css-dev-only-do-not-override-k83k30).ant-form-item .ant-form-item-label >label.ant-form-item-required:not(.ant-form-item-required-mark-optional)::before {
+:where(.css-dev-only-do-not-override-k83k30).ant-form-item
+  .ant-form-item-label
+  > label.ant-form-item-required:not(
+    .ant-form-item-required-mark-optional
+  )::before {
   content: "" !important;
 }
 
@@ -188,39 +190,50 @@ img.addimage {
   margin-left: -60% !important;
   margin-bottom: 40px;
 }
-:where(.css-dev-only-do-not-override-k83k30).ant-menu-light:not(.ant-menu-horizontal) .ant-menu-item-selected {
+:where(.css-dev-only-do-not-override-k83k30).ant-menu-light:not(
+    .ant-menu-horizontal
+  )
+  .ant-menu-item-selected {
   background-color: orangered !important;
   border-radius: 0px !important;
   color: white !important;
 }
-.sidebarcsstop{
+.sidebarcsstop {
   margin-top: 30px !important;
 }
-.imagecenter1{
+.imagecenter1 {
   text-align: center;
   margin-bottom: 20px;
   margin-top: -60px;
 }
-:where(.css-dev-only-do-not-override-k83k30).ant-upload-wrapper.ant-upload-picture-card-wrapper .ant-upload.ant-upload-select {
+:where(
+    .css-dev-only-do-not-override-k83k30
+  ).ant-upload-wrapper.ant-upload-picture-card-wrapper
+  .ant-upload.ant-upload-select {
   border: none;
   background: none;
 }
-:where(.css-dev-only-do-not-override-k83k30).ant-upload-wrapper .ant-upload-list.ant-upload-list-picture-card .ant-upload-list-item {
+:where(.css-dev-only-do-not-override-k83k30).ant-upload-wrapper
+  .ant-upload-list.ant-upload-list-picture-card
+  .ant-upload-list-item {
   position: relative;
   height: 66px;
   padding: 0px !important;
   border: none !important;
 }
-:where(.css-dev-only-do-not-override-k83k30).ant-upload-wrapper.ant-upload-picture-card-wrapper .ant-upload-list.ant-upload-list-picture-card .ant-upload-list-item::before {
+:where(
+    .css-dev-only-do-not-override-k83k30
+  ).ant-upload-wrapper.ant-upload-picture-card-wrapper
+  .ant-upload-list.ant-upload-list-picture-card
+  .ant-upload-list-item::before {
   width: calc(100% - -3px) !important;
   height: calc(100% - 1px) !important;
- 
 }
-.btnsublanduser{
+.btnsublanduser {
   text-align: center;
   margin-top: -5px;
 }
-.btnupdateuser{
+.btnupdateuser {
   width: 16% !important;
   background: #ababab !important;
   color: white !important;
@@ -228,13 +241,15 @@ img.addimage {
   font-weight: 700 !important;
   height: 37px !important;
 }
-.submitbutton22user{
+.submitbutton22user {
   width: 16% !important;
   background: #ababab !important;
   height: 37px !important;
-
 }
-:where(.css-dev-only-do-not-override-k83k30).ant-select-single:not(.ant-select-customize-input).dropdownadmin .ant-select-selector {
+:where(.css-dev-only-do-not-override-k83k30).ant-select-single:not(
+    .ant-select-customize-input
+  ).dropdownadmin
+  .ant-select-selector {
   width: 100%;
   height: 36px !important;
   padding: 3px 11px !important;
@@ -247,26 +262,27 @@ a.ant-upload-list-item-thumbnail {
 ul.ant-menu.ant-menu-root.ant-menu-vertical.ant-menu-light.css-dev-only-do-not-override-k83k30 {
   height: 100vh;
 }
-.datashow{
-     font-size: initial;
-     font-weight: 500;
-     font-family: ui-serif;
-     margin-top: -4px;
+.datashow {
+  font-size: initial;
+  font-weight: 500;
+  font-family: ui-serif;
+  margin-top: -4px;
 }
-.borderview{
+.borderview {
   border: 1px solid lightgrey;
   margin: 0px 200px 0px 200px;
   padding: 27px;
 }
-.landlordeditSectionview{
+.landlordeditSectionview {
   padding: 10px;
   margin-top: 39px;
 }
-:where(.css-dev-only-do-not-override-k83k30).ant-form-item .ant-form-item-label >label {
-  
+:where(.css-dev-only-do-not-override-k83k30).ant-form-item
+  .ant-form-item-label
+  > label {
   font-size: 13px !important;
 }
-.landlordeditSectionland{
+.landlordeditSectionland {
   padding: 10px;
   margin-top: 42px;
   margin-left: -67px;
@@ -296,4 +312,14 @@ p.csslink {
   left: 33px;
   font-size: 15px;
   font-weight: 600;
+}
+span.letterfonts {
+  letter-spacing: 0.5px;
+}
+.menuConAdmin {
+  width: 97%;
+}
+button:focus {
+  box-shadow: none !important;
+  outline: none !important;
 }
