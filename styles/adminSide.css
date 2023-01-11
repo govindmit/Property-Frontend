@@ -292,9 +292,10 @@ ul.ant-menu.ant-menu-root.ant-menu-vertical.ant-menu-light.css-dev-only-do-not-o
   /* top: -12%; */
 }
 .logo.adminsideslider {
-  margin-top: 50px;
-  margin-left: 35px;
-  margin-bottom: 25px;
+  /* margin-top: 50px;
+  margin-left: 35px; */
+  /* margin-bottom: 25px; */
+      padding: 33px 0px 3px 35px;
 }
 .adminsideslider a {
   display: inline-block;
@@ -323,10 +324,35 @@ button:focus {
   box-shadow: none !important;
   outline: none !important;
 }
-.btnview{
+.btnview {
   width: 73px !important;
   height: 35px !important;
 }
 :where(.css-dev-only-do-not-override-k83k30).ant-btn-default {
   box-shadow: none !important;
+}
+
+/* remove where properties...................... */
+label.ant-form-item-required:before {
+  display: none !important;
+  margin-inline-end: 4px;
+  color: #ff4d4f;
+  font-size: 14px;
+  font-family: SimSun, sans-serif;
+  line-height: 1;
+  content: "" !important;
+}
+ul.ant-menu.ant-menu-root.ant-menu-vertical.ant-menu-light.css-k83k30 {
+  height: 100vh vh !important;
+}
+.ant-menu-light:not(.ant-menu-horizontal) .ant-menu-item-selected {
+  background-color: orangered !important;
+  border-radius: 0px !important;
+  color: white !important;
+}
+section.ant-layout.ant-layout-has-sider.css-dev-only-do-not-override-k83k30 {
+  margin-top: 4px !important;
+}
+.ant-popover-content p {
+  margin: 0;
 }

@@ -3,14 +3,7 @@ import axios from "axios";
 import { Divider, Layout, Typography } from "antd";
 import { Form, Input, Button } from "antd";
 import type { FormItemProps } from "antd";
-import { toast } from 'react-toastify';
-
-import {
-  AppleFilled,
-  AppleOutlined,
-  FacebookOutlined,
-  GoogleOutlined,
-} from "@ant-design/icons";
+import { toast } from "react-toastify";
 import Router, { withRouter } from "next/router";
 
 const MyFormItemContext = React.createContext<(string | number)[]>([]);
@@ -32,7 +25,10 @@ export default function App(props: IAppProps) {
     };
     try {
       await axios
-        .post(`https://api-property.mangoitsol.com/api/user/signin`, requestData)
+        .post(
+          `https://api-property.mangoitsol.com/api/user/signin`,
+          requestData
+        )
         .then((res) => {
           if (res?.status === 200) {
             localStorage.setItem("token", res.data.accessToken);
@@ -74,7 +70,7 @@ export default function App(props: IAppProps) {
 
     return (
       <MyFormItemContext.Provider value={concatPath}>
-        { children }
+        {children}
       </MyFormItemContext.Provider>
     );
   };
@@ -93,88 +89,115 @@ export default function App(props: IAppProps) {
     Router.push({ pathname: "/forgotpassword" });
   };
   return (
-    <div className="mainlogindivsign">
-      <div className="textCentersign">
-        <h2 className="h2marginsign">Welcome to Propter</h2>
-        <h3 style={{ marginBottom: "18px" }}>Sign In</h3>
-      </div>
-      <div className="marginleftcss">
-        <Form name="form_item_path" layout="vertical" onFinish={onFinish}>
-          <div>
-            <MyFormItemGroup prefix={["user"]}>
-              <MyFormItemGroup prefix={["data"]}>
-                <div>
-                  <MyFormItem
-                    name="email"
-                    label="Email or Mobile number"
-                    rules={[
-                      {
-                        type: "email",
-                        message: "Email is not valid!",
-                      },
-                      {
-                        required: true,
-                        message: "Email is required!",
-                      },
-                    ]}
-                  >
-                    <Input placeholder="Enter Email / Mobile No." />
-                  </MyFormItem>
-                  <MyFormItem
-                    name="password"
-                    label="Password"
-                    rules={[
-                      // {
-                      //   type: "string",
-                      //   pattern: /^(?=.*\d)(?=.*[a-zA-Z])[a-zA-Z0-9]{6,}$/,
-                      //   message:"Password does not match pattern"
-                      // },
-                      {
-                        required: true,
-                        message: "Password is required!",
-                      },
-                    ]}
-                  >
-                    <Input placeholder="Enter Password" />
-                  </MyFormItem>
+    <div className="wrapper-area">
+      <div className="login-page">
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-12">
+              <h3 className="mb-3">Welcome to Propter</h3>
+              <h5 className="mb-3">Sign in</h5>
+              <div className="bg-white shadow rounded main-vox">
+                <div className="row">
+                  <div className="col-md-7 pe-0">
+                    <div className="form-left">
+                      <Form className="row g-4" onFinish={onFinish}>
+                        <MyFormItemGroup prefix={["user"]}>
+                          <MyFormItemGroup prefix={["data"]}>
+                            <div className="col-12">
+                              <MyFormItem
+                                name="email"
+                                label="Email or Mobile number"
+                                rules={[
+                                  {
+                                    type: "email",
+                                    message: "Email is not valid!",
+                                  },
+                                  {
+                                    required: true,
+                                    message: "Email is required!",
+                                  },
+                                ]}
+                              >
+                                <Input placeholder="Enter Email / Mobile No." />
+                              </MyFormItem>
+                            </div>
+
+                            <div className="col-12 mt-3">
+                              <MyFormItem
+                                name="password"
+                                label="Password"
+                                rules={[
+                                  {
+                                    required: true,
+                                    message: "Password is required!",
+                                  },
+                                ]}
+                              >
+                                <Input placeholder="Enter Password" />
+                              </MyFormItem>
+                             
+                            </div>
+                            <div className="col-12 text-center">
+                              <button
+                                type="submit"
+                                className="btn btn-primary px-4 mt-5 sig-btn"
+                              >
+                                Sign in
+                              </button>
+                            </div>
+                            <div className="col-sm-6">
+                              <Link
+                                href="/forgotpassword"
+                                className="float-end text-primary for-pwd"
+                              >
+                                Forgot Password?
+                              </Link>
+                              <Link
+                                href="/signup"
+                                className="float-end text-primary an-acc"
+                              >
+                                create an Account
+                              </Link>
+                            </div>
+                            <div className="socical-links">
+                              <a className="btn apple" href="#">
+                                <span>
+                                  <i
+                                    className="fa fa-apple"
+                                    aria-hidden="true"
+                                  ></i>
+                                </span>{" "}
+                                continue with Apple
+                              </a>
+                              <a className="btn Facebook" href="#">
+                                <span>
+                                  <i
+                                    className="fa fa-facebook"
+                                    aria-hidden="true"
+                                  ></i>
+                                </span>{" "}
+                                continue with Facebook
+                              </a>
+                              <a className="btn Google" href="#">
+                                <span>
+                                  <i
+                                    className="fa fa-google"
+                                    aria-hidden="true"
+                                  ></i>
+                                </span>{" "}
+                                continue with Google
+                              </a>
+                            </div>
+                          </MyFormItemGroup>
+                        </MyFormItemGroup>
+                      </Form>
+                    </div>
+                  </div>
                 </div>
-              </MyFormItemGroup>
-            </MyFormItemGroup>
-            <br />
-            <Button type="primary" htmlType="submit" className="submitbutton">
-              Sign In
-            </Button>
-            <br />
-            <br />
-            <Text className="forgotcss">
-              <Button type="link" onClick={handleForgot}>
-                Forgot Password?
-              </Button>
-            </Text>
-            <br />
-            <div className="creatediv">
-              <Text className="createcss">
-                <Button type="link" onClick={handleMove}>
-                  Create an Account
-                </Button>
-              </Text>
+              </div>
             </div>
-            <div className="line"></div>
-            <Button type="primary" className="submitbutton1">
-              <AppleFilled /> Continue with Apple
-            </Button>
-            <br />
-            <br />
-            <Button type="primary" className="submitbuttonfb">
-              <FacebookOutlined /> Continue with facebook
-            </Button>
-            <br />
-            <br />
-            <Button type="primary" className="submitbutton3">
-              <GoogleOutlined className="googleee" /> continue with Google
-            </Button>
           </div>
-        </Form>
+        </div>
       </div>
     </div>
   );

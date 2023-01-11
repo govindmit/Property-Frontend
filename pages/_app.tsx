@@ -1,16 +1,18 @@
 
-// import "../styles/navbar.css";
-// import "../styles/login.css";
-// import "../styles/signup.css";
-// import "../styles/globals.css";
-// import "../styles/HomePage.css";
+import "../styles/navbar.css";
+import "../styles/login.css";
+import "../styles/signup.css";
+import "../styles/globals.css";
+import "../styles/HomePage.css";
 import "../styles/landloard.css";
 import "../styles/broker.css";
-// import "../styles/adminSide.css";
+import "../styles/adminSide.css";
 import "../styles/users.css";
-// import "../styles/myProfile.css";
+import "../styles/myProfile.css";
 import "../styles/home.css";
 
+import "../styles/myProfile.css";
+import "../styles/loginNew.css";
 
 import type { AppProps } from "next/app";
 import Header from "./components/Header";
@@ -29,8 +31,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
   const router = useRouter();
   const [loading, setLoading] = useState(true);
-  // let roleType;
-  // roleType=localStorage.getItem("role");
+ 
   useEffect(() => {
     genrateToken();
     router.events.on("routeChangeStart", (url) => {

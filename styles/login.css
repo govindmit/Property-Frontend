@@ -12,6 +12,11 @@ input#form_item_path_user_data_password {
   border-radius: 2px;
   background-color: #ababab !important;
 }
+.submitbuttonresetp {
+  width: 40%;
+  border-radius: 3px;
+  background-color: #ababab !important;
+}
 .textCentersign {
   text-align: center !important;
 }
