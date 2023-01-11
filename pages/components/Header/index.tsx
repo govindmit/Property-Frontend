@@ -1,5 +1,5 @@
 import React, { Component, useEffect, useState } from "react";
-import { Drawer, Button, Space, Input } from "antd";
+import { Drawer, Button, Space, Input, Tooltip, Avatar } from "antd";
 import LeftMenu from "./left";
 import RightMenu from "./right";
 import logo from "../../../public/assets/aa.png";
@@ -7,29 +7,26 @@ import { Image } from "antd";
 import Router from "next/router";
 import Link from "next/link";
 import jwt from "jsonwebtoken";
+import { BellFilled, CaretDownOutlined, UserOutlined } from "@ant-design/icons";
 
 const { Search } = Input;
-const Header: React.FC = () => {
-  const [visible, setVisible] = useState(false);
-  const [role, setRole] = useState();
 
-  useEffect(() => {
-    const token: any = localStorage.getItem("token");
-    const decode: any = jwt.decode(token);
-    setRole(decode?.data?.role?.title);
-  }, []);
+const Header: React.FC = () => {
+
+  const token = {
+    access:
+      typeof window !== "undefined"
+        ? window.localStorage.getItem("token")
+        : null,
+    isAuthenticated: null,
+    user: null,
+  };
 
   interface valueInterface {
     visible: Boolean;
     current: String;
   }
 
-  const showDrawer = () => {
-    setVisible(true);
-  };
-  const onClose = () => {
-    setVisible(false);
-  };
   const handleClick = () => {
     Router.push("/");
   };
@@ -40,72 +37,76 @@ const Header: React.FC = () => {
       : "menuBar";
   const roleType =
     typeof window !== "undefined" && window?.localStorage?.getItem("role");
-    const adminrighticon =
+  const adminrighticon =
     typeof window !== "undefined" &&
     window?.localStorage?.getItem("role") === "1"
       ? "menuCon menuConAdmin"
       : "menuCon";
+      
   return (
     <div>
-      <nav className={roleIdentifier}>
-        <div className="logo" style={{ display: "flex" }}>
-           {roleType && roleType === "1" ? (
-          ""
-        ) : (
-          <>
-          <Image
-            className="logoCls"
-            src={logo.src}
-            preview={false}
-            alt="imageee"
-            style={{ cursor: "pointer" }}
-            onClick={handleClick}
-          />
-          <Link href="/">Propter</Link>
-          </>
-        )}
-          {role === "User" ? (
-            <Search
-              className="searchCls"
-              placeholder="Bussiness Bay"
-              allowClear
-            />
-          ) : (
-            ""
-          )}
-        </div>
+     
+      <header>
+        <div className="top-navbar">
+          <div className="container">
+            <div className="row">
+              <div className="col-md-12">
+                <nav className="navbar navbar-expand-lg navbar-light">
+                  <Link className="navbar-brand" href="#">
+                    <Image
+                      src="/logo-img.png"
+                      alt="main-logo"
+                      preview={false}
+                      onClick={handleClick}
+                    />
+                  </Link>
+                  <button
+                    className="navbar-toggler"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#navbarNav"
+                    aria-controls="navbarNav"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+                  >
+                    <span className="navbar-toggler-icon"></span>
+                  </button>
+                  <div className="collapse navbar-collapse" id="navbarNav">
+                    <ul className="navbar-nav">
+                      <li className="nav-item active">
+                        <Link className="nav-link" href="#">
+                          Buy <span className="sr-only">(current)</span>
+                        </Link>
+                      </li>
+                      <li className="nav-item">
+                        <Link className="nav-link" href="#">
+                          Rent
+                        </Link>
+                      </li>
+                      <li className="nav-item">
+                        <Link className="nav-link" href="/landloard">
+                          Landlords
+                        </Link>
+                      </li>
+                      <li className="nav-item">
+                        <Link className="nav-link" href="/brokerage">
+                          Brokerages
+                        </Link>
+                      </li>
+                    </ul>
 
-        <div className={adminrighticon}>
-          {role === "Admin" ? (
-            ""
-          ) : (
-            <div className="leftMenu">
-              <LeftMenu />
+                    <div className="login">
+                      <Link className="btn-main" href="/login">
+                        Login Or singup
+                      </Link>
+                    </div>
+                  </div>
+                </nav>
+              </div>
             </div>
-          )}
-          <div className="rightMenu">
-            <RightMenu />
           </div>
-          <Button className="barsMenu" type="default" onClick={showDrawer}>
-            <span className="barsBtn"></span>
-          </Button>
-          <Drawer
-            title="Drawer with extra actions"
-            width={500}
-            onClose={onClose}
-            open={visible}
-            extra={
-              <Space>
-                <Button onClick={onClose}>Cancel</Button>
-              </Space>
-            }
-          >
-            <LeftMenu />
-            <RightMenu />
-          </Drawer>
         </div>
-      </nav>
-      
+      </header>
     </div>
   );
 };

@@ -5,7 +5,7 @@ import rentHome from "/public/assets/rentHome.png";
 import sellProperty from "/public/assets/sellProperty.png";
 import vouchers from "/public/assets/vouchers.png";
 import { ArrowRightOutlined } from "@ant-design/icons";
-import Image from "next/image";
+import {Image} from "antd";
 const { Meta } = Card;
 const style: React.CSSProperties = { background: "#0092ff", padding: "8px 0" };
 
@@ -22,8 +22,8 @@ const rowArray = [
 
 const Aminities = () => {
   return (
-    <div className="aminitiesCls">
-      <h1
+    <div className="wrapper-area">
+      {/* <h1
         style={{
           paddingTop: "10vh",
           fontFamily: "system-ui",
@@ -73,7 +73,119 @@ const Aminities = () => {
             </div>
           );
         })}
-      </Row>
+      </Row> */}
+
+<section className="Our-premium">
+          <div className="container-fluid side-space">
+            <div className="row">
+              <div className="col-md-12">
+                <div className="Our-premium-heading">
+                  <h2>Find properties based on Amenities you want</h2>
+                </div>
+              </div>
+            </div>
+            <div className="row sec-block">
+              <div className="col-md-6 col-lg-3">
+                <div className="cart-small">
+                  <Image
+                    src="/agreement.png"
+                    width={80}
+                    alt="box-img"
+                    preview={false}
+                  />
+                  <h6>Digital marketing</h6>
+                  <i className="fa fa-long-arrow-right" aria-hidden="true"></i>
+                </div>
+              </div>
+              <div className="col-md-6 col-lg-3">
+                <div className="cart-small">
+                  <Image
+                    src="/agreement.png"
+                    width={80}
+                    alt="box-img"
+                    preview={false}
+                  />
+                  <h6>Listing Management</h6>
+                  <i className="fa fa-long-arrow-right" aria-hidden="true"></i>
+                </div>
+              </div>
+              <div className="col-md-6 col-lg-3">
+                <div className="cart-small">
+                  <Image
+                    src="/house.png"
+                    width={80}
+                    alt="box-img"
+                    preview={false}
+                  />
+                  <h6>Detailed Analytics</h6>
+                  <i className="fa fa-long-arrow-right" aria-hidden="true"></i>
+                </div>
+              </div>
+              <div className="col-md-6 col-lg-3">
+                <div className="cart-small">
+                  <Image
+                    src="/loan.png"
+                    width={80}
+                    alt="box-img"
+                    preview={false}
+                  />
+                  <h6>Transaction management</h6>
+                  <i className="fa fa-long-arrow-right" aria-hidden="true"></i>
+                </div>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-md-6 col-lg-3">
+                <div className="cart-small">
+                  <Image
+                    src="/agreement.png"
+                    width={80}
+                    alt="box-img"
+                    preview={false}
+                  />
+                  <h6>Digital marketing</h6>
+                  <i className="fa fa-long-arrow-right" aria-hidden="true"></i>
+                </div>
+              </div>
+              <div className="col-md-6 col-lg-3">
+                <div className="cart-small">
+                  <Image
+                    src="/agreement.png"
+                    width={80}
+                    alt="box-img"
+                    preview={false}
+                  />
+                  <h6>Listing Management</h6>
+                  <i className="fa fa-long-arrow-right" aria-hidden="true"></i>
+                </div>
+              </div>
+              <div className="col-md-6 col-lg-3">
+                <div className="cart-small">
+                  <Image
+                    src="/house.png"
+                    width={80}
+                    alt="box-img"
+                    preview={false}
+                  />
+                  <h6>Detailed Analytics</h6>
+                  <i className="fa fa-long-arrow-right" aria-hidden="true"></i>
+                </div>
+              </div>
+              <div className="col-md-6 col-lg-3">
+                <div className="cart-small">
+                  <Image
+                    src="/loan.png"
+                    width={80}
+                    alt="box-img"
+                    preview={false}
+                  />
+                  <h6>Transaction management</h6>
+                  <i className="fa fa-long-arrow-right" aria-hidden="true"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
     </div>
   );
 };

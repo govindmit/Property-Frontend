@@ -42,7 +42,6 @@ const Sidebar: React.FC = () => {
             height={30}
             //   onClick={handleClick}
           />
-
           <p className="csslink">Propter</p>
         </div>
         <Menu

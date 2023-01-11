@@ -54,7 +54,7 @@ const UserHeader = () => {
             <Menu.Item style={{marginLeft:'10px'}} >Your voucher</Menu.Item>
             <Menu.Item style={{marginLeft:'10px'}}>Review</Menu.Item>
             <Menu.Item style={{marginLeft:'10px'}}>Email Setting</Menu.Item>
-            <Menu.Item style={{marginLeft:'10px'}} className={activeTab === "Account" ? "aa active" : ""} onClick={handleAccSetting}>Account</Menu.Item>
+            <Menu.Item style={{marginLeft:'10px'}} className={activeTab === "Account" ? "aa active" : ""} onClick={handleAccSetting}>Account settings</Menu.Item>
             </Space>
           </Menu>
         </Header>
