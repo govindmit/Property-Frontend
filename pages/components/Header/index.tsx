@@ -18,8 +18,8 @@ const Header: React.FC = () => {
     const token: any = localStorage.getItem("token");
     const decode: any = jwt.decode(token);
     setRole(decode?.data?.role?.title);
-  },[]);
-  
+  }, []);
+
   interface valueInterface {
     visible: Boolean;
     current: String;
@@ -34,10 +34,26 @@ const Header: React.FC = () => {
   const handleClick = () => {
     Router.push("/");
   };
+  const roleIdentifier =
+    typeof window !== "undefined" &&
+    window?.localStorage?.getItem("role") === "1"
+      ? "menuBar adminlogin"
+      : "menuBar";
+  const roleType =
+    typeof window !== "undefined" && window?.localStorage?.getItem("role");
+    const adminrighticon =
+    typeof window !== "undefined" &&
+    window?.localStorage?.getItem("role") === "1"
+      ? "menuCon menuConAdmin"
+      : "menuCon";
   return (
     <div>
-      <nav className="menuBar">
+      <nav className={roleIdentifier}>
         <div className="logo" style={{ display: "flex" }}>
+           {roleType && roleType === "1" ? (
+          ""
+        ) : (
+          <>
           <Image
             className="logoCls"
             src={logo.src}
@@ -46,7 +62,9 @@ const Header: React.FC = () => {
             style={{ cursor: "pointer" }}
             onClick={handleClick}
           />
-          <Link href="/">Propter</Link>{" "}
+          <Link href="/">Propter</Link>
+          </>
+        )}
           {role === "User" ? (
             <Search
               className="searchCls"
@@ -58,7 +76,7 @@ const Header: React.FC = () => {
           )}
         </div>
 
-        <div className="menuCon">
+        <div className={adminrighticon}>
           {role === "Admin" ? (
             ""
           ) : (

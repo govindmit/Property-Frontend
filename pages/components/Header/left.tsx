@@ -1,10 +1,19 @@
-import React, { Component } from "react";
+import React, { Component, useState,useEffect } from "react";
 import { Menu } from "antd";
 import Link from "next/link";
+import Router from "next/router";
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
-class LeftMenu extends Component {
-  render() {
+
+
+const LeftMenu =() => {
+  
+    const [activetab,setActivetab] = useState('');
+
+    useEffect(()=>{
+      Router.pathname.includes("/landloard") ? setActivetab('Landloard') :  Router.pathname.includes("/brokerage") ? setActivetab('Brokerage'):''
+    },[])
+
     return (
       <div>
         <Menu mode="horizontal" className="leftMenuCls">
@@ -14,23 +23,23 @@ class LeftMenu extends Component {
             </Link>
           </Menu.Item>
           <Menu.Item key="rent" className="leftMenuItem">
-            <Link href="#" className="leftMenuLinkCls">
+            <Link href="#" className="leftMenuLinkCls ">
               Rent
             </Link>
           </Menu.Item>
           <Menu.Item key="landloard" className="leftMenuItem">
-            <Link href="/landloard" className="leftMenuLinkCls">
+            <Link href="/landloard" className={activetab === "Landloard" ? "link active" : ""}>
               Landloard
             </Link>
           </Menu.Item>
           <Menu.Item key="brokerage" className="leftMenuItem">
-            <Link href="/brokerage" className="leftMenuLinkCls">
+            <Link href="/brokerage" className={activetab === "Brokerage" ? "link active" : ""}>
               Brokerage
             </Link>
           </Menu.Item>
         </Menu>
       </div>
     );
-  }
+  
 }
 export default LeftMenu;

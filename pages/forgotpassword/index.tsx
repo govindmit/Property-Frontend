@@ -10,6 +10,7 @@ import {
   AppleOutlined,
   FacebookOutlined,
   GoogleOutlined,
+  ArrowLeftOutlined
 } from "@ant-design/icons";
 import Router, { withRouter } from "next/router";
 import Loader from "../common/loader";
@@ -69,7 +70,9 @@ const antIcon = <LoadingOutlined style={{ fontSize: 24,color:"orangered" }} spin
       </MyFormItemContext.Provider>
     );
   };
-
+  const handleBack = () => {
+   Router.push('/login')
+  };
   const MyFormItem = ({ name, ...props }: FormItemProps) => {
     const prefixPath = React.useContext(MyFormItemContext);
     const concatName =
@@ -81,7 +84,15 @@ const antIcon = <LoadingOutlined style={{ fontSize: 24,color:"orangered" }} spin
   return (
     <div className="mainlogindivsign">
       <div className="textCentersign">
-        <h2 className="h2marginsign">Forgot Password</h2>
+      <Button
+              type="text"
+              className="btnresetcss backbtnn"
+              onClick={handleBack}
+              icon={<ArrowLeftOutlined />}
+            >
+              Back
+            </Button>
+        <h2 style={{marginBottom:"40px"}}>Forgot Password</h2>
         {/* <h3 style={{ marginBottom: "18px" }}>Forgot Password</h3> */}
       </div>
       <div className="marginleftcss">
@@ -118,7 +129,7 @@ const antIcon = <LoadingOutlined style={{ fontSize: 24,color:"orangered" }} spin
               </Button>
             :
             <Button type="primary" htmlType="submit" className="submitbutton">
-            Send Link
+            Confirm
           </Button>
             
             }

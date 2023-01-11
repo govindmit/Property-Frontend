@@ -37,7 +37,8 @@ export default function App(props: IAppProps) {
           if (res?.status === 200) {
             localStorage.setItem("token", res.data.accessToken);
             if (res?.data?.data?.role === 1) {
-              Router.push("/admin/dashboard");
+              localStorage.setItem("role", res.data.data.role);
+              Router.push("/admin/user");
             } else if (res?.data?.data?.role === 2) {
               Router.push("/users/favorite");
             } else if (res?.data?.data?.role === 3) {
@@ -86,10 +87,10 @@ export default function App(props: IAppProps) {
     return <Form.Item name={concatName} {...props} />;
   };
   const handleMove = () => {
-    Router.push({ pathname: "/signUp" });
+    Router.push({ pathname: "/signup" });
   };
   const handleForgot = () => {
-    Router.push({ pathname: "/forgotPassword" });
+    Router.push({ pathname: "/forgotpassword" });
   };
   return (
     <div className="mainlogindivsign">

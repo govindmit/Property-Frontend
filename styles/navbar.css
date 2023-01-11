@@ -213,6 +213,9 @@
   justify-content: space-around;
 }
 
+.leftMenuCls .leftMenuItem .link.active{
+  color: orangered;
+}
 body {
   overflow-x: hidden;
 }
@@ -267,6 +270,7 @@ body {
 }
 .menuCon .ant-menu-horizontal {
   border-bottom: none;
+  float: right;
 }
 .menuCon .leftMenu {
   float: none;
@@ -274,6 +278,7 @@ body {
 }
 .menuCon .rightMenu {
   float: right;
+  width:16%
 }
 .barsMenu {
   float: right;
@@ -362,4 +367,16 @@ body {
   .menuCon .leftMenu {
     display: none;
   }
+}
+.logo .searchCls .ant-input-wrapper, .logo .searchCls .ant-input-affix-wrapper, .logo .searchCls .ant-input-affix-wrapper input, .logo .searchCls button {
+  border: none !important;
+  background: aliceblue !important;
+  box-shadow: none;
+}
+nav.menuBar.adminlogin{
+  margin-left: 200px;
+}
+.ant-layout-sider-children.adminsidebar {
+  position: relative;
+  top: -14%;
 }

@@ -1,76 +1,269 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../../../sidebar";
-import { Divider, Layout, Menu, Modal, Popconfirm, Popover, Table, theme } from "antd";
-import { Button, Form, Input, Select } from 'antd';
-import type { FormInstance } from 'antd/es/form';
-import { ArrowLeftOutlined, ExclamationCircleFilled } from "@ant-design/icons";
+import {
+  Divider,
+  Layout,
+  Menu,
+  Modal,
+  Popconfirm,
+  Popover,
+  Table,
+  theme,
+} from "antd";
+import type { FormItemProps } from "antd";
+import { Button, Form, Input, Select } from "antd";
+import Router, { withRouter } from "next/router";
+import type { FormInstance } from "antd/es/form";
+import {
+  ArrowLeftOutlined,
+  ExclamationCircleFilled,
+  LoadingOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
 import Link from "next/link";
+import { Avatar, Col, Radio, Row, Tabs } from "antd";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import axios from "axios";
 
-export interface IAppProps { }
+const MyFormItemContext = React.createContext<(string | number)[]>([]);
+
+interface MyFormItemGroupProps {
+  prefix: string | number | (string | number)[];
+  children: React.ReactNode;
+}
+
+function toArr(
+  str: string | number | (string | number)[]
+): (string | number)[] {
+  return Array.isArray(str) ? str : [str];
+}
+
+const MyFormItemGroup = ({ prefix, children }: MyFormItemGroupProps) => {
+  const prefixPath = React.useContext(MyFormItemContext);
+  const concatPath = React.useMemo(
+    () => [...prefixPath, ...toArr(prefix)],
+    [prefixPath, prefix]
+  );
+
+  return (
+    <MyFormItemContext.Provider value={concatPath}>
+      {children}
+    </MyFormItemContext.Provider>
+  );
+};
+export interface IAppProps {}
+export interface UserDataTypes {
+  firstName: string;
+  lastName: string;
+  email: string;
+  status: string;
+  phone: string;
+  gender: string;
+  profilePic: string;
+  role: string;
+}
 
 export default function AddUser(props: IAppProps) {
   const { Option } = Select;
   const { Header, Sider, Content } = Layout;
   const { confirm } = Modal;
   const { query } = useRouter();
+  const [user, setUser] = useState<UserDataTypes | any>("");
+  const inputStyle: React.CSSProperties = {
+    padding: "5px 12px",
+    borderRadius: "inherit",
+    background: "#d1d1d1",
+  };
+  const style: React.CSSProperties = {
+    color: "grey",
+    fontFamily: "ui-serif",
+    fontWeight: "600",
+    fontSize: "15px",
+  };
+  const landlordcs: React.CSSProperties = { fontSize: "21px" };
+  const layout = {
+    labelCol: { span: 8 },
+    wrapperCol: { span: 16 },
+  };
+  const tailLayout = {
+    wrapperCol: { offset: 8, span: 16 },
+  };
+  const [form] = Form.useForm();
+
+  const antIcon = (
+    <LoadingOutlined style={{ fontSize: 24, color: "orangered" }} spin />
+  );
+
+  const MyFormItem = ({ name, ...props }: FormItemProps) => {
+    const prefixPath = React.useContext(MyFormItemContext);
+    const concatName =
+      name !== undefined ? [...prefixPath, ...toArr(name)] : undefined;
+    return <Form.Item name={concatName} {...props} />;
+  };
 
   const handleDelete = () => {
     confirm({
-      title: 'Are you sure delete this User?',
+      title: "Are you sure delete this landlord?",
       icon: <ExclamationCircleFilled />,
-      content: '',
-      okText: 'Yes',
-      okType: 'danger',
-      cancelText: 'No',
-      onOk() {
-        console.log('OK');
+      content: "",
+      okText: "Yes",
+      okType: "danger",
+      cancelText: "No",
+      async onOk() {
+        const webtoken = localStorage.getItem("webToken");
+        let web = webtoken?.substring(1, webtoken?.length - 1);
+        try {
+          await axios
+            .delete(
+              `https://api-property.mangoitsol.com/api/user/deleteuser/${user?.id}`,
+              {
+                headers: {
+                  Authorization: `Bearer ${web}`,
+                },
+              }
+            )
+            .then((res) => {
+              Router.push("/admin/landlord/");
+            });
+        } catch (err) {
+          console.log("#####", err);
+        }
       },
       onCancel() {
-        console.log('Cancel');
+        console.log("Cancel");
       },
     });
-  }
+  };
+  const getUserData = async () => {
+    const webtoken = localStorage.getItem("webToken");
+    let web = webtoken?.substring(1, webtoken?.length - 1);
+    try {
+      await axios
+        .get(`https://api-property.mangoitsol.com/api/user/${query?.index}`, {
+          headers: {
+            Authorization: `Bearer ${web}`,
+          },
+        })
+        .then((res) => {
+          setUser(res.data);
+        });
+    } catch (err) {
+      console.log("#####", err);
+    }
+  };
+
+  useEffect(() => {
+    getUserData();
+  }, []);
+
   return (
     <Layout>
       <Sidebar />
       <Content className="contentcss">
-        <div className="editusercss">
-          <div className="backflex">
-            <Link href="/admin/landlord">
-              <Button
-                type="text"
-                className=" backbtnn"
-                icon={<ArrowLeftOutlined />}
-              >
-                Back
-              </Button>
-            </Link>
-            <h2 className="textuserland">Landlord Details</h2>
+        <Link href="/admin/landlord">
+          <Button
+            type="text"
+            className=" backbtnn"
+            icon={<ArrowLeftOutlined />}
+            style={{ marginLeft: "-5px" }}
+          >
+            Back
+          </Button>
+        </Link>
+        <h2 className="textuseruser">Landlord Detail</h2>
+        <div>
+          <div className="borderview">
+            <div className="imagecenter1" style={{ marginTop: "10px" }}>
+              {user && user.profilPic != "" ? (
+                <Image
+                  style={{ borderRadius: "65px" }}
+                  src={user?.profilPic}
+                  alt="image"
+                  width={100}
+                  height={100}
+                />
+              ) : (
+                <Avatar
+                  size={64}
+                  icon={<UserOutlined />}
+                  className="avatarcss"
+                />
+              )}
+            </div>
+            <Row gutter={{ xs: 4, sm: 8, md: 12, lg: 20 }}>
+              <Col className="gutter-row" span={6}></Col>
+              <Col className="gutter-row" span={6}>
+                <MyFormItem
+                  name="firstName"
+                  label="Landlord firstName"
+                  style={style}
+                >
+                  <p className="datashow"> {user && user.firstName}</p>
+                </MyFormItem>
+              </Col>
+              <Col className="gutter-row" span={2}></Col>
+
+              <Col className="gutter-row" span={6}>
+                <MyFormItem
+                  name="lastName"
+                  style={style}
+                  label="Landlord lastName"
+                >
+                  <p className="datashow">{user && user.lastName} </p>
+                </MyFormItem>
+              </Col>
+            </Row>
+            <Row gutter={{ xs: 4, sm: 8, md: 12, lg: 20 }}>
+              <Col className="gutter-row" span={6}></Col>
+              <Col className="gutter-row" span={8}>
+                <MyFormItem name="email" label="Landlord email" style={style}>
+                  <p className="datashow">{user && user.email} </p>
+                </MyFormItem>
+              </Col>
+              <Col className="gutter-row" span={0}></Col>
+              <Col className="gutter-row" span={7}>
+                <MyFormItem name="phone" label="Landlord phone" style={style}>
+                  <p className="datashow">{user && user.phone} </p>
+                </MyFormItem>
+              </Col>
+            </Row>
+            <Row gutter={{ xs: 4, sm: 8, md: 12, lg: 20 }}>
+              <Col className="gutter-row" span={6}></Col>
+              <Col className="gutter-row" span={6}>
+                <MyFormItem name="role" label="Landlord role" style={style}>
+                  <p className="datashow">{user && user?.role?.title}</p>
+                </MyFormItem>
+              </Col>
+              <Col className="gutter-row" span={2}></Col>
+              <Col className="gutter-row" span={6}>
+                <MyFormItem name="gender" label="Landlord gender" style={style}>
+                  <p className="datashow">{user && user?.gender}</p>
+                </MyFormItem>
+              </Col>
+            </Row>
+            <Row gutter={{ xs: 4, sm: 8, md: 12, lg: 20 }}>
+              <Col className="gutter-row" span={6}></Col>
+              <Col className="gutter-row" span={6}>
+                <MyFormItem name="status" label="Landlord status" style={style}>
+                  <p className="datashow">{user && user?.status}</p>
+                </MyFormItem>
+              </Col>
+              <span className="landlordeditSectionland">
+                <Link href={`/admin/landlord/edit/${query?.index}`}>
+                  <Button type="default" className="btnview">Edit</Button>
+                </Link>
+                &emsp;&emsp;
+                <Button danger onClick={handleDelete}>
+                  Delete
+                </Button>
+              </span>
+            </Row>
           </div>
-          <div className="card1">
-            <Image src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAOVBMVEWzs7P///+vr6/j4+Otra3u7u7Y2Njm5ua3t7f7+/vAwMC6urrU1NTz8/PQ0NDp6enKysrExMTc3NzfYYiMAAAEUUlEQVR4nO2dC4KqMAxFISA/QWH2v9gH4vj8ANo22NvOPSvwWJo0aQtJQgghhBBCCCGEEEIIIYQQQgghX0Uu+P4VOyLF+VxmRd9Eq1mlv3TZkEQpmd5z7uMbybxLH8mayBwlS5/pIhvI04thmtZtTDPyuGA4UkQ0jsuGaX3Kff8yHWTNcJyPEcQcyav2OZbeUwY+HSXZ1LtwClhRqtc8scAh1GGUY/mJ30QfpKL8fOo3koWnmPe1geCYOI6hOX78gN4YQlKUxmwAZwJK/9Jb+I38hKIoSwvtmBTtBceQGoKiDPaCadoGEG6q9xpb4Od+ebsMfYNvgXcYLWQWOYAPouMzOtH7dthEzu6GNfQgNu6CU/vGt8Y6GkOIPYgKs3Di5NtjFSl0DDvYlY1zLvzl6NtkjZXGrzmwazeHJfcjZ1BDMa/rV0CNpmrTME0r3y7LiJpgOvh2WUYpG06AhhpFwx9MQ7VkAdsgjt9QpbD4K4ag85CGNLwDtMynoQGgaxrFfBi/IWinJn5DxZU3aN87fsP102uxGMZf4+c2BzCCMhQ9w8a3yzKKvTZUw4OaIWZbX2Lvl0qr5jfWFhXewlRnc/Q/cKdO3M9gPIMWbBRX3VfAtkm1dn/vwYqnimH0BlYFlesLgvVq9jDE6mQoLrpvYFVQ2tlwAizSqKfDtMbKFonTweBF4Laf1A3RimC9kyZX8A6cKLb0L2DlignF8veCb58FdGMN4q1L1ZnYAQomquEUrTicsb3PtQBcLrySqwUb3yaraG3NIIaZGaVKH/nWzMtrWqzAKiqe0FjZgJ6lubLwJhpT8Bakj7jvIWKV9q84J8UDWOH7iusKHDrMzLglRewwM+OUFNHDzIxL/xs9zFyxT4r4YWbGvrUIufW7hO2hDKydik3sOhqghf0idou3AFLhf2ye04Ce0QnzeBpKHP3F+BUute9fbExu2FzE7K5tYra0wW3NbGByAAW1fbiNQaV4DizKzBh0+ZGba1t8PoQBRpkJg3QRRlX4jFHrNITK/gWzo3xBvTNxxnTtHUxleMO0HxVS5XQhNy6fAssYNn3hoBTtXp0Y0MImt+zsH3z/8I+x3n+qg3hBu+kbkh9p4Z9UaRw3Zg7Qwyh5r3AaIwO8LjMjVaF0FLpsAL97MQ6f5jnorqhyJEmRRv8QdFc0CcZQigzZDgf1LxyKIfH7ESzJq9MOh/QfqMt2SPw8suOzWexwF2iRLjsdvzuY0+CVez2bK9Tn9lsxdgos3xq8Z8uy3/tzJuOf2H978J4o+/1mpcixVT6vbkW9zy3hcep9LbC8R39pJ9vfbPJAqfnVljGp7531bMi0go5I6ze0rKOzJSdaFcMedO7TUQZgv4nW1VD/WqE2jvtWe1yz18X1BEcAho4TkYb+oSENaegfGtKQhv6hIQ1p6B8a0pCG/qEhDeM3TPoyw8b9wpug4ypICCGEEEIIIYQQQgghhBBCCPk7/AOT7UbJ5bD1AAAAAABJRU5ErkJggg==" alt="John" width={150} height={150} />
-            <h1>John Doe</h1>
-            <div style={{ marginTop: "10px" }}>
-              <p className="titlee">9998887776</p>
-            </div>
-            <div style={{ display: "flex", marginTop: "10px", marginLeft: "100px" }}>
-              <p>Property : </p>
-              <p className="title1"> &nbsp;3</p>
-            </div>
-            <div style={{ display: "flex", marginTop: "10px", marginLeft: "100px", marginBottom: "10px" }}>
-              <p>Status : </p>
-              <p className="title2"> &nbsp;Active</p>
-              <br />
-            </div>
-              <div className="landlordeditSection">
-                <Link href={`/admin/landlord/edit/${query?.index}`}><Button type="primary">Edit</Button></Link>&emsp;&emsp;
-                <Button danger onClick={handleDelete}>Delete</Button>
-              </div>
-          </div>
+          <br />
+          <br />
         </div>
       </Content>
-    </Layout >
+    </Layout>
   );
 }

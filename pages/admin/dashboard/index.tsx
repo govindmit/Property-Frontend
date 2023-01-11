@@ -10,10 +10,11 @@ export interface IAppProps {
 
 export default function App(props: IAppProps) {
     return (
-
         <Layout>
-           <Sidebar/>
-           <h2>Dashboard</h2>
+        <Sidebar />
+        <Content className="contentcss">
+            <h1>Dashboard</h1>
+            </Content>
         </Layout>
 
     );

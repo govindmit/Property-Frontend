@@ -144,7 +144,7 @@ const onFinish4=()=>{
         <TabPane tab="Tab 1" key="1" className="mainnnnn">
           <div className="textCenter">
             <h2 className="h2margin">Welcome to Propter</h2>
-            <h3>Create an Account</h3>
+            <h3 style={{marginBottom:"11px"}}>Create an Account</h3>
           </div>
           <div className="marginleftcss">
             <Form name="form_item_path" layout="vertical" onFinish={onFinish}>
@@ -717,7 +717,7 @@ const onFinish4=()=>{
                       <Row gutter={{ xs: 4, sm: 8, md: 12, lg: 20 }}>
                         <Col className="gutter-row" span={21}>
                           <MyFormItem name="emaill" label="Email" style={style}>
-                            <Input style={inputStyle1} />
+                            <Input style={{borderRadius: "inherit",height:"41px"}} />
                           </MyFormItem>
                         </Col>
                       </Row>
