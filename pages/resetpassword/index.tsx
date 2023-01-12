@@ -125,7 +125,7 @@ export default function App(props: IAppProps) {
               </MyFormItemGroup>
             </MyFormItemGroup>
             <br />
-            <Button type="primary" htmlType="submit" className="submitbutton">
+            <Button type="primary" htmlType="submit" className="submitbuttonresetp">
               Submit
             </Button>
             <br />
