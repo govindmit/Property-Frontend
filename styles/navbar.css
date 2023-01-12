@@ -213,9 +213,22 @@
   justify-content: space-around;
 }
 
+
+
+
+
+
+
 .leftMenuCls .leftMenuItem .link.active{
   color: orangered;
 }
+/* .leftMenuCls .leftMenuItem .ant-menu-item-selected::after{
+  border-bottom: none;
+  border-bottom-color: none;
+} */
+
+
+
 body {
   overflow-x: hidden;
 }

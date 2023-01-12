@@ -27,12 +27,12 @@ interface DataType {
 }
 const { Title } = Typography;
 const rorData = [
-  { key: "Open House Shedule", value: "Fri 29th july22" },
-  { key: "Date posted", value: "Mon 22th june22" },
-  { key: "year build", value: "2005" },
-  { key: "sqft", value: "1323" },
-  { key: "AED/Sqft", value: "AED 2,233" },
-  { key: "Status", value: "Active" },
+  { key: "Open House Shedule:", value: "Fri 29th july22" },
+  { key: "Date posted:", value: "Mon 22th june22" },
+  { key: "year build:", value: "2005" },
+  { key: "sqft:", value: "1323" },
+  { key: "AED/Sqft:", value: "AED 2,233" },
+  { key: "Status:", value: "Active" },
 ];
 const FavoriteComp = () => {
   const [disabled, setDisabled] = useState(true);
@@ -48,7 +48,7 @@ const FavoriteComp = () => {
       </div>
 
       <div className="favoritsListCls">
-        <Row className="favRow">
+      <Row className="favRow">
           <div className="col1">
             <Card
               className="col1Card"
@@ -95,17 +95,18 @@ const FavoriteComp = () => {
                     <Row style={{ marginTop: "15px" }}>
                       <Col
                         span={12}
-                        style={{ fontWeight: "bold", color: "black" }}
+                        style={{ fontWeight: "bold", color: "black",textAlign:'end' }}
                       >
                         {" "}
                         {e.key}{" "}
                       </Col>
+                      
                       {e.value === "Active" ? (
-                        <Col span={12} style={{ color: "green" }}>
+                        <Col span={12} style={{ color: "green",marginLeft:'53%',marginTop:'-5%' }}>
                           {e.value}
                         </Col>
                       ) : (
-                        <Col span={12} style={{ color: "#4d4dc3" }}>
+                        <Col span={12} style={{ color: "#4d4dc3",marginLeft:'53%',marginTop:'-5%' }}>
                           {e.value}
                         </Col>
                       )}
@@ -178,17 +179,18 @@ const FavoriteComp = () => {
                     <Row style={{ marginTop: "15px" }}>
                       <Col
                         span={12}
-                        style={{ fontWeight: "bold", color: "black" }}
+                        style={{ fontWeight: "bold", color: "black",textAlign:'end' }}
                       >
                         {" "}
                         {e.key}{" "}
                       </Col>
+                      
                       {e.value === "Active" ? (
-                        <Col span={12} style={{ color: "green" }}>
+                        <Col span={12} style={{ color: "green",marginLeft:'53%',marginTop:'-5%' }}>
                           {e.value}
                         </Col>
                       ) : (
-                        <Col span={12} style={{ color: "#4d4dc3" }}>
+                        <Col span={12} style={{ color: "#4d4dc3",marginLeft:'53%',marginTop:'-5%' }}>
                           {e.value}
                         </Col>
                       )}
@@ -263,17 +265,18 @@ const FavoriteComp = () => {
                     <Row style={{ marginTop: "15px" }}>
                       <Col
                         span={12}
-                        style={{ fontWeight: "bold", color: "black" }}
+                        style={{ fontWeight: "bold", color: "black",textAlign:'end' }}
                       >
                         {" "}
                         {e.key}{" "}
                       </Col>
+                      
                       {e.value === "Active" ? (
-                        <Col span={12} style={{ color: "green" }}>
+                        <Col span={12} style={{ color: "green",marginLeft:'53%',marginTop:'-5%' }}>
                           {e.value}
                         </Col>
                       ) : (
-                        <Col span={12} style={{ color: "#4d4dc3" }}>
+                        <Col span={12} style={{ color: "#4d4dc3",marginLeft:'53%',marginTop:'-5%' }}>
                           {e.value}
                         </Col>
                       )}

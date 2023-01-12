@@ -6,9 +6,9 @@ const BrokerTopContent = () => {
     <div className="brokerMainContent">
     <h2
       style={{
-        paddingTop: "10vh",
+        paddingTop: "5vh",
         fontFamily: "system-ui",
-        fontSize: "2.5rem",
+        fontSize: "2rem",
         fontWeight: "bold",
         textAlign: "center",
       }}

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import FavoriteComp from "../favorite";
-import type { MenuProps } from "antd";
+import { MenuProps, Space } from "antd";
 import { Layout, Menu, theme } from "antd";
 import Router from "next/router";
 import { Tabs } from "antd";
@@ -45,15 +45,17 @@ const UserHeader = () => {
             defaultSelectedKeys={["2"]}
             className='userMenuCls'
           >
-            <Menu.Item className={activeTab === "favorite" ? "aa active" : ""} onClick={handleClick} >Favorite</Menu.Item>
-            <Menu.Item  >Saved Search</Menu.Item>
-            <Menu.Item >Open House Shedule</Menu.Item>
-            <Menu.Item >Home Tours</Menu.Item>
-            <Menu.Item >Transaction Updates</Menu.Item>
-            <Menu.Item >Your voucher</Menu.Item>
-            <Menu.Item >Review</Menu.Item>
-            <Menu.Item >Email Setting</Menu.Item>
-            <Menu.Item  className={activeTab === "Account" ? "aa active" : ""} onClick={handleAccSetting}>Account</Menu.Item>
+            <Space wrap>
+            <Menu.Item className={activeTab === "favorite" ? "aa active" : ""} onClick={handleClick} style={{marginLeft:'10px'}}>Favorite</Menu.Item>
+            <Menu.Item  style={{marginLeft:'10px'}}>Saved Search</Menu.Item>
+            <Menu.Item style={{marginLeft:'10px'}}>Open House Shedule</Menu.Item>
+            <Menu.Item style={{marginLeft:'10px'}}>Home Tours</Menu.Item>
+            <Menu.Item style={{marginLeft:'10px'}}>Transaction Updates</Menu.Item>
+            <Menu.Item style={{marginLeft:'10px'}} >Your voucher</Menu.Item>
+            <Menu.Item style={{marginLeft:'10px'}}>Review</Menu.Item>
+            <Menu.Item style={{marginLeft:'10px'}}>Email Setting</Menu.Item>
+            <Menu.Item style={{marginLeft:'10px'}} className={activeTab === "Account" ? "aa active" : ""} onClick={handleAccSetting}>Account settings</Menu.Item>
+            </Space>
           </Menu>
         </Header>
       </Layout>

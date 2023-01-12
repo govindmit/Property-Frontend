@@ -40,7 +40,6 @@ const Sidebar: React.FC = () => {
             width={30}
             height={30}
           />
-
           <p className="csslink">Propter</p>
         </div>
         <Menu

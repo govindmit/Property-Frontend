@@ -1,37 +1,16 @@
-/* .brokerMainContent{
-    background-image: url('/assets/bg.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    width: 100vw;
-    padding: 11% 0%;
-}
-
-.brokerMainContent .brokermainContentBtn{
-    transform: translate(-50%, 0%);
-      margin-left: 50%;
-      margin-top: 5%;
-      width: 18%;
-      border-radius: 0;
-      margin-bottom: 30px;
-      font-weight: bold;
-  }
-
-  .premiumManagmentCardTitle{
-    text-align: center;
-  } */
-
-
-
-
-  .btn-main{
+.btn-main{
     text-decoration: none;
     background-color: #ff5a3c;
     color: #ffffff;
     padding: 12px 40px;
     border-radius: 5px;
+    transition: 0.4s all;
 }
 a.btn-main {
     text-decoration: none;
+}
+a.btn-main:hover {
+    background-color: #0a4cff;
 }
 section{
     margin-top: 50px;
@@ -43,16 +22,15 @@ ul, li {
     list-style: none;
     padding: 0;
 }
-.top-navbar nav.navbar .navbar-collapse .navbar-nav .nav-item a.nav-link:hover {
-    color: #ff5a3c;
-}
-a.btn-main:hover {
-    background-color: #0a4cff;
-    color: #ffffff;
-}
 .container-fluid.side-space {
     padding-right: 50px;
     padding-left: 50px;
+}
+a.org-col:hover {
+    color: #ff5a3c;
+}
+.top-navbar {
+    box-shadow: -2px -2px 6px 5px #d5d5d5;
 }
 /* ------header-------- */
 header .top-navbar .collapse.navbar-collapse{
@@ -73,6 +51,9 @@ header .top-navbar .navbar{
     padding-right: 2.5rem;
     color: #617782;
 }
+.top-navbar nav.navbar .navbar-collapse .navbar-nav .nav-item a.nav-link:hover{
+    color: #ff5a3c;
+}
 /* .login a {
     text-decoration: none;
     background-color: #ff5a3c;
@@ -80,11 +61,15 @@ header .top-navbar .navbar{
     padding: 10px 20px;
     border-radius: 5px;
 } */
+
+.navbar-collapse a:hover {
+    color: #ffffff;
+}
 /* ------header-End--------- */
 
 /* -------top-banner-------- */
 section.top-banner {
-    background-image: url(../public/aldo-beach-house.jpg);
+    background-image: url(../public/main-banner.jpg);
     background-position: center;
     background-size: cover;
     height: 85vh;
@@ -92,14 +77,14 @@ section.top-banner {
     position: relative;
     margin: 0;
 }
-section.top-banner::before {
+/* section.top-banner::before {
     content: "";
     width: 100%;
     height: 85vh;
     background-color: #ffffff;
     position: absolute;
     opacity: 0.5;
-}
+} */
 .top-banner .banner-heading {
     text-align: center;
     display: flex;
@@ -114,20 +99,55 @@ section.top-banner::before {
 }
 .banner-heading p {
     font-weight: 500;
-    max-width: 390px;
+    max-width: 645px;
     margin-bottom: 60px;
 }
-.banner-heading a {
+/* .banner-heading a:hover {
+    background-color: #ff5a3c;
+    color: #ffffff;
+} */
+/* .banner-heading a {
     background-color: #0a4cff;
     padding: 10px 90px;
     color: #fff;
     font-size: 18px;
     text-decoration: none;
     border-radius: 2px;
+    transition: 0.4s all;
+} */
+
+.banner-heading ul li {
+    display: inline-block;
+    padding: 0px 18px;
 }
-.banner-heading a:hover {
+.banner-heading ul li a {
+    color: #000;
+    font-weight: 500;
+    font-size: 18px;
+    text-decoration: none;
+}
+.signup-baneer {
+    border: 2px solid #ff5a3c;
+    width: 300px;
+}
+#btn01 {
+    height: 35px;
+    width: 50px;
     background-color: #ff5a3c;
-    color: #ffffff;
+    border: none;
+    font-size: 18px;
+    float: right;
+    color: white;
+}
+form.top-banner-btn {
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    height: 35px;
+    justify-content: space-between;
+}
+.banner-heading ul {
+    margin-bottom: 30px;
 }
 /* -------top-banner-End-------- */
 
@@ -135,12 +155,9 @@ section.top-banner::before {
 .main-contant-heading {
     text-align: center;
 }
-section .main-contant {
-    margin-top: 0;
-    padding-top: 50px;
-}
 .main-contant-heading h2 {
     font-weight: 800;
+    margin-bottom: 70px;
 }
 .main-contant-heading p {
     font-size: 18px;
@@ -148,7 +165,7 @@ section .main-contant {
     margin-top: 15px;
     margin: 15px 0 70px;
 }
-.cart-box:hover {
+.cart-box:hover{
     box-shadow: 0px 3px 12px 5px #c7c7c7ad;
 }
 .cart-box {
@@ -158,6 +175,7 @@ section .main-contant {
     max-width: 270px;
     transition: 0.3s all;
     cursor: pointer;
+    background-color: #ffffff;
 }
 .cart-box h6 {
     margin: 15px;
@@ -168,14 +186,23 @@ section .main-contant {
     padding: 0px 20px;
 }
 section.main-contant {
-    background-image: url(../public/background-img1.png);
+    background-image: url(../public//background-img.png);
     background-position: center;
     background-size: cover;
     width: 100%;
     height: auto;
+}
+section.main-contant {
+    margin: 0;
+    padding: 50px 0px 80px;
+}
+section.video-block {
     margin-top: 0;
-    padding-top: 50px;
-    padding-bottom: 60px;
+}
+.cart-box02 a {
+    color: #ff5a3c;
+    font-size: 14px;
+    text-decoration: none;
 }
 /* ------main-contant---------- */
 /*  */
@@ -184,6 +211,7 @@ section.main-contant {
 }
 .Our-premium-heading h2 {
     font-weight: 800;
+    margin-bottom: 70px;
 }
 .Our-premium-heading p {
     font-size: 18px;
@@ -192,18 +220,19 @@ section.main-contant {
 }
 .cart-box02 img {
     width: 80px;
-    margin: 50px 40px 20px;
-}
-.cart-box02:hover {
-    box-shadow: 0px 3px 12px 5px #c7c7c7ad;
+    margin: 50px 0px 20px;
 }
 .cart-box02{
     text-align: center;
     box-shadow: 0px 3px 12px 5px #c7c7c761;
-    height: 300px;
+    height: 330px;
     max-width: 250px;
     transition: 0.3s all;
     cursor: pointer;
+    background-color: #ffffff;
+}
+.cart-box02:hover {
+    box-shadow: 0px 3px 12px 5px #c7c7c7ad;
 }
 .cart-box02 h6 {
     margin: 15px;
@@ -237,9 +266,38 @@ section.main-contant {
     color: #000;
     margin-left: 30px;
 }
-section.video-block {
-    margin-top: 0;
+.cart-small img {
+    width: 80px;
+    margin: 50px 0px 20px;
 }
+.cart-small {
+    text-align: center;
+    box-shadow: 0px 3px 12px 5px #c7c7c761;
+    height: 208px;
+    max-width: 195px;
+    transition: 0.3s all;
+    cursor: pointer;
+    background-color: #ffffff;
+    margin: 0 auto;
+}
+.cart-small i.fa:hover {
+    background-color: #ff5a3c;
+    color: #ffffff;
+}
+.cart-small i.fa {
+    background-color: #ffffff;
+    padding: 8px 8px;
+    border-radius: 20px;
+    font-size: 18px;
+    box-shadow: 0px 3px 12px 5px #c7c7c761;
+}
+.row.sec-block {
+    margin-bottom: 30px;
+}
+.cart-small h6 {
+    margin-bottom: 15px;
+}
+
 /*  */
 /* footer */
 footer {
@@ -280,15 +338,13 @@ section.video-block .col-md-12 {
     font-size: 12px;
     line-height: 20px;
 }
-#btn {
-    height: 40px;
-    width: 123px;
-    background-color: #ff5a3c;
-    border: none;
-    font-size: 18px;
-    float: right;
-    color: white;
-    transition: 0.4s all;
+.footer-addresh img {
+    margin-bottom: 14px;
+    width: 130px;
+}
+form input#btn:hover {
+    background-color: #0062ff;
+    cursor: pointer;
 }
 /*  */
 section.Market-Updates h2 {
@@ -305,9 +361,10 @@ section.Market-Updates .row.cart-market {
     flex-direction: column;
 }
 .market-cart02 {
+    background-color: #3d3d43;
     color: #fff;
     width: 411px;
-    height: 195px;
+    height: 200px;
     margin: 0px 0 15px;
 }
 .market-cart02 p {
@@ -334,42 +391,17 @@ section.Market-Updates .row.cart-market {
     padding: 20px;
     border-radius: 2px;
 }
-/*  */
-/* footer */
-.signup {
-    width: 299px;
-    }
-    form {
-        background-color: #ffffff;
-        display: flex;
-        align-items: center;
-        height: 47px;
-    }
-    #email-signup {
-        height: 50px;
-        background-color: black;
-        padding: 0px 5px 0px 10px;
-        width: 172px;
-        caret-color: #fc4e03;
-        background-color: transparent;
-        font-size: 16px;
-        color: #383838;
-        outline-style: none;
-        border: none;
-    }
-  #btn{
-    height: 40px;
-    width: 123px;
-    background-color:#ff5a3c;
-    border:none;
-    font-size:18px;
-    float:right;
-    color:white;
-  }
-  footer .footer-addresh .footer-input {
-    margin-top: 40px;
-  }
-  .social-icon i.fa {
+.down-contant ul li {
+    padding-bottom: 10px;
+}
+.down-contant h6 {
+    padding-bottom: 15px;
+}
+.about-contant p {
+    line-height: 25px;
+    margin-top: 25px;
+}
+.social-icon i.fa {
     background-color: #ffffff;
     width: 26px;
     height: 24px;
@@ -389,16 +421,6 @@ section.Market-Updates .row.cart-market {
     background-color: #ff5a3c;
     color: #ffffff;
 }
-.about-contant p {
-    line-height: 25px;
-    margin-top: 25px;
-}
-.down-contant h6 {
-    padding-bottom: 15px;
-}
-.down-contant ul li {
-    padding-bottom: 10px;
-}
 .copyrights {
     font-size: 14px;
     background-color: #303441;
@@ -406,10 +428,41 @@ section.Market-Updates .row.cart-market {
     text-align: center;
     padding-top: 20px;
 }
-.footer-addresh img {
-    margin-bottom: 14px;
-    width: 130px;
+/*  */
+/* footer */
+  .signup{
+    width: 299px;
+  }
+  form {
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    height: 47px;
 }
+#email-signup {
+    height: 50px;
+    background-color: black;
+    padding: 0px 5px 0px 10px;
+    width: 172px;
+    caret-color: #fc4e03;
+    background-color: transparent;
+    font-size: 16px;
+    color: #383838;
+    outline-style: none;
+    border: none;
+}
+#btn {
+    height: 40px;
+    width: 123px;
+    background-color: #ff5a3c;
+    border: none;
+    font-size: 18px;
+    float: right;
+    color: white;
+}
+  footer .footer-addresh .footer-input {
+    margin-top: 40px;
+  }
 /* footer */
 
 
@@ -525,6 +578,28 @@ section.Market-Updates .row.cart-market {
     .navbar-toggler.collapsed ~ .navbar-collapse {
         transition: left 200ms ease-in-out;
     }
+    section.top-banner {
+        height: 70vh;
+    }
+    .top-banner .banner-heading {
+        height: 70vh;
+    }
+    .main-contant-heading h2 {
+        margin-bottom: 30px;
+    }
+    section.main-contant {
+        padding: 32px 0px 40px;
+    }
+    .cart-small {
+        max-width: 100%;
+        margin-bottom: 30px;
+    }
+    .Our-premium-heading h2 {
+        margin-bottom: 30px;
+    }
+    .m-cart {
+        margin-right: 16px;
+    }
 }
 @media only screen and (max-width: 1023px) and (min-width: 768px) {
     section.top-banner {
@@ -562,7 +637,7 @@ section.Market-Updates .row.cart-market {
         margin: 20px 0px;
     }
     .market-cart02 {
-        width: auto;
+        width: 345px;
     }
     .market-cart {
         padding: 18px;
@@ -599,7 +674,7 @@ section.Market-Updates .row.cart-market {
         margin: 50px 30px 30px;
     }
     .footer-addresh {
-        margin: 50px 70px 30px;
+        margin: 80px 70px 30px;
     }
     #email-signup {
         font-size: 12px;
@@ -611,14 +686,10 @@ section.Market-Updates .row.cart-market {
         font-size: 12px;
     }
     .footer-addresh {
-        margin: 80px 0px 30px;
+        margin: 50px 0px 30px;
     }
     .signup {
         width: 220px;
-    }
-    .cart-box {
-        height: 395px;
-        margin-top: 20px;
     }
     .navbar-collapse {
         position: fixed;
@@ -646,4 +717,44 @@ section.Market-Updates .row.cart-market {
     .navbar-toggler.collapsed ~ .navbar-collapse {
         transition: left 200ms ease-in-out;
     }
+    .cart-small {
+        max-width: 100%;
+        margin-bottom: 30px;
+    }
+    .row.sec-block {
+         margin-bottom: 0px;
+    }
+    .market-cart02 {
+        width: auto;
+    }
+
+}
+
+@media only screen and (min-width: 1024px) and (max-width: 1280px) {
+    .market-cart02 {
+        width: auto;
+        height: 163px;
+    }
+    .col-md-6.col.pr-md-0.cart-01 {
+        max-width: 100%;
+    }
+    .footer-addresh {
+        margin: 127px 20px 30px;
+    }
+}
+
+
+
+
+
+
+
+
+.top-banner .container .banner-heading .abc.active{
+    border-bottom: 2px solid black;
+    background: none;
+}
+
+.top-banner .container .banner-heading a:hover{
+    color: black;
 }

@@ -1,3 +1,4 @@
+
 import "../styles/navbar.css";
 import "../styles/login.css";
 import "../styles/signup.css";
@@ -7,6 +8,9 @@ import "../styles/landloard.css";
 import "../styles/broker.css";
 import "../styles/adminSide.css";
 import "../styles/users.css";
+import "../styles/myProfile.css";
+import "../styles/home.css";
+
 import "../styles/myProfile.css";
 import "../styles/loginNew.css";
 

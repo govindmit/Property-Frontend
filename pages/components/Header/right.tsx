@@ -74,7 +74,6 @@ const RightMenu = () => {
               <CaretDownOutlined className="arroDownCls" />
             </Popconfirm>
             <Avatar
-              // onClick={handleAvtar}
               icon={<UserOutlined />}
               style={{ marginTop: "5px", marginLeft: "5px" }}
             />

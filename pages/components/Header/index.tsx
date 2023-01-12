@@ -6,7 +6,9 @@ import Router from "next/router";
 import Link from "next/link";
 import jwt from "jsonwebtoken";
 
+
 const { Search } = Input;
+
 const Header: React.FC = () => {
   const [current, setCurrent] = useState("mail");
   const [visible, setVisible] = useState(false);
@@ -86,6 +88,7 @@ const Header: React.FC = () => {
                           alt="main-logo"
                           width={100}
                           height={30}
+                          preview={false}
                         />
                       </Link>
                       <button
@@ -115,12 +118,12 @@ const Header: React.FC = () => {
                         </Link>
                       </li>
                       <li className="nav-item">
-                        <Link className="nav-link" href="#">
+                        <Link className="nav-link" href="/landloard">
                           Landlords
                         </Link>
                       </li>
                       <li className="nav-item">
-                        <Link className="nav-link" href="#">
+                        <Link className="nav-link" href="/brokerage">
                           Brokerages
                         </Link>
                       </li>
