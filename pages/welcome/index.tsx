@@ -36,6 +36,7 @@ const Welcome = () => {
                       <a
                         href="#"
                         onClick={buyFn}
+                        style={{background:'none'}}
                         className={text === "buy" ? "abc active" : ""}
                       >
                         Buy
@@ -44,6 +45,7 @@ const Welcome = () => {
                     <li>
                       <a
                         href="#"
+                        style={{background:'none'}}
                         onClick={rentFn}
                         className={text === "rent" ? "abc active" : ""}
                       >

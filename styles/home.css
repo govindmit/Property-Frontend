@@ -752,4 +752,9 @@ section.Market-Updates .row.cart-market {
 
 .top-banner .container .banner-heading .abc.active{
     border-bottom: 2px solid black;
+    background: none;
+}
+
+.top-banner .container .banner-heading a:hover{
+    color: black;
 }
