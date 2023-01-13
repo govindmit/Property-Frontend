@@ -5,6 +5,7 @@ import Aminities from "./aminities";
 import RealState from "./realState";
 
 import { Image } from "antd";
+import Link from "next/link";
 
 
 const Welcome = () => {
@@ -33,24 +34,22 @@ const Welcome = () => {
                   )}
                   <ul>
                     <li>
-                      <a
-                        href="#"
+                      <h5
                         onClick={buyFn}
-                        style={{background:'none'}}
+                        style={{background:'none',cursor:'pointer'}}
                         className={text === "buy" ? "abc active" : ""}
                       >
                         Buy
-                      </a>
+                      </h5>
                     </li>
                     <li>
-                      <a
-                        href="#"
-                        style={{background:'none'}}
+                      <h5
+                        style={{background:'none',cursor:'pointer'}}
                         onClick={rentFn}
                         className={text === "rent" ? "abc active" : ""}
                       >
                         Rent
-                      </a>
+                      </h5>
                     </li>
                   </ul>
                   <div className="footer-input-top">
