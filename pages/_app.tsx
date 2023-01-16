@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-css-tags */
 
 import "../styles/navbar.css";
 import "../styles/login.css";

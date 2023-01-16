@@ -1,19 +1,23 @@
-import React, { Component, useEffect, useState } from "react";
-import { Drawer, Button, Space, Input, Avatar, Popover  } from "antd";
-import { UserOutlined, CaretDownOutlined, BellFilled, LogoutOutlined } from "@ant-design/icons";
+import React, { useEffect, useState } from "react";
+import { Avatar, Popover } from "antd";
+import {
+  UserOutlined,
+  CaretDownOutlined,
+  BellFilled,
+  LogoutOutlined,
+} from "@ant-design/icons";
 import { Image } from "antd";
 import Router from "next/router";
 import Link from "next/link";
 import jwt from "jsonwebtoken";
 
-
-const { Search } = Input;
+// interface valueInterface {
+//   visible: Boolean;
+//   current: String;
+// }
 
 const Header: React.FC = () => {
-  const [current, setCurrent] = useState("mail");
-  const [visible, setVisible] = useState(false);
   const [name, setName] = useState("");
-
   const [role, setRole] = useState();
   const token = {
     access:
@@ -23,6 +27,29 @@ const Header: React.FC = () => {
     isAuthenticated: null,
     user: null,
   };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
+    Router.push("/login");
+  };
+
+  const content = (
+    <div>
+      <div className="popoverdiv">
+        <button className="profilecss">
+          <UserOutlined className="iconcss" />
+          &emsp; Profile
+        </button>
+        <br />
+        <button className="logoutcss" onClick={handleLogout}>
+          <LogoutOutlined className="iconcss" />
+          &emsp; Log out
+        </button>
+      </div>
+    </div>
+  );
+
   useEffect(() => {
     const token: any = localStorage.getItem("token");
     const decode: any = jwt.decode(token);
@@ -30,45 +57,20 @@ const Header: React.FC = () => {
     setRole(decode?.data?.role?.title);
   }, []);
 
-  interface valueInterface {
-    visible: Boolean;
-    current: String;
-  }
-
-  const showDrawer = () => {
-    setVisible(true);
-  };
-  const onClose = () => {
-    setVisible(false);
-  };
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("role");
-    Router.push("/login");
-  };
- 
-  const content = (
-    <div>
-      <div className="popoverdiv">
-      <button className="profilecss"><UserOutlined className="iconcss"/>&emsp; Profile</button>
-      <br/>
-      <button className="logoutcss" onClick={handleLogout}><LogoutOutlined className="iconcss"/>&emsp; Log out</button>
-    </div>
-    </div>
-  );
-  const roleIdentifier =
-    typeof window !== "undefined" &&
-    window?.localStorage?.getItem("role") === "1"
-      ? "menuBar adminlogin"
-      : "menuBar";
   const roleType =
     typeof window !== "undefined" && window?.localStorage?.getItem("role");
-  const adminrighticon =
-    typeof window !== "undefined" &&
-    window?.localStorage?.getItem("role") === "1"
-      ? "menuCon menuConAdmin"
-      : "menuCon";
 
+  // const roleIdentifier =
+  //   typeof window !== "undefined" &&
+  //   window?.localStorage?.getItem("role") === "1"
+  //     ? "menuBar adminlogin"
+  //     : "menuBar";
+
+  // const adminrighticon =
+  //   typeof window !== "undefined" &&
+  //   window?.localStorage?.getItem("role") === "1"
+  //     ? "menuCon menuConAdmin"
+  //     : "menuCon";
 
   return (
     <div>
@@ -91,6 +93,7 @@ const Header: React.FC = () => {
                           preview={false}
                         />
                       </Link>
+                      <h1>okk</h1>
                       <button
                         className="navbar-toggler"
                         type="button"
@@ -109,7 +112,7 @@ const Header: React.FC = () => {
                     <ul className="navbar-nav">
                       <li className="nav-item active">
                         <Link className="nav-link" href="#">
-                          Buy <span className="sr-only">(current)</span>
+                          Buy
                         </Link>
                       </li>
                       <li className="nav-item">
@@ -128,25 +131,27 @@ const Header: React.FC = () => {
                         </Link>
                       </li>
                     </ul>
-                    {token && token?.access !== null ?
-                     <div className="login">
-                       <BellFilled style={{ marginTop: "12px", fontSize: "large" }} />
-            <Popover placement="top"  content={content} title="   ">
-            &emsp;&emsp;<span>{name}</span>
-              <CaretDownOutlined className="arroDownCls" />
-            <Avatar
-              icon={<UserOutlined />}
-              style={{ marginTop: "5px", marginLeft: "5px" }}
-            />
-            </Popover>
-                   </div>
-                    :
-                    <div className="login">
-                      <Link className="btn-main" href="/login">
-                        Login Or singup
-                      </Link>
-                    </div>
-}
+                    {token && token?.access !== null ? (
+                      <div className="login">
+                        <BellFilled
+                          style={{ marginTop: "12px", fontSize: "large" }}
+                        />
+                        <Popover placement="top" content={content} title="   ">
+                          &emsp;&emsp;<span>{name}</span>
+                          <CaretDownOutlined className="arroDownCls" />
+                          <Avatar
+                            icon={<UserOutlined />}
+                            style={{ marginTop: "5px", marginLeft: "5px" }}
+                          />
+                        </Popover>
+                      </div>
+                    ) : (
+                      <div className="login">
+                        <Link className="btn-main" href="/login">
+                          Login Or singup
+                        </Link>
+                      </div>
+                    )}
                   </div>
                 </nav>
               </div>

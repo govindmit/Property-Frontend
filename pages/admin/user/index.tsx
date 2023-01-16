@@ -23,6 +23,7 @@ import {
   MoreOutlined,
 } from "@ant-design/icons";
 import axios from "axios";
+import Image from "next/image";
 export interface UserDataTypes {
   address: String;
   email: String;
@@ -31,7 +32,6 @@ export interface UserDataTypes {
   lastName: String;
   status: String;
 }
-import Image from "next/image";
 
 export default function UserListing() {
   const { Header, Sider, Content } = Layout;
