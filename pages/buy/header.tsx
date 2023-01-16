@@ -10,7 +10,7 @@ import {
   Pagination,
 } from "antd";
 import propertyService from "../../services/propertyService";
-
+import Image from "next/image";
 const { Header, Content, Footer, Sider } = Layout;
 const { Option } = Select;
 
@@ -299,10 +299,10 @@ const BuyHeader = () => {
               <ul>
                 {data?.map((e: any) => {
                   return (
-                    <li>
+                    <li key={e.propertyName} >
                       <div className="Business-cart">
                         <div className="busi-img">
-                          <img src={e.uploadFile} alt="NewHouse" />
+                          <Image width={300} height={180} src={e.uploadFile} alt="NewHouse" />
                         </div>
                         <div className="busi-contant">
                           {e.saleValue ? (
@@ -371,7 +371,7 @@ const BuyHeader = () => {
             </div>
             <div className="col-md-6 cart-bin">
               <div className="map-img">
-                <img src="/2091c1.png" alt="map-img" />
+                <Image width={650} height={400} src="/2091c1.png" alt="map-img" />
               </div>
             </div>
           </div>
