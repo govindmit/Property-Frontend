@@ -62,14 +62,14 @@ const MyFormItemGroup = ({ prefix, children }: MyFormItemGroupProps) => {
 };
 export interface IAppProps {}
 export interface UserDataTypes {
-  firstName: string;
-  lastName: string;
+  first_name: string;
+  last_name: string;
   email: string;
   status: string;
   phone: string;
   gender: string;
-  profilePic: string;
-  role: string;
+  profile_pic: string;
+  role_type: string;
 }
 export default function AddUser(props: IAppProps) {
   const { Option } = Select;
@@ -218,17 +218,17 @@ export default function AddUser(props: IAppProps) {
   const onFinish = async (values: any) => {
     const webtoken = localStorage.getItem("webToken");
     let web = webtoken?.substring(1, webtoken?.length - 1);
-    let { firstName, lastName, email, status, role, phone, gender } =
+    let { first_name, last_name, email, status, role_type, phone, gender } =
       values.user.name;
     let requesData = {
-      firstName: firstName === undefined ? user.firstName : firstName,
-      lastName: lastName === undefined ? user.lastName : lastName,
+      first_name: first_name === undefined ? user.first_name : first_name,
+      last_name: last_name === undefined ? user.last_name : last_name,
       email: email === undefined ? user.email : email,
       status: status === undefined ? user.status : status,
-      role: role === undefined ? user.role?.id : role,
+      role_type: role_type === undefined ? user.role_type?.id : role_type,
       phone: phone === undefined ? user.phone : phone,
       gender: gender === undefined ? user.gender : gender,
-      profilPic: image,
+      profile_pic: image,
     };
     setLoading(true);
     try {
@@ -290,10 +290,10 @@ export default function AddUser(props: IAppProps) {
                           onPreview={onPreview}
                         >
                           {fileList.length < 1 &&
-                            (user && user.profilPic != "" ? (
+                            (user && user.profile_pic != "" ? (
                               <Image
                                 style={{ borderRadius: "65px" }}
-                                src={user?.profilPic}
+                                src={user?.profile_pic}
                                 alt="image"
                                 width={100}
                                 height={100}
@@ -334,7 +334,7 @@ export default function AddUser(props: IAppProps) {
                       <Col className="gutter-row" span={1}></Col>
                       <Col className="gutter-row" span={10}>
                         <MyFormItem
-                          name="firstName"
+                          name="first_name"
                           label="First Name"
                           style={style}
                           rules={[
@@ -346,7 +346,7 @@ export default function AddUser(props: IAppProps) {
                         >
                           <Input
                             style={inputStyle}
-                            defaultValue={user && user.firstName}
+                            defaultValue={user && user.first_name}
                           />
                         </MyFormItem>
                       </Col>
@@ -354,7 +354,7 @@ export default function AddUser(props: IAppProps) {
 
                       <Col className="gutter-row" span={10}>
                         <MyFormItem
-                          name="lastName"
+                          name="last_name"
                           style={style}
                           label="Last Name"
                           rules={[
@@ -366,7 +366,7 @@ export default function AddUser(props: IAppProps) {
                         >
                           <Input
                             style={inputStyle}
-                            defaultValue={user && user.lastName}
+                            defaultValue={user && user.last_name}
                           />
                         </MyFormItem>
                       </Col>
@@ -417,12 +417,12 @@ export default function AddUser(props: IAppProps) {
                     <Row gutter={{ xs: 4, sm: 8, md: 12, lg: 20 }}>
                       <Col className="gutter-row" span={1}></Col>
                       <Col className="gutter-row" span={10}>
-                        <MyFormItem name="role" label="Role" style={style}>
+                        <MyFormItem name="role_type" label="Role" style={style}>
                           <Select
                             placeholder="Select role"
                             onChange={onRoleChange}
                             allowClear
-                            defaultValue={user && user?.role?.title}
+                            defaultValue={user && user?.role_type===1?"User":user?.role_type===2?"User":user?.role_type===3?"Brokerage":user?.role_type===4?"Landlord":user?.role_type===5?"Agent":""}
                             className="dropdownadmin"
                           >
                             <Option value="1">Admin</Option>

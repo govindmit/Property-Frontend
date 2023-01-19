@@ -55,7 +55,8 @@ const Header: React.FC = () => {
   };
   const handleLogout = () => {
     localStorage.removeItem("token");
-    localStorage.removeItem("role");
+    localStorage.removeItem("role_type");
+
     Router.push("/login");
   };
 
@@ -76,14 +77,14 @@ const Header: React.FC = () => {
   );
   const roleIdentifier =
     typeof window !== "undefined" &&
-    window?.localStorage?.getItem("role") === "1"
+    window?.localStorage?.getItem("role_type") === "1"
       ? "menuBar adminlogin"
       : "menuBar";
   const roleType =
-    typeof window !== "undefined" && window?.localStorage?.getItem("role");
+    typeof window !== "undefined" && window?.localStorage?.getItem("role_type");
   const adminrighticon =
     typeof window !== "undefined" &&
-    window?.localStorage?.getItem("role") === "1"
+    window?.localStorage?.getItem("role_type") === "1"
       ? "menuCon menuConAdmin"
       : "menuCon";
 

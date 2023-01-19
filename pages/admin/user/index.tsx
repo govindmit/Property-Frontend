@@ -23,15 +23,15 @@ import {
   MoreOutlined,
 } from "@ant-design/icons";
 import axios from "axios";
+import Image from "next/image";
 export interface UserDataTypes {
   address: String;
   email: String;
   id: Number;
-  firstName: String;
-  lastName: String;
+  first_name: String;
+  last_name: String;
   status: String;
 }
-import Image from "next/image";
 
 export default function UserListing() {
   const { Header, Sider, Content } = Layout;
@@ -87,7 +87,6 @@ export default function UserListing() {
       },
     });
   };
-
   const content = (
     <div>
       <Link href={`/admin/user/view/${userData.id}`}>
@@ -113,14 +112,14 @@ export default function UserListing() {
   );
   const columns = [
     {
-      key: "firstName",
+      key: "first_name",
       title: "First Name",
-      dataIndex: "firstName",
+      dataIndex: "first_name",
     },
     {
-      key: "lastName",
+      key: "last_name",
       title: "Last Name",
-      dataIndex: "lastName",
+      dataIndex: "last_name",
     },
     {
       key: "email",
@@ -128,9 +127,9 @@ export default function UserListing() {
       dataIndex: "email",
     },
     {
-      key: "profilPic",
+      key: "profile_pic",
       title: "Image",
-      dataIndex: "profilPic",
+      dataIndex: "profile_pic",
       render: (t: any) => <Image alt="image" src={t} width={50} height={50} />,
     },
     {
@@ -179,7 +178,7 @@ export default function UserListing() {
         .then((res) => {
           setUser(res.data);
           const identifierUserData = res.data.filter((data: any) => {
-            if (data?.Role?.title === "User") {
+            if (data?.role?.title === "User") {
               return data;
             }
           });
@@ -242,7 +241,7 @@ export default function UserListing() {
       const results = identifier.filter((post: any) => {
         var a, b;
         if (e.target.value === "") return userData1;
-        a = post.firstName.toLowerCase().includes(e.target.value.toLowerCase());
+        a = post.first_name.toLowerCase().includes(e.target.value.toLowerCase());
         b = post.email.toLowerCase().includes(e.target.value.toLowerCase());
         return a || b;
       });
@@ -254,7 +253,7 @@ export default function UserListing() {
       const results = identifier.filter((post: any) => {
         var a, b;
         if (e.target.value === "") return userData1;
-        a = post.firstName.toLowerCase().includes(e.target.value.toLowerCase());
+        a = post.first_name.toLowerCase().includes(e.target.value.toLowerCase());
         b = post.email.toLowerCase().includes(e.target.value.toLowerCase());
         return a || b;
       });
@@ -266,7 +265,7 @@ export default function UserListing() {
       const results = identifier.filter((post: any) => {
         var a, b;
         if (e.target.value === "") return userData1;
-        a = post.firstName.toLowerCase().includes(e.target.value.toLowerCase());
+        a = post.first_name.toLowerCase().includes(e.target.value.toLowerCase());
         b = post.email.toLowerCase().includes(e.target.value.toLowerCase());
         return a || b;
       });
@@ -280,7 +279,7 @@ export default function UserListing() {
         userData1.filter((post: any) => {
           var a, b;
           if (e.target.value === "") return userData1;
-          a = post.firstName
+          a = post.first_name
             .toLowerCase()
             .includes(e.target.value.toLowerCase());
           b = post.email.toLowerCase().includes(e.target.value.toLowerCase());

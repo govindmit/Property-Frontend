@@ -62,14 +62,14 @@ const MyFormItemGroup = ({ prefix, children }: MyFormItemGroupProps) => {
 };
 export interface IAppProps {}
 export interface UserDataTypes {
-  firstName: string;
-  lastName: string;
+  first_name: string;
+  last_name: string;
   email: string;
   status: string;
   phone: string;
   gender: string;
-  profilePic: string;
-  role: string;
+  profile_pic: string;
+  role_type: string;
 }
 export default function AddUser(props: IAppProps) {
   const { Option } = Select;
@@ -192,19 +192,18 @@ export default function AddUser(props: IAppProps) {
   const onFinish = async (values: any) => {
     const webtoken = localStorage.getItem("webToken");
     let web = webtoken?.substring(1, webtoken?.length - 1);
-    let { firstName, lastName, email, status, role, gender, phone } =
+    let { first_name, last_name, email, status, role_type, gender, phone } =
       values.user.name;
     let formData = new FormData();
     const requestData: any = {
-      firstName: firstName,
-      lastName: lastName,
+      first_name: first_name,
+      last_name: last_name,
       email: email,
-      role: role,
-      password: "",
+      role_type: role_type,
       status: status,
       gender: gender,
       phone: phone,
-      profilPic: image,
+      profile_pic: image,
     };
     for (var key in requestData) {
       formData.append(key, requestData[key]);
@@ -229,7 +228,6 @@ export default function AddUser(props: IAppProps) {
     } catch (err) {
       console.log("#####", err);
     }
-    console.log(values);
   };
   const inputStyle: React.CSSProperties = {
     padding: "5px 12px",
@@ -306,7 +304,7 @@ export default function AddUser(props: IAppProps) {
                       <Col className="gutter-row" span={1}></Col>
                       <Col className="gutter-row" span={10}>
                         <MyFormItem
-                          name="firstName"
+                          name="first_name"
                           label="First Name"
                           style={style}
                           rules={[
@@ -323,7 +321,7 @@ export default function AddUser(props: IAppProps) {
 
                       <Col className="gutter-row" span={10}>
                         <MyFormItem
-                          name="lastName"
+                          name="last_name"
                           style={style}
                           label="Last Name"
                           rules={[
@@ -384,7 +382,7 @@ export default function AddUser(props: IAppProps) {
                       <Col className="gutter-row" span={1}></Col>
                       <Col className="gutter-row" span={10}>
                         <MyFormItem
-                          name="role"
+                          name="role_type"
                           label="Role"
                           style={style}
                           rules={[
