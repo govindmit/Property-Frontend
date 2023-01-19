@@ -14,6 +14,7 @@ import {
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import propertyService from "../../services/propertyService";
+import Link from "next/link";
 
 const { Header, Content, Footer, Sider } = Layout;
 const { Option } = Select;
@@ -27,10 +28,10 @@ const BuyHeader = () => {
   const [propertyPurpose, setPropertyPurpose] = useState();
   const [propertyCategory, setPropertyCategory] = useState();
 
-  const [bedsBtn1, setBedsBtn1] = useState('0');
-  const [bedsBtn2, setBedsBtn2] = useState('0');
-  const [bathsBtn1, setBathsBtn1] = useState('0');
-  const [bathsBtn2, setBathsBtn2] = useState('0');
+  const [bedsBtn1, setBedsBtn1] = useState("0");
+  const [bedsBtn2, setBedsBtn2] = useState("0");
+  const [bathsBtn1, setBathsBtn1] = useState("0");
+  const [bathsBtn2, setBathsBtn2] = useState("0");
 
   const [bedsBtn1Value, setBedsBtn1Value] = useState(0);
 
@@ -51,8 +52,8 @@ const BuyHeader = () => {
   const [propertyPurposeArray, setproPertyPurposeArray] = useState<any>();
   const [propertyCategoryArray, setpropertyCategoryArray] = useState<any>();
   const [propertyPriceArray, setPropertyPriceArray] = useState<any>();
-  const [propertyBedsAndBathsArray, setPropertyBedsAndBathsArray] = useState<any>();
-
+  const [propertyBedsAndBathsArray, setPropertyBedsAndBathsArray] =
+    useState<any>();
 
   useEffect(() => {
     getAllListings();
@@ -69,10 +70,10 @@ const BuyHeader = () => {
     setMaxPrice(0);
 
     setOpen1(false);
-    setBedsBtn1('0');
-    setBedsBtn2('0');
-    setBathsBtn1('0');
-    setBathsBtn2('0');
+    setBedsBtn1("0");
+    setBedsBtn2("0");
+    setBathsBtn1("0");
+    setBathsBtn2("0");
   };
   const handleOpenChange = (newOpen: boolean) => {
     setOpen(newOpen);
@@ -82,16 +83,16 @@ const BuyHeader = () => {
     setOpen1(newOpen);
   };
   const handleToggle1 = (e: any) => {
-    bedsBtn1 === '1' ? setBedsBtn1('0') : setBedsBtn1('1');
+    bedsBtn1 === "1" ? setBedsBtn1("0") : setBedsBtn1("1");
   };
   const handleToggle2 = (e: any) => {
-    bedsBtn2 === '2' ? setBedsBtn2('0') : setBedsBtn2('2');
+    bedsBtn2 === "2" ? setBedsBtn2("0") : setBedsBtn2("2");
   };
   const handleToggleBath1 = () => {
-    bathsBtn1 === '1' ? setBathsBtn1('0') : setBathsBtn1('1');
+    bathsBtn1 === "1" ? setBathsBtn1("0") : setBathsBtn1("1");
   };
   const handleToggleBath2 = () => {
-    bathsBtn2 === '2' ? setBathsBtn2('0') : setBathsBtn2('2');
+    bathsBtn2 === "2" ? setBathsBtn2("0") : setBathsBtn2("2");
   };
 
   const getAllListings = async () => {
@@ -101,7 +102,7 @@ const BuyHeader = () => {
     const a = JSON.parse(token);
 
     await propertyService.getAllProperty(a).then((data: any) => {
-     const a = data?.data.slice(0, 2);
+      const a = data?.data.slice(0, 2);
       setTotalPage(data?.data.length);
       setData(a);
       setTempData(data?.data);
@@ -109,7 +110,12 @@ const BuyHeader = () => {
   };
 
   const handlePageChange = (page: any, perPage: any) => {
-    if (!propertyPurposeArray && !propertyCategoryArray && !propertyPriceArray  && !allFilteredArray) {
+    if (
+      !propertyPurposeArray &&
+      !propertyCategoryArray &&
+      !propertyPriceArray &&
+      !allFilteredArray
+    ) {
       const projects = tempData.slice((page - 1) * perPage, page * perPage);
       setData(projects);
       setPageSize(perPage);
@@ -142,7 +148,6 @@ const BuyHeader = () => {
       setPageSize(perPage);
       setCurrentPage(page);
     }
-  
   };
 
   const propertyPurposeFn = (e: any) => {
@@ -209,7 +214,12 @@ const BuyHeader = () => {
       };
 
       const priceFilterArray = tempData.filter((pp: any) => {
-        if (pp.sale_value && pp.sale_value >= minPrice && pp.sale_value <= maxPrice )  return pp;
+        if (
+          pp.sale_value &&
+          pp.sale_value >= minPrice &&
+          pp.sale_value <= maxPrice
+        )
+          return pp;
       });
       setPropertyPriceArray(priceFilterArray);
       concatFn(priceFilterArray, priceObject);
@@ -228,13 +238,19 @@ const BuyHeader = () => {
 
   const handleBedsAndBathsFilters = () => {
     const propertyObject = {
-      bedsBtn1:bedsBtn1,
-      bedsBtn2:bedsBtn2,
-      bathsBtn1:bathsBtn1,
-      bathsBtn2:bathsBtn2
-    }
+      bedsBtn1: bedsBtn1,
+      bedsBtn2: bedsBtn2,
+      bathsBtn1: bathsBtn1,
+      bathsBtn2: bathsBtn2,
+    };
     const otherFilter = tempData.filter((ppt: any) => {
-      if (ppt.beds === bedsBtn1 || ppt.beds === bedsBtn2 || ppt.baths === bathsBtn1 || ppt.baths === bathsBtn2) return ppt;
+      if (
+        ppt.beds === bedsBtn1 ||
+        ppt.beds === bedsBtn2 ||
+        ppt.baths === bathsBtn1 ||
+        ppt.baths === bathsBtn2
+      )
+        return ppt;
     });
     setPropertyBedsAndBathsArray(otherFilter);
     concatFn(otherFilter, propertyObject);
@@ -295,8 +311,6 @@ const BuyHeader = () => {
     setTotalPage(length1);
   };
 
-
-
   const content = (
     <div style={{ width: "250px" }}>
       <div style={{ display: "flex", width: "250px" }}>
@@ -351,21 +365,21 @@ const BuyHeader = () => {
           </Button>
           <Button
             type="default"
-            value={'1'}
+            value={"1"}
             onClick={(e: any) => {
               handleToggle1(e.target.value);
             }}
-            className={bedsBtn1 ==='1' ? "truCls" : "falseCls"}
+            className={bedsBtn1 === "1" ? "truCls" : "falseCls"}
           >
             1
           </Button>
           <Button
             type="default"
-            value={'2'}
+            value={"2"}
             onClick={(e: any) => {
               handleToggle2(e.target.value);
             }}
-            className={bedsBtn2 === '2' ? "truCls" : "falseCls"}
+            className={bedsBtn2 === "2" ? "truCls" : "falseCls"}
           >
             2
           </Button>
@@ -384,14 +398,14 @@ const BuyHeader = () => {
           <Button
             type="default"
             onClick={handleToggleBath1}
-            className={bathsBtn1 === '1' ? "truCls" : "falseCls"}
+            className={bathsBtn1 === "1" ? "truCls" : "falseCls"}
           >
             1
           </Button>
           <Button
             type="default"
             onClick={handleToggleBath2}
-            className={bathsBtn2 === '2' ? "truCls" : "falseCls"}
+            className={bathsBtn2 === "2" ? "truCls" : "falseCls"}
           >
             2
           </Button>
@@ -404,7 +418,14 @@ const BuyHeader = () => {
           <Button type="default" onClick={hide1}>
             Reset
           </Button>
-          <Button type="primary" defaultChecked onClick={() => { handleBedsAndBathsFilters(); hide(); }} >
+          <Button
+            type="primary"
+            defaultChecked
+            onClick={() => {
+              handleBedsAndBathsFilters();
+              hide();
+            }}
+          >
             Done
           </Button>
         </Space>
@@ -521,46 +542,47 @@ const BuyHeader = () => {
                       return (
                         <li key={i}>
                           <div className="Business-cart">
-                            <div className="busi-img">
-                              <Image
-                                src={e?.upload_file}
-                                alt="NewHouse"
-                                preview={false}
-                              />
-                            </div>
-                            <div className="busi-contant">
-                              {e?.sale_value ? (
-                                <h6>
-                                  AED {e?.sale_value}
-                                  <span>
-                                    <i
-                                      className="fa fa-heart-o"
-                                      aria-hidden="true"
-                                    ></i>
-                                  </span>
-                                </h6>
-                              ) : (
-                                <h6>
-                                  AED {e?.rent_per_year}
-                                  <span>
-                                    <i
-                                      className="fa fa-heart-o"
-                                      aria-hidden="true"
-                                    ></i>
-                                  </span>
-                                </h6>
-                              )}
-
-                              <p>{e?.property_name}</p>
-                              <address>{e?.address_line2}</address>
-                              <span className="btn-sm">{e?.beds} Beds</span>
-                              <span className="btn-sm">{e?.baths} Baths</span>
-                              <span className="btn-sm">{e?.sqft} Sq Ft</span>
-                              <div className="btn-Business">
-                                <a href="#">Request a Tour</a>
-                                <a href="#">Contact Agent</a>
+                            <Link href={`/listing/${e?.slug}`}>
+                              <div className="busi-img">
+                                <Image
+                                  src={e?.upload_file}
+                                  alt="NewHouse"
+                                  preview={false}
+                                />
                               </div>
-                            </div>
+                              <div className="busi-contant">
+                                {e?.sale_value ? (
+                                  <h6>
+                                    AED {e?.sale_value}
+                                    <span>
+                                      <i
+                                        className="fa fa-heart-o"
+                                        aria-hidden="true"
+                                      ></i>
+                                    </span>
+                                  </h6>
+                                ) : (
+                                  <h6>
+                                    AED {e?.rent_per_year}
+                                    <span>
+                                      <i
+                                        className="fa fa-heart-o"
+                                        aria-hidden="true"
+                                      ></i>
+                                    </span>
+                                  </h6>
+                                )}
+                                <p>{e?.property_name}</p>
+                                <address>{e?.address_line2}</address>
+                                <span className="btn-sm">{e?.beds} Beds</span>
+                                <span className="btn-sm">{e?.baths} Baths</span>
+                                <span className="btn-sm">{e?.sqft} Sq Ft</span>
+                                <div className="btn-Business">
+                                  <a href="#">Request a Tour</a>
+                                  <a href="#">Contact Agent</a>
+                                </div>
+                              </div>
+                            </Link>
                           </div>
                         </li>
                       );
@@ -570,46 +592,48 @@ const BuyHeader = () => {
                       return (
                         <li key={i}>
                           <div className="Business-cart">
-                            <div className="busi-img">
-                              <Image
-                                src={e?.upload_file}
-                                alt="NewHouse"
-                                preview={false}
-                              />
-                            </div>
-                            <div className="busi-contant">
-                              {e?.sale_value ? (
-                                <h6>
-                                  AED {e?.sale_value}
-                                  <span>
-                                    <i
-                                      className="fa fa-heart-o"
-                                      aria-hidden="true"
-                                    ></i>
-                                  </span>
-                                </h6>
-                              ) : (
-                                <h6>
-                                  AED {e?.rent_per_year}
-                                  <span>
-                                    <i
-                                      className="fa fa-heart-o"
-                                      aria-hidden="true"
-                                    ></i>
-                                  </span>
-                                </h6>
-                              )}
-
-                              <p>{e?.property_name}</p>
-                              <address>{e?.address_line2}</address>
-                              <span className="btn-sm">{e?.beds} Beds</span>
-                              <span className="btn-sm">{e?.baths} Baths</span>
-                              <span className="btn-sm">{e?.sqft} Sq Ft</span>
-                              <div className="btn-Business">
-                                <a href="#">Request a Tour</a>
-                                <a href="#">Contact Agent</a>
+                          <Link href={`/listing/${e?.slug}`}>
+                              <div className="busi-img">
+                                <Image
+                                  src={e?.upload_file}
+                                  alt="NewHouse"
+                                  preview={false}
+                                />
                               </div>
-                            </div>
+                              <div className="busi-contant">
+                                {e?.sale_value ? (
+                                  <h6>
+                                    AED {e?.sale_value}
+                                    <span>
+                                      <i
+                                        className="fa fa-heart-o"
+                                        aria-hidden="true"
+                                      ></i>
+                                    </span>
+                                  </h6>
+                                ) : (
+                                  <h6>
+                                    AED {e?.rent_per_year}
+                                    <span>
+                                      <i
+                                        className="fa fa-heart-o"
+                                        aria-hidden="true"
+                                      ></i>
+                                    </span>
+                                  </h6>
+                                )}
+
+                                <p>{e?.property_name}</p>
+                                <address>{e?.address_line2}</address>
+                                <span className="btn-sm">{e?.beds} Beds</span>
+                                <span className="btn-sm">{e?.baths} Baths</span>
+                                <span className="btn-sm">{e?.sqft} Sq Ft</span>
+                                <div className="btn-Business">
+                                  <a href="#">Request a Tour</a>
+                                  <a href="#">Contact Agent</a>
+                                </div>
+                              </div>
+                            </Link>
                           </div>
                         </li>
                       );
