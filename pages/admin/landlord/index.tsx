@@ -286,7 +286,7 @@ export default function UserListing() {
         userData1.filter((post: any) => {
           var a, b;
           if (e.target.value === "") return userData1;
-          a = post.firstName
+          a = post.first_name
             .toLowerCase()
             .includes(e.target.value.toLowerCase());
           b = post.email.toLowerCase().includes(e.target.value.toLowerCase());
