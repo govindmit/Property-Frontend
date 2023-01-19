@@ -30,7 +30,7 @@ export default function App(props: IAppProps) {
     };
     try {
       await axios
-        .post(`https://api-property.mangoitsol.com/api/user/resetPassword`, requestData, {
+        .post(`https://api-property.mangoitsol.com/api/user/resetpassword`, requestData, {
           headers: {
             Authorization: `Bearer ${tokenn}`,
           },

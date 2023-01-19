@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-css-tags */
 
 import "../styles/navbar.css";
 import "../styles/login.css";
@@ -11,7 +12,6 @@ import "../styles/users.css";
 import "../styles/myProfile.css";
 import "../styles/home.css";
 import "../styles/buy.css";
-
 
 import "../styles/myProfile.css";
 import "../styles/loginNew.css";

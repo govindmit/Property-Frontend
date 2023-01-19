@@ -33,7 +33,7 @@ export default function App(props: IAppProps) {
           if (res?.status === 200) {
             localStorage.setItem("token", res.data.accessToken);
             if (res?.data?.data?.role_type === 1) {
-              localStorage.setItem("role", res.data.data.role_type);
+              localStorage.setItem("role_type", res.data.data.role_type);
               Router.push("/admin/user");
             } else if (res?.data?.data?.role_type === 2) {
               Router.push("/users/favorite");
