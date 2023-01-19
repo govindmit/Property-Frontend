@@ -46,7 +46,7 @@ const UserProfile = () => {
       uid: "-1",
       name: "image.png",
       status: "done",
-      url: dataObj?.profilPic,
+      url: dataObj?.profile_pic,
     },
   ]);
 
@@ -70,12 +70,12 @@ const UserProfile = () => {
       if (data.data != null) {
         setDataObj(data?.data);
         setIsShow(false);
-        setFirstName(data?.data?.firstName);
-        setLastName(data?.data?.lastName);
+        setFirstName(data?.data?.first_name);
+        setLastName(data?.data?.last_name);
         setPhone(data?.data?.phone);
         setEmail(data?.data?.email);
         setGender(data?.data?.gender);
-        setProfilePic(data?.data?.profilPic);
+        setProfilePic(data?.data?.profile_pic);
       }
     });
   };
@@ -123,11 +123,11 @@ const UserProfile = () => {
 
     const userData = new FormData();
     const data = {
-      firstName: firstName,
-      lastName: lastName,
+      first_name: firstName,
+      last_name: lastName,
       phone: phone,
       gender: gender,
-      profilPic: profilPic,
+      profile_pic: profilPic,
       email: email,
     };
     
@@ -224,7 +224,7 @@ const UserProfile = () => {
               {showPreImage ? (
                 <Avatar size={250} src={photo} />
               ) : (
-                <Avatar size={250} src={dataObj?.profilPic} />
+                <Avatar size={250} src={dataObj?.profile_pic} />
               )}
 
               <ImgCrop rotate>
@@ -266,7 +266,7 @@ const UserProfile = () => {
                         >
                           <Input
                             placeholder="input placeholder"
-                            defaultValue={dataObj?.firstName}
+                            defaultValue={dataObj?.first_name}
                             onChange={(e) => {
                               setFirstName(e.target.value);
                             }}
@@ -374,7 +374,7 @@ const UserProfile = () => {
                         >
                           <Input
                             placeholder="input placeholder"
-                            defaultValue={dataObj?.lastName}
+                            defaultValue={dataObj?.last_name}
                             onChange={(e) => {
                               setLastName(e.target.value);
                             }}

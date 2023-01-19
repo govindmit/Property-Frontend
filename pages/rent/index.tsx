@@ -18,7 +18,7 @@ import propertyService from "../../services/propertyService";
 const { Header, Content, Footer, Sider } = Layout;
 const { Option } = Select;
 
-const BuyHeader = () => {
+const RentComp = () => {
   const [open, setOpen] = useState(false);
   const [open1, setOpen1] = useState(false);
 
@@ -687,4 +687,4 @@ const BuyHeader = () => {
   );
 };
 
-export default BuyHeader;
+export default RentComp;

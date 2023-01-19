@@ -34,12 +34,12 @@ const Header: React.FC = () => {
   useEffect(() => {
     const token: any = localStorage.getItem("token");
     const decode: any = jwt.decode(token);
-    setName(decode?.data?.firstName);
-    setRole(decode?.data?.role?.title);
+    setName(decode?.data?.first_name);
+    setRole(decode?.data?.role_type?.title);
 
     // key={!getPath.includes("landlord") ? "/admin/landlord" : getPath}
 
-    Router.pathname.includes("/landloard") ? setCurrent("landloard") : Router.pathname.includes("/brokerage") ? setCurrent("brokerage") : Router.pathname.includes("/buy") ? setCurrent("buy"):'';
+    Router.pathname.includes("/landloard") ? setCurrent("landloard") : Router.pathname.includes("/brokerage") ? setCurrent("brokerage") : Router.pathname.includes("/buy") ? setCurrent("buy") : Router.pathname.includes("/rent") ? setCurrent("rent"):'';
   });
 
   interface valueInterface {
@@ -130,12 +130,18 @@ const Header: React.FC = () => {
                             current === "buy"
                               ? "aaa nav-link"
                               : "nav-link"
-                          } href="/buy">
+                          } 
+                          href="/buy">
                           Buy <span className="sr-only">(current)</span>
                         </Link>
                       </li>
                       <li className="nav-item">
-                        <Link className="nav-link" href="#">
+                        <Link className={
+                            current === "rent"
+                              ? "aaa nav-link"
+                              : "nav-link"
+                          } 
+                          href="/rent">
                           Rent
                         </Link>
                       </li>
