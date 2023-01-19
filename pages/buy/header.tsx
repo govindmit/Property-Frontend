@@ -8,126 +8,307 @@ import {
   Select,
   Popover,
   Pagination,
+  Image,
+  InputNumber,
 } from "antd";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import propertyService from "../../services/propertyService";
 
 const { Header, Content, Footer, Sider } = Layout;
 const { Option } = Select;
 
 const BuyHeader = () => {
+  const [open, setOpen] = useState(false);
+  const [open1, setOpen1] = useState(false);
 
-  const [propertyPurpose, setPropertyPurpose] = useState("Rent");
+  const [allFilteredArray, setAllFilteredArray] = useState<any>();
+
+  const [propertyPurpose, setPropertyPurpose] = useState();
   const [propertyCategory, setPropertyCategory] = useState();
-  const [bedsBtn1, setBedsBtn1] = useState(false);
-  const [bedsBtn2, setBedsBtn2] = useState(false);
-  const [bathsBtn1, setBathsBtn1] = useState(false);
-  const [bathsBtn2, setBathsBtn2] = useState(false);
+
+  const [bedsBtn1, setBedsBtn1] = useState(0);
+  const [bedsBtn2, setBedsBtn2] = useState(0);
+  const [bathsBtn1, setBathsBtn1] = useState(0);
+  const [bathsBtn2, setBathsBtn2] = useState(0);
+
+  const [bedsBtn1Value, setBedsBtn1Value] = useState(0);
+
+  const [minPrice, setMinPrice] = useState<any>(0);
+  const [maxPrice, setMaxPrice] = useState<any>(0);
+
+  const [minPriceErr, setMinPriceErr] = useState(false);
+  const [maxPriceErr, setMaxPriceErr] = useState(false);
 
   const [totalPage, setTotalPage] = useState(0);
-  const [currentPage,setCurrentPage] = useState(1)           //page
 
-
-  const [data, setData] = useState<any>();               
+  const [data, setData] = useState<any>();
   const [tempData, setTempData] = useState<any>();
-  const[pArray,setPArray] = useState([2,4,6]) 
-  const[pageSize,setPageSize] = useState(2);                //perPage
+  const [currentPage, setCurrentPage] = useState(1); // page
+  const [pArray, setPArray] = useState([2, 4, 6]);
+  const [pageSize, setPageSize] = useState(2); // perPage
 
-
-  const[propertyPurposeArray,setproPertyPurposeArray] =useState<any>()
-  const[propertyCategoryAyyar,setpropertyCategoryAyyar] =useState<any>()
-
+  const [propertyPurposeArray, setproPertyPurposeArray] = useState<any>();
+  const [propertyCategoryArray, setpropertyCategoryArray] = useState<any>();
+  const [propertyPriceArray, setPropertyPriceArray] = useState<any>();
 
   useEffect(() => {
     getAllListings();
   }, []);
 
+  const hide = () => {
+    setOpen(false);
+    setOpen1(false);
+  };
+
+  const hide1 = () => {
+    setOpen(false);
+    setMinPrice(0);
+    setMaxPrice(0);
+
+    setOpen1(false);
+    setBedsBtn1(0);
+    setBedsBtn2(0);
+    setBathsBtn1(0);
+    setBathsBtn2(0);
+  };
+  const handleOpenChange = (newOpen: boolean) => {
+    setOpen(newOpen);
+  };
+
+  const handleOpenChange1 = (newOpen: boolean) => {
+    setOpen1(newOpen);
+  };
+
   const getAllListings = async () => {
-    await propertyService.getAllProperty().then((data: any) => {
-      const a = data?.data.slice(0,2)
-      setTotalPage(data?.data.length)
+    const token: any = localStorage.getItem("webToken")
+      ? localStorage.getItem("webToken")
+      : null;
+    const a = JSON.parse(token);
+
+    await propertyService.getAllProperty(a).then((data: any) => {
+      const a = data?.data.slice(0, 2);
+      setTotalPage(data?.data.length);
       setData(a);
-      setTempData(data?.data)
+      setTempData(data?.data);
     });
   };
 
-  const handlePageChange = (page: any,perPage:any) => {
-    if(!propertyPurposeArray && !propertyCategoryAyyar){
-      const projects = tempData.slice((page- 1) * perPage,page * perPage)
-      setData(projects)
-      setPageSize(perPage)
-      setCurrentPage(page)
+  const handlePageChange = (page: any, perPage: any) => {
+    if (!propertyPurposeArray && !propertyCategoryArray && !allFilteredArray) {
+      const projects = tempData.slice((page - 1) * perPage, page * perPage);
+      setData(projects);
+      setPageSize(perPage);
+      setCurrentPage(page);
     }
-    if(propertyPurposeArray){
-      const projects = propertyPurposeArray.slice((page- 1) * perPage,page * perPage)
-      setData(projects)
-      setPageSize(perPage)
-      setCurrentPage(page)
+    if (propertyPurposeArray) {
+      const projects = propertyPurposeArray.slice(
+        (page - 1) * perPage,
+        page * perPage
+      );
+      setData(projects);
+      setPageSize(perPage);
+      setCurrentPage(page);
     }
-    if(propertyCategoryAyyar){
-      const projects = propertyCategoryAyyar.slice((page- 1) * perPage,page * perPage)
-      setData(projects)
-      setPageSize(perPage)
-      setCurrentPage(page)
+    if (propertyCategoryArray) {
+      const projects = propertyCategoryArray.slice(
+        (page - 1) * perPage,
+        page * perPage
+      );
+      setData(projects);
+      setPageSize(perPage);
+      setCurrentPage(page);
     }
-   
   };
 
   const propertyPurposeFn = (e: any) => {
     setPropertyPurpose(e);
-    const f = tempData.filter((ppt:any)=>{
-      if(ppt.propertyPurpose === e)
-      return ppt
-    })
-    setproPertyPurposeArray(f)
-    console.log('data ',f,'currentpage =',currentPage,"perpage ",pageSize ,);
-    const projects = f.slice((currentPage- 1) * pageSize,currentPage * pageSize)
-   console.log("projects ",projects)
-    setData(projects)
-    setTotalPage(f?.length)
-    setPageSize(pageSize)
-    setCurrentPage(currentPage)
- 
+    const propertyPurposeVar = tempData.filter((ppt: any) => {
+      if (ppt.propertyPurpose === e) return ppt;
+    });
+    setproPertyPurposeArray(propertyPurposeVar);
+    if (e && propertyCategory && minPrice && maxPrice) {
+      concatFn(propertyPurposeVar, e);
+    }
+    const projects = propertyPurposeVar.slice(
+      (currentPage - 1) * pageSize,
+      currentPage * pageSize
+    );
+    setData(projects);
+    setTotalPage(propertyPurposeVar?.length);
+    setPageSize(pageSize);
+    setCurrentPage(currentPage);
   };
- 
+
   const handlePropertyCategoryFn = (e: any) => {
     setPropertyCategory(e);
-    const f = tempData.filter((ppt:any)=>{
-      if(ppt.propertyCategory === e)
-      return ppt
-    })
-    setpropertyCategoryAyyar(f)
-    console.log('data ',f,'currentpage =',currentPage,"perpage ",pageSize ,);
-    const projects = f.slice((currentPage- 1) * pageSize,currentPage * pageSize)
-   console.log("projects ",projects)
-    setData(projects)
-    setTotalPage(f?.length)
-    setPageSize(pageSize)
-    setCurrentPage(currentPage)
+    const handlePropertyCategoryVar = tempData.filter((ppt: any) => {
+      if (ppt.propertyCategory === e) return ppt;
+    });
+    setpropertyCategoryArray(handlePropertyCategoryVar);
+    if (e && propertyPurpose && minPrice && maxPrice) {
+      concatFn(handlePropertyCategoryVar, e);
+    }
+    const projects = handlePropertyCategoryVar.slice(
+      (currentPage - 1) * pageSize,
+      currentPage * pageSize
+    );
+    setData(projects);
+    setTotalPage(handlePropertyCategoryVar?.length);
+    setPageSize(pageSize);
+    setCurrentPage(currentPage);
   };
 
-  const handleToggle1 = () => {
-    setBedsBtn1(!bedsBtn1);
+  const handlePriceFilter = () => {
+    if (!minPrice) {
+      setMinPriceErr(true);
+    }
+    if (!maxPriceErr) {
+      setMaxPriceErr(true);
+    }
+
+    if (minPriceErr || maxPriceErr) {
+      toast.error("please min and max price fields correctly", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } else {
+      const priceObject = {
+        min: minPrice,
+        max: maxPrice,
+      };
+
+      const priceFilterArray = tempData.filter((pp: any) => {
+        if (
+          pp.saleValue &&
+          pp.saleValue >= minPrice &&
+          pp.saleValue <= maxPrice
+        ) {
+          return pp;
+        }
+      });
+      setPropertyPriceArray(priceFilterArray);
+      concatFn(priceFilterArray, priceObject);
+      setOpen1(false);
+    }
   };
 
-  const handleToggle2 = () => {
-    setBedsBtn2(!bedsBtn2);
+  const handleBedsAndBathsFilters = () => {
+
+    const otherFilter = tempData.filter((ppt: any) => {
+      if (ppt.beds === 1) return ppt;
+    });
+  };
+
+  function arrayUnique(array: any) {
+    var a = array.concat();
+    for (var i = 0; i < a.length; ++i) {
+      for (var j = i + 1; j < a.length; ++j) {
+        if (a[i] === a[j]) a.splice(j--, 1);
+      }
+    }
+    return a;
+  }
+
+  const concatFn = (propertyData: any, identifier: any) => {
+    var length1;
+    if (identifier === "Rent" || identifier === "Sale") {
+      const concatArray1 = arrayUnique(
+        propertyCategoryArray.concat(propertyData, propertyPriceArray)
+      );
+      setAllFilteredArray(concatArray1);
+      const projects = concatArray1.slice(
+        (currentPage - 1) * pageSize,
+        currentPage * pageSize
+      );
+      length1 = concatArray1?.length;
+
+      setData(projects);
+      // setTotalPage(concatArray1?.length);
+      setPageSize(pageSize);
+      setCurrentPage(currentPage);
+    } else if (identifier === "Villa" || identifier === "Apartment") {
+      const concatArray2 = arrayUnique(
+        propertyData.concat(propertyPurposeArray, propertyPriceArray)
+      );
+      setAllFilteredArray(concatArray2);
+
+      const projects = concatArray2.slice(
+        (currentPage - 1) * pageSize,
+        currentPage * pageSize
+      );
+      length1 = concatArray2?.length;
+      setData(projects);
+      // setTotalPage(concatArray2?.length);
+      setPageSize(pageSize);
+      setCurrentPage(currentPage);
+    }
+    setTotalPage(length1);
+  };
+
+  const handleToggle1 = (e: any) => {
+    bedsBtn1 === 1 ? setBedsBtn1(0) : setBedsBtn1(1);
+  };
+
+  const handleToggle2 = (e: any) => {
+    bedsBtn2 === 1 ? setBedsBtn2(0) : setBedsBtn2(1);
+   
   };
 
   const handleToggleBath1 = () => {
-    setBathsBtn1(!bathsBtn1);
+    bathsBtn1 === 1 ? setBathsBtn1(0) : setBathsBtn1(1);
   };
 
   const handleToggleBath2 = () => {
-    setBathsBtn2(!bathsBtn2);
+    bathsBtn2 === 1 ? setBathsBtn2(0) : setBathsBtn2(1);
   };
 
   const content = (
-    <div style={{ display: "flex", width: "200px" }}>
-      <span style={{ marginTop: "4px" }}>min</span>{" "}
-      <input type="text" style={{ width: 60, margin: "5px" }} />
-      &nbsp;<span style={{ marginTop: "4px" }}> - </span>&nbsp;
-      <span style={{ marginTop: "4px" }}>max</span>{" "}
-      <input type="text" style={{ width: 60, margin: "5px" }} />
+    <div style={{ width: "250px" }}>
+      <div style={{ display: "flex", width: "250px" }}>
+        <span style={{ marginTop: "4px" }}>min</span>{" "}
+        <input
+          type="number"
+          value={minPrice}
+          onChange={(e: any) => {
+            setMinPrice(e.target.value);
+          }}
+          onKeyUp={() => {
+            setMinPriceErr(false);
+          }}
+          style={{ width: 80, margin: "5px" }}
+        />
+        &nbsp;<span style={{ marginTop: "4px" }}> - </span>&nbsp;
+        <span style={{ marginTop: "4px" }}>max</span>{" "}
+        <input
+          type="number"
+          value={maxPrice}
+          onChange={(e: any) => {
+            setMaxPrice(e.target.value);
+          }}
+          onKeyUp={() => {
+            setMaxPriceErr(false);
+          }}
+          style={{ width: 80, margin: "5px" }}
+        />
+      </div>
+      <div style={{ display: "flex", marginTop: "15px" }}>
+        <Space>
+          {" "}
+          <Button type="default" onClick={hide1}>
+            Reset
+          </Button>
+          <Button type="primary" onClick={handlePriceFilter}>
+            Done
+          </Button>
+        </Space>
+      </div>
     </div>
   );
 
@@ -142,15 +323,21 @@ const BuyHeader = () => {
           </Button>
           <Button
             type="default"
-            onClick={handleToggle1}
-            className={bedsBtn1 ? "truCls" : "falseCls"}
+            value={1}
+            onClick={(e: any) => {
+              handleToggle1(e.target.value);
+            }}
+            className={bedsBtn1 ===1 ? "truCls" : "falseCls"}
           >
             1
           </Button>
           <Button
             type="default"
-            onClick={handleToggle2}
-            className={bedsBtn2 ? "truCls" : "falseCls"}
+            value={2}
+            onClick={(e: any) => {
+              handleToggle2(e.target.value);
+            }}
+            className={bedsBtn2 === 1 ? "truCls" : "falseCls"}
           >
             2
           </Button>
@@ -169,14 +356,14 @@ const BuyHeader = () => {
           <Button
             type="default"
             onClick={handleToggleBath1}
-            className={bathsBtn1 ? "truCls" : "falseCls"}
+            className={bathsBtn1  ? "truCls" : "falseCls"}
           >
             1
           </Button>
           <Button
             type="default"
             onClick={handleToggleBath2}
-            className={bathsBtn2 ? "truCls" : "falseCls"}
+            className={bathsBtn2 === 1? "truCls" : "falseCls"}
           >
             2
           </Button>
@@ -186,10 +373,17 @@ const BuyHeader = () => {
       <div style={{ display: "flex", marginTop: "15px" }}>
         <Space>
           {" "}
-          <Button type="default" defaultChecked>
+          <Button type="default" onClick={hide1}>
             Reset
           </Button>
-          <Button type="primary" defaultChecked>
+          <Button
+            type="primary"
+            defaultChecked
+            onClick={() => {
+              handleBedsAndBathsFilters();
+              hide();
+            }}
+          >
             Done
           </Button>
         </Space>
@@ -199,7 +393,7 @@ const BuyHeader = () => {
 
   return (
     <div className="wrapper-area">
-
+      <ToastContainer />
       <Layout style={{ backgroundClip: "white" }} className="userLayoutCls">
         <Header style={{ backgroundClip: "white" }} className="userHeaderCls">
           <div className="logo" />
@@ -216,31 +410,30 @@ const BuyHeader = () => {
                 <Select
                   style={{ width: 120 }}
                   defaultValue={propertyPurpose}
-                  onChange={propertyPurposeFn}
+                  onChange={(e) => {
+                    propertyPurposeFn(e);
+                  }}
+                  placeholder={"For Rent"}
                 >
                   <Option value={"Rent"}>
                     For Rent{" "}
-                    <input
-                      type="radio"
-                      id="ForRent"
-                      name="radio"
-                      value="For Rent"
-                    />
+                    <input type="radio" id="Rent" name="radio" value="Rent" />
                   </Option>
                   <Option value={"Sale"}>
                     For Buy{" "}
-                    <input
-                      type="radio"
-                      id="ForBuy"
-                      name="radio"
-                      value="Sale"
-                    />
+                    <input type="radio" id="Sale" name="radio" value="Sale" />
                   </Option>
                 </Select>
               </Menu.Item>
 
               <Menu.Item>
-                <Popover placement="bottom" content={content} trigger="click">
+                <Popover
+                  open={open1}
+                  placement="bottom"
+                  content={content}
+                  onOpenChange={handleOpenChange1}
+                  trigger="click"
+                >
                   <Button>Price</Button>
                 </Popover>
               </Menu.Item>
@@ -248,10 +441,12 @@ const BuyHeader = () => {
               <Menu.Item style={{ marginLeft: "10px" }}>
                 {" "}
                 <Select
-                  style={{ width: 140,color:'black',fontWeight:'800' }}
+                  style={{ width: 140, color: "black", fontWeight: "800" }}
                   defaultValue={propertyCategory}
-                  onChange={handlePropertyCategoryFn}
-                  placeholder={'Property Type'}
+                  onChange={(e: any) => {
+                    handlePropertyCategoryFn(e);
+                  }}
+                  placeholder={"Property Type"}
                 >
                   <Option value={"Apartment"}>Apartment</Option>
                   <Option value={"Villa"}>Villa</Option>
@@ -260,9 +455,11 @@ const BuyHeader = () => {
 
               <Menu.Item>
                 <Popover
+                  open={open}
                   placement="bottom"
                   content={BedsBathsContent}
                   trigger="click"
+                  onOpenChange={handleOpenChange}
                 >
                   <Button>Beds/Baths</Button>
                 </Popover>
@@ -297,67 +494,155 @@ const BuyHeader = () => {
           <div className="row cart-b">
             <div className="col-md-6 cart-bin">
               <ul>
-                {data?.map((e: any) => {
-                  return (
-                    <li>
-                      <div className="Business-cart">
-                        <div className="busi-img">
-                          <img src={e.uploadFile} alt="NewHouse" />
-                        </div>
-                        <div className="busi-contant">
-                          {e.saleValue ? (
-                            <h6>
-                              AED {e.saleValue}
-                              <span>
-                                <i
-                                  className="fa fa-heart-o"
-                                  aria-hidden="true"
-                                ></i>
-                              </span>
-                            </h6>
-                          ) : (
-                            <h6>
-                              AED {e.rentPerYear}
-                              <span>
-                                <i
-                                  className="fa fa-heart-o"
-                                  aria-hidden="true"
-                                ></i>
-                              </span>
-                            </h6>
-                          )}
+                {allFilteredArray && allFilteredArray !== null
+                  ? allFilteredArray &&
+                    allFilteredArray.map((e: any, i: any) => {
+                      return (
+                        <li key={i}>
+                          <div className="Business-cart">
+                            <div className="busi-img">
+                              <Image
+                                src={e?.uploadFile}
+                                alt="NewHouse"
+                                preview={false}
+                              />
+                            </div>
+                            <div className="busi-contant">
+                              {e?.saleValue ? (
+                                <h6>
+                                  AED {e?.saleValue}
+                                  <span>
+                                    <i
+                                      className="fa fa-heart-o"
+                                      aria-hidden="true"
+                                    ></i>
+                                  </span>
+                                </h6>
+                              ) : (
+                                <h6>
+                                  AED {e?.rentPerYear}
+                                  <span>
+                                    <i
+                                      className="fa fa-heart-o"
+                                      aria-hidden="true"
+                                    ></i>
+                                  </span>
+                                </h6>
+                              )}
 
-                          <p>{e.propertyName}</p>
-                          <address>{e.addressLine2}</address>
-                          <span className="btn-sm">{e.beds} Beds</span>
-                          <span className="btn-sm">{e.baths} Baths</span>
-                          <span className="btn-sm">{e.sqft} Sq Ft</span>
-                          <div className="btn-Business">
-                            <a href="#">Request a Tour</a>
-                            <a href="#">Contact Agent</a>
+                              <p>{e?.propertyName}</p>
+                              <address>{e?.addressLine2}</address>
+                              <span className="btn-sm">{e?.beds} Beds</span>
+                              <span className="btn-sm">{e?.baths} Baths</span>
+                              <span className="btn-sm">{e?.sqft} Sq Ft</span>
+                              <div className="btn-Business">
+                                <a href="#">Request a Tour</a>
+                                <a href="#">Contact Agent</a>
+                              </div>
+                            </div>
                           </div>
-                        </div>
-                      </div>
-                    </li>
-                  );
-                })}
+                        </li>
+                      );
+                    })
+                  : data &&
+                    data?.map((e: any, i: any) => {
+                      return (
+                        <li key={i}>
+                          <div className="Business-cart">
+                            <div className="busi-img">
+                              <Image
+                                src={e?.uploadFile}
+                                alt="NewHouse"
+                                preview={false}
+                              />
+                            </div>
+                            <div className="busi-contant">
+                              {e?.saleValue ? (
+                                <h6>
+                                  AED {e?.saleValue}
+                                  <span>
+                                    <i
+                                      className="fa fa-heart-o"
+                                      aria-hidden="true"
+                                    ></i>
+                                  </span>
+                                </h6>
+                              ) : (
+                                <h6>
+                                  AED {e?.rentPerYear}
+                                  <span>
+                                    <i
+                                      className="fa fa-heart-o"
+                                      aria-hidden="true"
+                                    ></i>
+                                  </span>
+                                </h6>
+                              )}
+
+                              <p>{e?.propertyName}</p>
+                              <address>{e?.addressLine2}</address>
+                              <span className="btn-sm">{e?.beds} Beds</span>
+                              <span className="btn-sm">{e?.baths} Baths</span>
+                              <span className="btn-sm">{e?.sqft} Sq Ft</span>
+                              <div className="btn-Business">
+                                <a href="#">Request a Tour</a>
+                                <a href="#">Contact Agent</a>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                      );
+                    })}
+
+                {/* {data?.map((e: any) => {
+                      return (
+                        <li>
+                          <div className="Business-cart">
+                            <div className="busi-img">
+                              <Image
+                                src={e?.uploadFile}
+                                alt="NewHouse"
+                                preview={false}
+                              />
+                            </div>
+                            <div className="busi-contant">
+                              {e?.saleValue ? (
+                                <h6>
+                                  AED {e?.saleValue}
+                                  <span>
+                                    <i
+                                      className="fa fa-heart-o"
+                                      aria-hidden="true"
+                                    ></i>
+                                  </span>
+                                </h6>
+                              ) : (
+                                <h6>
+                                  AED {e?.rentPerYear}
+                                  <span>
+                                    <i
+                                      className="fa fa-heart-o"
+                                      aria-hidden="true"
+                                    ></i>
+                                  </span>
+                                </h6>
+                              )}
+
+                              <p>{e?.propertyName}</p>
+                              <address>{e?.addressLine2}</address>
+                              <span className="btn-sm">{e?.beds} Beds</span>
+                              <span className="btn-sm">{e?.baths} Baths</span>
+                              <span className="btn-sm">{e?.sqft} Sq Ft</span>
+                              <div className="btn-Business">
+                                <a href="#">Request a Tour</a>
+                                <a href="#">Contact Agent</a>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                      );
+                    })} */}
               </ul>
-
-              {/* <div className="Business-page-number">
-                                <div className="pagination">
-                                    <a href="#"><i className="fa fa-long-arrow-left" aria-hidden="true"></i>
-                                    </a>
-                                    <a href="#">1</a>
-                                    <a href="#" className="active">2</a>
-                                    <a href="#">3</a>
-                                    <a href="#">4</a>
-                                    <a href="#">5</a>
-                                    <a href="#">6</a>
-                                    <a href="#"><i className="fa fa-long-arrow-right" aria-hidden="true"></i>
-                                    </a>
-                                  </div>
-                            </div> */}
-
               <Pagination
                 pageSize={pageSize}
                 current={currentPage}
@@ -371,7 +656,7 @@ const BuyHeader = () => {
             </div>
             <div className="col-md-6 cart-bin">
               <div className="map-img">
-                <img src="/2091c1.png" alt="map-img" />
+                <Image src="/2091c1.png" alt="map-img" preview={false} />
               </div>
             </div>
           </div>
