@@ -40,20 +40,22 @@ const MyProfile = () => {
     const t: any = localStorage.getItem("token");
     const decode: any = jwt.decode(t);
     const token: any = localStorage.getItem("webToken")
-      ? localStorage.getItem("webToken")
-      : null;
+    ? localStorage.getItem("webToken")
+    : null;
     const a = JSON.parse(token);
     setIsShow(true);
     // const id: number = 1;
     const id: number = decode.data.id;
+    
     await userService.getUserProfile(id, a).then((data) => {
+    
       if (data.data != null) {
         setDataObj(data?.data);
         setIsShow(false);
-        setFirstName(data?.data?.firstName);
-        setLastName(data?.data?.lastName);
+        setFirstName(data?.data?.first_name);
+        setLastName(data?.data?.last_name);
         setGender(data?.data?.gender);
-        setProfilePic(data?.data?.profilPic);
+        setProfilePic(data?.data?.profile_pic);
       }
     });
   };
@@ -140,7 +142,7 @@ const MyProfile = () => {
               <Avatar
                 size={250}
                 // icon={<UserOutlined />}
-                src={dataObj?.profilPic}
+                src={dataObj?.profile_pic}
               />
             </div>
 
@@ -148,11 +150,11 @@ const MyProfile = () => {
               <Row className="myProfileRow">
                 <Col xs={{ span: 12, offset: 1 }} lg={{ span: 6, offset: 2 }}>
                   <Title level={4}>FirstName</Title>
-                  <span>{dataObj.firstName}</span>
+                  <span>{dataObj.first_name}</span>
                 </Col>
                 <Col xs={{ span: 12, offset: 1 }} lg={{ span: 6, offset: 2 }}>
                   <Title level={4}>LastName</Title>
-                  <span>{dataObj.lastName}</span>
+                  <span>{dataObj.last_name}</span>
                 </Col>
               </Row>
               <Row className="myProfileRow">

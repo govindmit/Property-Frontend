@@ -14,7 +14,7 @@ import {
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import propertyService from "../../services/propertyService";
-import Image from "next/image";
+
 const { Header, Content, Footer, Sider } = Layout;
 const { Option } = Select;
 
@@ -27,10 +27,10 @@ const BuyHeader = () => {
   const [propertyPurpose, setPropertyPurpose] = useState();
   const [propertyCategory, setPropertyCategory] = useState();
 
-  const [bedsBtn1, setBedsBtn1] = useState(0);
-  const [bedsBtn2, setBedsBtn2] = useState(0);
-  const [bathsBtn1, setBathsBtn1] = useState(0);
-  const [bathsBtn2, setBathsBtn2] = useState(0);
+  const [bedsBtn1, setBedsBtn1] = useState('0');
+  const [bedsBtn2, setBedsBtn2] = useState('0');
+  const [bathsBtn1, setBathsBtn1] = useState('0');
+  const [bathsBtn2, setBathsBtn2] = useState('0');
 
   const [bedsBtn1Value, setBedsBtn1Value] = useState(0);
 
@@ -51,6 +51,8 @@ const BuyHeader = () => {
   const [propertyPurposeArray, setproPertyPurposeArray] = useState<any>();
   const [propertyCategoryArray, setpropertyCategoryArray] = useState<any>();
   const [propertyPriceArray, setPropertyPriceArray] = useState<any>();
+  const [propertyBedsAndBathsArray, setPropertyBedsAndBathsArray] = useState<any>();
+
 
   useEffect(() => {
     getAllListings();
@@ -67,10 +69,10 @@ const BuyHeader = () => {
     setMaxPrice(0);
 
     setOpen1(false);
-    setBedsBtn1(0);
-    setBedsBtn2(0);
-    setBathsBtn1(0);
-    setBathsBtn2(0);
+    setBedsBtn1('0');
+    setBedsBtn2('0');
+    setBathsBtn1('0');
+    setBathsBtn2('0');
   };
   const handleOpenChange = (newOpen: boolean) => {
     setOpen(newOpen);
@@ -78,6 +80,18 @@ const BuyHeader = () => {
 
   const handleOpenChange1 = (newOpen: boolean) => {
     setOpen1(newOpen);
+  };
+  const handleToggle1 = (e: any) => {
+    bedsBtn1 === '1' ? setBedsBtn1('0') : setBedsBtn1('1');
+  };
+  const handleToggle2 = (e: any) => {
+    bedsBtn2 === '2' ? setBedsBtn2('0') : setBedsBtn2('2');
+  };
+  const handleToggleBath1 = () => {
+    bathsBtn1 === '1' ? setBathsBtn1('0') : setBathsBtn1('1');
+  };
+  const handleToggleBath2 = () => {
+    bathsBtn2 === '2' ? setBathsBtn2('0') : setBathsBtn2('2');
   };
 
   const getAllListings = async () => {
@@ -87,7 +101,7 @@ const BuyHeader = () => {
     const a = JSON.parse(token);
 
     await propertyService.getAllProperty(a).then((data: any) => {
-      const a = data?.data.slice(0, 2);
+     const a = data?.data.slice(0, 2);
       setTotalPage(data?.data.length);
       setData(a);
       setTempData(data?.data);
@@ -95,7 +109,7 @@ const BuyHeader = () => {
   };
 
   const handlePageChange = (page: any, perPage: any) => {
-    if (!propertyPurposeArray && !propertyCategoryArray && !allFilteredArray) {
+    if (!propertyPurposeArray && !propertyCategoryArray && !propertyPriceArray  && !allFilteredArray) {
       const projects = tempData.slice((page - 1) * perPage, page * perPage);
       setData(projects);
       setPageSize(perPage);
@@ -119,12 +133,22 @@ const BuyHeader = () => {
       setPageSize(perPage);
       setCurrentPage(page);
     }
+    if (propertyPriceArray) {
+      const projects = propertyPriceArray.slice(
+        (page - 1) * perPage,
+        page * perPage
+      );
+      setData(projects);
+      setPageSize(perPage);
+      setCurrentPage(page);
+    }
+  
   };
 
   const propertyPurposeFn = (e: any) => {
     setPropertyPurpose(e);
     const propertyPurposeVar = tempData.filter((ppt: any) => {
-      if (ppt.propertyPurpose === e) return ppt;
+      if (ppt.property_purpose === e) return ppt;
     });
     setproPertyPurposeArray(propertyPurposeVar);
     if (e && propertyCategory && minPrice && maxPrice) {
@@ -143,7 +167,7 @@ const BuyHeader = () => {
   const handlePropertyCategoryFn = (e: any) => {
     setPropertyCategory(e);
     const handlePropertyCategoryVar = tempData.filter((ppt: any) => {
-      if (ppt.propertyCategory === e) return ppt;
+      if (ppt.property_category === e) return ppt;
     });
     setpropertyCategoryArray(handlePropertyCategoryVar);
     if (e && propertyPurpose && minPrice && maxPrice) {
@@ -185,25 +209,44 @@ const BuyHeader = () => {
       };
 
       const priceFilterArray = tempData.filter((pp: any) => {
-        if (
-          pp.saleValue &&
-          pp.saleValue >= minPrice &&
-          pp.saleValue <= maxPrice
-        ) {
-          return pp;
-        }
+        if (pp.sale_value && pp.sale_value >= minPrice && pp.sale_value <= maxPrice )  return pp;
       });
       setPropertyPriceArray(priceFilterArray);
       concatFn(priceFilterArray, priceObject);
       setOpen1(false);
+
+      const projects = priceFilterArray.slice(
+        (currentPage - 1) * pageSize,
+        currentPage * pageSize
+      );
+      setData(projects);
+      setTotalPage(priceFilterArray?.length);
+      setPageSize(pageSize);
+      setCurrentPage(currentPage);
     }
   };
 
   const handleBedsAndBathsFilters = () => {
-
+    const propertyObject = {
+      bedsBtn1:bedsBtn1,
+      bedsBtn2:bedsBtn2,
+      bathsBtn1:bathsBtn1,
+      bathsBtn2:bathsBtn2
+    }
     const otherFilter = tempData.filter((ppt: any) => {
-      if (ppt.beds === 1) return ppt;
+      if (ppt.beds === bedsBtn1 || ppt.beds === bedsBtn2 || ppt.baths === bathsBtn1 || ppt.baths === bathsBtn2) return ppt;
     });
+    setPropertyBedsAndBathsArray(otherFilter);
+    concatFn(otherFilter, propertyObject);
+
+    const projects = otherFilter.slice(
+      (currentPage - 1) * pageSize,
+      currentPage * pageSize
+    );
+    setData(projects);
+    setTotalPage(otherFilter?.length);
+    setPageSize(pageSize);
+    setCurrentPage(currentPage);
   };
 
   function arrayUnique(array: any) {
@@ -252,22 +295,7 @@ const BuyHeader = () => {
     setTotalPage(length1);
   };
 
-  const handleToggle1 = (e: any) => {
-    bedsBtn1 === 1 ? setBedsBtn1(0) : setBedsBtn1(1);
-  };
 
-  const handleToggle2 = (e: any) => {
-    bedsBtn2 === 1 ? setBedsBtn2(0) : setBedsBtn2(1);
-   
-  };
-
-  const handleToggleBath1 = () => {
-    bathsBtn1 === 1 ? setBathsBtn1(0) : setBathsBtn1(1);
-  };
-
-  const handleToggleBath2 = () => {
-    bathsBtn2 === 1 ? setBathsBtn2(0) : setBathsBtn2(1);
-  };
 
   const content = (
     <div style={{ width: "250px" }}>
@@ -323,21 +351,21 @@ const BuyHeader = () => {
           </Button>
           <Button
             type="default"
-            value={1}
+            value={'1'}
             onClick={(e: any) => {
               handleToggle1(e.target.value);
             }}
-            className={bedsBtn1 ===1 ? "truCls" : "falseCls"}
+            className={bedsBtn1 ==='1' ? "truCls" : "falseCls"}
           >
             1
           </Button>
           <Button
             type="default"
-            value={2}
+            value={'2'}
             onClick={(e: any) => {
               handleToggle2(e.target.value);
             }}
-            className={bedsBtn2 === 1 ? "truCls" : "falseCls"}
+            className={bedsBtn2 === '2' ? "truCls" : "falseCls"}
           >
             2
           </Button>
@@ -356,14 +384,14 @@ const BuyHeader = () => {
           <Button
             type="default"
             onClick={handleToggleBath1}
-            className={bathsBtn1  ? "truCls" : "falseCls"}
+            className={bathsBtn1 === '1' ? "truCls" : "falseCls"}
           >
             1
           </Button>
           <Button
             type="default"
             onClick={handleToggleBath2}
-            className={bathsBtn2 === 1? "truCls" : "falseCls"}
+            className={bathsBtn2 === '2' ? "truCls" : "falseCls"}
           >
             2
           </Button>
@@ -376,14 +404,7 @@ const BuyHeader = () => {
           <Button type="default" onClick={hide1}>
             Reset
           </Button>
-          <Button
-            type="primary"
-            defaultChecked
-            onClick={() => {
-              handleBedsAndBathsFilters();
-              hide();
-            }}
-          >
+          <Button type="primary" defaultChecked onClick={() => { handleBedsAndBathsFilters(); hide(); }} >
             Done
           </Button>
         </Space>
@@ -502,15 +523,15 @@ const BuyHeader = () => {
                           <div className="Business-cart">
                             <div className="busi-img">
                               <Image
-                                src={e?.uploadFile}
+                                src={e?.upload_file}
                                 alt="NewHouse"
                                 preview={false}
                               />
                             </div>
                             <div className="busi-contant">
-                              {e?.saleValue ? (
+                              {e?.sale_value ? (
                                 <h6>
-                                  AED {e?.saleValue}
+                                  AED {e?.sale_value}
                                   <span>
                                     <i
                                       className="fa fa-heart-o"
@@ -520,7 +541,7 @@ const BuyHeader = () => {
                                 </h6>
                               ) : (
                                 <h6>
-                                  AED {e?.rentPerYear}
+                                  AED {e?.rent_per_year}
                                   <span>
                                     <i
                                       className="fa fa-heart-o"
@@ -530,8 +551,8 @@ const BuyHeader = () => {
                                 </h6>
                               )}
 
-                              <p>{e?.propertyName}</p>
-                              <address>{e?.addressLine2}</address>
+                              <p>{e?.property_name}</p>
+                              <address>{e?.address_line2}</address>
                               <span className="btn-sm">{e?.beds} Beds</span>
                               <span className="btn-sm">{e?.baths} Baths</span>
                               <span className="btn-sm">{e?.sqft} Sq Ft</span>
@@ -551,15 +572,15 @@ const BuyHeader = () => {
                           <div className="Business-cart">
                             <div className="busi-img">
                               <Image
-                                src={e?.uploadFile}
+                                src={e?.upload_file}
                                 alt="NewHouse"
                                 preview={false}
                               />
                             </div>
                             <div className="busi-contant">
-                              {e?.saleValue ? (
+                              {e?.sale_value ? (
                                 <h6>
-                                  AED {e?.saleValue}
+                                  AED {e?.sale_value}
                                   <span>
                                     <i
                                       className="fa fa-heart-o"
@@ -569,7 +590,7 @@ const BuyHeader = () => {
                                 </h6>
                               ) : (
                                 <h6>
-                                  AED {e?.rentPerYear}
+                                  AED {e?.rent_per_year}
                                   <span>
                                     <i
                                       className="fa fa-heart-o"
@@ -579,8 +600,8 @@ const BuyHeader = () => {
                                 </h6>
                               )}
 
-                              <p>{e?.propertyName}</p>
-                              <address>{e?.addressLine2}</address>
+                              <p>{e?.property_name}</p>
+                              <address>{e?.address_line2}</address>
                               <span className="btn-sm">{e?.beds} Beds</span>
                               <span className="btn-sm">{e?.baths} Baths</span>
                               <span className="btn-sm">{e?.sqft} Sq Ft</span>

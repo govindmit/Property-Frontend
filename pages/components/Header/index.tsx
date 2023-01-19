@@ -34,8 +34,8 @@ const Header: React.FC = () => {
   useEffect(() => {
     const token: any = localStorage.getItem("token");
     const decode: any = jwt.decode(token);
-    setName(decode?.data?.firstName);
-    setRole(decode?.data?.role?.title);
+    setName(decode?.data?.first_name);
+    setRole(decode?.data?.role_type?.title);
 
     // key={!getPath.includes("landlord") ? "/admin/landlord" : getPath}
 
