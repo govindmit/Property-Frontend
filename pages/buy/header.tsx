@@ -14,7 +14,7 @@ import {
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import propertyService from "../../services/propertyService";
-
+import Image from "next/image";
 const { Header, Content, Footer, Sider } = Layout;
 const { Option } = Select;
 
