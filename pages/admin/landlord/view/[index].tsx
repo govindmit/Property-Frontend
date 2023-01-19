@@ -54,14 +54,14 @@ const MyFormItemGroup = ({ prefix, children }: MyFormItemGroupProps) => {
 };
 export interface IAppProps {}
 export interface UserDataTypes {
-  firstName: string;
-  lastName: string;
+  first_name: string;
+  last_name: string;
   email: string;
   status: string;
   phone: string;
   gender: string;
-  profilePic: string;
-  role: string;
+  profile_pic: string;
+  role_type: string;
 }
 
 export default function AddUser(props: IAppProps) {
@@ -175,10 +175,10 @@ export default function AddUser(props: IAppProps) {
         <div>
           <div className="borderview">
             <div className="imagecenter1" style={{ marginTop: "10px" }}>
-              {user && user.profilPic != "" ? (
+              {user && user.profile_pic != "" ? (
                 <Image
                   style={{ borderRadius: "65px" }}
-                  src={user?.profilPic}
+                  src={user?.profile_pic}
                   alt="image"
                   width={100}
                   height={100}
@@ -199,7 +199,7 @@ export default function AddUser(props: IAppProps) {
                   label="Landlord firstName"
                   style={style}
                 >
-                  <p className="datashow"> {user && user.firstName}</p>
+                  <p className="datashow"> {user && user.first_name}</p>
                 </MyFormItem>
               </Col>
               <Col className="gutter-row" span={2}></Col>
@@ -210,7 +210,7 @@ export default function AddUser(props: IAppProps) {
                   style={style}
                   label="Landlord lastName"
                 >
-                  <p className="datashow">{user && user.lastName} </p>
+                  <p className="datashow">{user && user.last_name} </p>
                 </MyFormItem>
               </Col>
             </Row>
@@ -231,8 +231,8 @@ export default function AddUser(props: IAppProps) {
             <Row gutter={{ xs: 4, sm: 8, md: 12, lg: 20 }}>
               <Col className="gutter-row" span={6}></Col>
               <Col className="gutter-row" span={6}>
-                <MyFormItem name="role" label="Landlord role" style={style}>
-                  <p className="datashow">{user && user?.role?.title}</p>
+              <MyFormItem name="status" label="Landlord status" style={style}>
+                  <p className="datashow">{user && user?.status}</p>
                 </MyFormItem>
               </Col>
               <Col className="gutter-row" span={2}></Col>
@@ -245,8 +245,7 @@ export default function AddUser(props: IAppProps) {
             <Row gutter={{ xs: 4, sm: 8, md: 12, lg: 20 }}>
               <Col className="gutter-row" span={6}></Col>
               <Col className="gutter-row" span={6}>
-                <MyFormItem name="status" label="Landlord status" style={style}>
-                  <p className="datashow">{user && user?.status}</p>
+                <MyFormItem name="status" label="" style={style}>
                 </MyFormItem>
               </Col>
               <span className="landlordeditSectionland">

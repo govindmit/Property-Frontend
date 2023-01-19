@@ -32,16 +32,16 @@ export default function App(props: IAppProps) {
         .then((res) => {
           if (res?.status === 200) {
             localStorage.setItem("token", res.data.accessToken);
-            if (res?.data?.data?.role === 1) {
-              localStorage.setItem("role", res.data.data.role);
+            if (res?.data?.data?.role_type === 1) {
+              localStorage.setItem("role_type", res.data.data.role_type);
               Router.push("/admin/user");
-            } else if (res?.data?.data?.role === 2) {
+            } else if (res?.data?.data?.role_type === 2) {
               Router.push("/users/favorite");
-            } else if (res?.data?.data?.role === 3) {
+            } else if (res?.data?.data?.role_type === 3) {
               console.log("Landloard login");
-            } else if (res?.data?.data?.role === 4) {
+            } else if (res?.data?.data?.role_type === 4) {
               console.log("Brokerage login");
-            } else if (res?.data?.data?.role === 5) {
+            } else if (res?.data?.data?.role_type === 5) {
               console.log("");
             } else {
               console.log("Work in progress");

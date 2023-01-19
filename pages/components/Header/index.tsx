@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Avatar, Popover } from "antd";
+import React, { Component, useEffect, useState } from "react";
+import { Drawer, Button, Space, Input, Avatar, Popover } from "antd";
 import {
   UserOutlined,
   CaretDownOutlined,
@@ -7,17 +7,21 @@ import {
   LogoutOutlined,
 } from "@ant-design/icons";
 import { Image } from "antd";
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
 import Link from "next/link";
 import jwt from "jsonwebtoken";
 
-// interface valueInterface {
-//   visible: Boolean;
-//   current: String;
-// }
+const { Search } = Input;
 
 const Header: React.FC = () => {
+  // const [current, setCurrent] = useState('');
+  const [visible, setVisible] = useState(false);
   const [name, setName] = useState("");
+
+  const location = useRouter();
+  const getPath = location.pathname;
+  const [current, setCurrent] = useState(location.pathname);
+
   const [role, setRole] = useState();
   const token = {
     access:
@@ -27,10 +31,32 @@ const Header: React.FC = () => {
     isAuthenticated: null,
     user: null,
   };
+  useEffect(() => {
+    const token: any = localStorage.getItem("token");
+    const decode: any = jwt.decode(token);
+    setName(decode?.data?.firstName);
+    setRole(decode?.data?.role?.title);
 
+    // key={!getPath.includes("landlord") ? "/admin/landlord" : getPath}
+
+    Router.pathname.includes("/landloard") ? setCurrent("landloard") : Router.pathname.includes("/brokerage") ? setCurrent("brokerage") : Router.pathname.includes("/buy") ? setCurrent("buy"):'';
+  });
+
+  interface valueInterface {
+    visible: Boolean;
+    current: String;
+  }
+
+  const showDrawer = () => {
+    setVisible(true);
+  };
+  const onClose = () => {
+    setVisible(false);
+  };
   const handleLogout = () => {
     localStorage.removeItem("token");
-    localStorage.removeItem("role");
+    localStorage.removeItem("role_type");
+
     Router.push("/login");
   };
 
@@ -49,28 +75,18 @@ const Header: React.FC = () => {
       </div>
     </div>
   );
-
-  useEffect(() => {
-    const token: any = localStorage.getItem("token");
-    const decode: any = jwt.decode(token);
-    setName(decode?.data?.firstName);
-    setRole(decode?.data?.role?.title);
-  }, []);
-
+  const roleIdentifier =
+    typeof window !== "undefined" &&
+    window?.localStorage?.getItem("role_type") === "1"
+      ? "menuBar adminlogin"
+      : "menuBar";
   const roleType =
-    typeof window !== "undefined" && window?.localStorage?.getItem("role");
-
-  // const roleIdentifier =
-  //   typeof window !== "undefined" &&
-  //   window?.localStorage?.getItem("role") === "1"
-  //     ? "menuBar adminlogin"
-  //     : "menuBar";
-
-  // const adminrighticon =
-  //   typeof window !== "undefined" &&
-  //   window?.localStorage?.getItem("role") === "1"
-  //     ? "menuCon menuConAdmin"
-  //     : "menuCon";
+    typeof window !== "undefined" && window?.localStorage?.getItem("role_type");
+  const adminrighticon =
+    typeof window !== "undefined" &&
+    window?.localStorage?.getItem("role_type") === "1"
+      ? "menuCon menuConAdmin"
+      : "menuCon";
 
   return (
     <div>
@@ -93,7 +109,6 @@ const Header: React.FC = () => {
                           preview={false}
                         />
                       </Link>
-                      <h1>okk</h1>
                       <button
                         className="navbar-toggler"
                         type="button"
@@ -111,8 +126,12 @@ const Header: React.FC = () => {
                   <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav">
                       <li className="nav-item active">
-                        <Link className="nav-link" href="#">
-                          Buy
+                        <Link className={
+                            current === "buy"
+                              ? "aaa nav-link"
+                              : "nav-link"
+                          } href="/buy">
+                          Buy <span className="sr-only">(current)</span>
                         </Link>
                       </li>
                       <li className="nav-item">
@@ -121,12 +140,26 @@ const Header: React.FC = () => {
                         </Link>
                       </li>
                       <li className="nav-item">
-                        <Link className="nav-link" href="/landloard">
+                        <Link
+                          className={
+                            current === "landloard"
+                              ? "aaa nav-link"
+                              : "nav-link"
+                          }
+                          href="/landloard"
+                        >
                           Landlords
                         </Link>
                       </li>
                       <li className="nav-item">
-                        <Link className="nav-link" href="/brokerage">
+                        <Link
+                          className={
+                            current === "brokerage"
+                              ? "aaa nav-link"
+                              : "nav-link"
+                          }
+                          href="/brokerage"
+                        >
                           Brokerages
                         </Link>
                       </li>
