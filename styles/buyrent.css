@@ -1940,9 +1940,9 @@ a.float-end.text-primary.for-pwd {
 /* ------End-sec-nav------- */
 /* ------------- */
 .img-gallery img {
-    width: 160px;
+    /* width: 160px; */
     margin-top: 10px;
-    margin-right: 15px;
+    margin-right: 8px;
 }
 .img-detail p {
     font-size: 24px;
@@ -2007,6 +2007,7 @@ a.float-end.text-primary.for-pwd {
     height: 30px;
     padding-left: 16px;
     border-radius: 0 !important;
+    width:125%;
   }
   
   .contact-form .form-text-area {
@@ -2141,8 +2142,8 @@ a.float-end.text-primary.for-pwd {
     position: relative;
 }
 .loc-box {
-    width: 225px;
-    margin-right: 30px;
+    /* width: 225px; */
+    margin-right: 32px;
     text-align: center;
     box-shadow: 0px 1px 3px 3px #a6a6a670;
 }
@@ -2169,10 +2170,10 @@ a.float-end.text-primary.for-pwd {
     font-size: 14px;
 }
 .iocn-img img {
-    width: 39px;
-    background-color: #ff5a3c7d;
+    /* width: 39px; */
+    background-color: #f5a76f7d;
     padding: 8px;
-    border-radius: 8px;
+    border-radius: 1px;
 }
 .popular {
     box-shadow: 0px 2px 5px 3px #f4f4f4;
@@ -2228,7 +2229,7 @@ a.float-end.text-primary.for-pwd {
 }
 .real-heading p {
     font-size: 12px;
-    margin: 0px 10px;
+    margin: 0px 8px;
 }
 .real-Est {
     box-shadow: 1px 1px 5px 4px #dbdbdb4a;
@@ -3626,4 +3627,28 @@ form.form-amnt {
 }
 form.form-amnt label {
     margin-left: 8px;
+}
+.contact-form .submit-button-wrapper Button {
+    border: none;
+    border-radius: 0px;
+    background-color: #ff5a3c;
+    color: white;
+    text-transform: uppercase;
+    padding: 6px 82px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    cursor: pointer;
+  }
+  .textAreaaa{
+    width:100% !important;
+  }
+  .amndisplay{
+    display:flex;
+    margin-bottom: 18px;
+  }
+  .dddddd .ant-checkbox-wrapper {
+    margin-left: 0 !important;
+}
+.fontbed{
+    font-size: 14px !important;
 }
