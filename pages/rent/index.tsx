@@ -11,6 +11,7 @@ import {
   Image,
   InputNumber,
 } from "antd";
+import Link from "next/link";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import propertyService from "../../services/propertyService";
@@ -521,6 +522,7 @@ const RentComp = () => {
                       return (
                         <li key={i}>
                           <div className="Business-cart">
+                          <Link href={`/rentlisting/${e?.slug}`}>
                             <div className="busi-img">
                               <Image
                                 src={e?.upload_file}
@@ -561,6 +563,7 @@ const RentComp = () => {
                                 <a href="#">Contact Agent</a>
                               </div>
                             </div>
+                            </Link>
                           </div>
                         </li>
                       );
@@ -570,6 +573,7 @@ const RentComp = () => {
                       return (
                         <li key={i}>
                           <div className="Business-cart">
+                          <Link href={`/rentlisting/${e?.slug}`}>
                             <div className="busi-img">
                               <Image
                                 src={e?.upload_file}
@@ -610,6 +614,7 @@ const RentComp = () => {
                                 <a href="#">Contact Agent</a>
                               </div>
                             </div>
+                            </Link>
                           </div>
                         </li>
                       );
