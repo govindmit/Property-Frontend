@@ -34,7 +34,7 @@ export default function App() {
     let web = webtoken?.substring(1, webtoken?.length - 1);
     try {
       await axios
-        .get(`https://api-property.mangoitsol.com/api/listing`, {
+        .get(`https://api-property.mangoitsol.com/api/listing?property_purpose=Rent`, {
           headers: {
             Authorization: `Bearer ${web}`,
           },  
@@ -67,11 +67,15 @@ export default function App() {
   const onChange = (e: any) => {
     console.log("fgdfgfd");
   };
-
+  
   useEffect(() => {
+    if(!query) {
+      return;
+    }
     getAllData();
     getUserData();
-  }, []);
+  }, [query]);
+
 
   var someString = listingData?.description;
   var index = someString?.indexOf("."); // Gets the first index where a space occours
@@ -128,7 +132,6 @@ export default function App() {
             <div className="row">
               <div className="col-md-7 col-lg-9">
                 <Image
-                  // className="img-size"
                   src={listingData?.upload_file}
                   width={1200}
                   height={500}
@@ -180,7 +183,7 @@ export default function App() {
                 </div>
                 <div className="house-detail">
                   <div className="img-detail">
-                    <p>
+                    <p className="iconmap">
                       <i className="fa fa-map-marker" aria-hidden="true"></i>
                       &nbsp;{listingData?.property_address}
                     </p>
@@ -278,14 +281,14 @@ export default function App() {
                 </div>
 
                 <div className="Amenities mt-5">
-                  <h5>Amenities</h5>
+                  <h5 className="amanities">Amenities</h5>
                   <div className="container pl-0"> 
                         <Form className="form-amnt" action="/action_page.php">
                         <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
                           {listingData?.amenities?.map((amnt: any, i: any) => (
                             <Col className="gutter-row dddddd" span={8} key={i}>
                            <div key={i} className="amntencss">
-                                <Checkbox onChange={onChange}>{amnt}</Checkbox>
+                                <Checkbox onChange={onChange} className="checkcss">{amnt}</Checkbox>
                              </div>
                               </Col>
                           ))}
@@ -362,6 +365,7 @@ export default function App() {
                           <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
                             {allproperty && allproperty?.map((list: any) => (
                               <Col className="gutter-row amndisplay" span={6} key={list.property_name}>
+                                <Link href={`/rentlisting/${list?.slug}`}>
                                 <div className="Related-box" >
                                   <Image
                                     width={300}
@@ -370,10 +374,11 @@ export default function App() {
                                     alt={list.property_name}
                                   />
                                   <div className="related-head">
-                                    <h5>AED {list.sale_value}/Year</h5>
+                                    <h5>AED {list.rent_per_year}/Year</h5>
                                     <h6>{list.property_name}</h6>
-                                    <p>
-                                      {list.property_address}, {list.country}
+                                    <p className="iconmap">
+                                    <i className="fa fa-map-marker" aria-hidden="true"></i>
+                                     &nbsp; {list.property_address}, {list.country}
                                     </p>
                                     <p>
                                       {list.beds} Beds &emsp;{list.baths} Baths
@@ -381,6 +386,7 @@ export default function App() {
                                     </p>
                                   </div>
                                 </div>
+                                </Link>
                                 </Col>
                               ))}
                               </Row>
