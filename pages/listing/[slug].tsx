@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Checkbox, Layout, Typography } from "antd";
-import { Form, Input, Button, Col, Divider, Row } from "antd";
+import { Form, Input, Button, Col, Divider, Row,Tabs } from "antd";
 import type { FormItemProps } from "antd";
 import { toast } from "react-toastify";
 import Router, { useRouter, withRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
+import propertyService from "../../services/propertyService";
+import Moment from 'moment';
+
 
 const MyFormItemContext = React.createContext<(string | number)[]>([]);
 export interface UserDataTypes {
@@ -26,43 +29,22 @@ interface MyFormItemGroupProps {
 export default function App() {
   const { query } = useRouter();
   const { TextArea } = Input;
+  let datee=new Date();
   const [listingData, setListingData] = useState<UserDataTypes | any>("");
   const [allproperty, setAllProperty] = useState<UserDataTypes | any>("");
-
-  const getAllData = async () => {
-    const webtoken = localStorage.getItem("webToken");
-    let web = webtoken?.substring(1, webtoken?.length - 1);
-    try {
-      await axios
-        .get(`https://api-property.mangoitsol.com/api/listing?property_purpose=Sale`, {
-          headers: {
-            Authorization: `Bearer ${web}`,
-          },  
-        })
-        .then((res) => {
-           return setAllProperty(res.data);
-        });
-    } catch (err) {
-      console.log("#####", err);
-    }
-  };
-
+ 
+  
   const getUserData = async () => {
     const webtoken = localStorage.getItem("webToken");
     let web = webtoken?.substring(1, webtoken?.length - 1);
-    try {
-      await axios
-        .get(`https://api-property.mangoitsol.com/api/listing/${query?.slug}`, {
-          headers: {
-            Authorization: `Bearer ${web}`,
-          },
-        })
-        .then((res) => {
-          setListingData(res.data);
+    await propertyService.getPropertyBySlug(query?.slug,web).then(async (data: any) => {
+      setListingData(data?.data[0]);
+      if(data){
+        await propertyService.getSaleProperty(web,data?.data[0]?.city).then((data: any) => {
+          setAllProperty(data.data)
         });
-    } catch (err) {
-      console.log("#####", err);
-    }
+      }
+    });
   };
   const onChange = (e: any) => {
     console.log("fgdfgfd");
@@ -72,7 +54,6 @@ export default function App() {
     if(!query) {
       return;
     }
-    getAllData();
     getUserData();
   }, [query]);
 
@@ -81,7 +62,59 @@ export default function App() {
   var firstPart = someString?.substr(0, index); // Gets the first part
   var secondPart = someString?.substr(index + 1);
 
+  let dateFormet1= Moment(listingData?.createdAt).format('MM-DD-YYYY');
+  let dateFormetUpdate= Moment(listingData?.updatedAt).format('MM-DD-YYYY');
+  let dateFormet2= Moment(datee).format('MM-DD-YYYY');
+  var date1 = Moment(dateFormet2);
+  var date2 = Moment(dateFormet1);
+  var dateUpdate = Moment(dateFormetUpdate);
+  var days = date1.diff(date2, 'days');
+  var updateDays = date1.diff(dateUpdate, 'days');
+  
 
+  const items = listingData?.floor_planes?.map((data:any, i:any) => {
+    const id = String(i + 1);
+    return {
+      label: `${data?.floor_range}`,
+      key: id,
+      children: <div> 
+        <div style={{display:"flex"}}>
+      <Image
+        width={400}
+        height={350}
+        src={data?.plan_drawing[0]}
+        alt="foolr-img"
+      />
+      <div className="col-md-6">
+                          <div className="Deluxe-Portion" style={{marginLeft: "24%"}}>
+                            <h5>Deluxe Portion</h5>
+                            <p>{data?.description}
+                            </p>
+                          </div>
+                        </div>
+    </div>
+      <div className="bgfloor">
+      <div style={{display:"flex"}}><p className="headtabs">Total Area &emsp;</p><p className="paraheading"> .........................&emsp;{data?.sqft} Sq. Ft</p>
+      <br/>
+      <p style={{marginLeft:"25%"}} className="headtabs">Smokings &emsp;</p><p className="paraheading">.........................&emsp; Not Allowed</p>
+      </div>
+      {data?.floor_range==="Top Garden"?"":
+      <div style={{display:"flex"}}><p className="headtabs">Bedroom &emsp;</p><p className="paraheading"> .........................&emsp;{data?.bedroom_sqft} Sq. Ft</p>
+      <br/>
+      <p style={{marginLeft:"28.3%"}} className="headtabs">Lounge &emsp;</p><p className="paraheading">.........................&emsp;{data?.lounge_sqft} Sq. Ft</p>
+      </div>
+    }
+      </div>
+      </div>
+    };
+  });
+  const divStyle = {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundSize: 'cover',
+    height: '20px'
+  }
   return (
     <>
       <div className="sec-block">
@@ -131,9 +164,10 @@ export default function App() {
           <div className="container-fluid side-space-tow">
             <div className="row">
               <div className="col-md-7 col-lg-9">
+            
                 <Image
                   // className="img-size"
-                  src={listingData?.upload_file}
+                  src={listingData?.upload_file?.imagee[0]}
                   width={1200}
                   height={500}
                   alt="car-house"
@@ -180,13 +214,13 @@ export default function App() {
                     alt="-gallery-img"
                     width={143}
                     height={100}
-                  />
-                </div>
+                  /> 
+                 </div>
                 <div className="house-detail">
                   <div className="img-detail">
                     <p className="iconmap">
                       <i className="fa fa-map-marker" aria-hidden="true"></i>
-                      &nbsp;{listingData?.property_address}
+                      &nbsp;{listingData?.property_address}, {listingData?.city}
                     </p>
                     <h4>{listingData?.property_name}</h4>
                     <span className="fontbed">
@@ -210,6 +244,7 @@ export default function App() {
                     </Link>
                   </div>
                 </div>
+                <br/>
                 <div className="Description">
                   <h5>Description</h5>
                   <p>{firstPart}</p>
@@ -218,14 +253,11 @@ export default function App() {
                 <div className="Open-House">
                   <h5>Open-House</h5>
                   <ul>
-                    <li>
-                      Saturday, July 30 <span>1:30 PM to 4:00 PM</span>
-                    </li>
-                  </ul>
-                  <ul>
-                    <li>
-                      Saturday, July 30 <span>1:30 PM to 4:00 PM</span>
-                    </li>
+                  {listingData?.open_house_time?.map((item:any)=>(
+                    <li key={item.date}>
+                   {item.date} <span>{item.from_time} to {item.to_time}</span>
+                  </li>
+                  ))}
                   </ul>
                 </div>
                 <div className="local-info">
@@ -315,35 +347,7 @@ export default function App() {
                   <div className="Floor-Plans mt-5">
                     <h5>Floor Plans</h5>
                     <div className="container">
-                      <div className="row">
-                        <div className="col-md-6">
-                          <Image
-                            width={500}
-                            height={300}
-                            src="/Floor-Plans.png"
-                            alt="foolr-img"
-                          />
-                        </div>
-                        <div className="col-md-6">
-                          <div className="Deluxe-Portion">
-                            <h5>Deluxe Portion</h5>
-                            <p>
-                              Enimad minim veniam quis nostrud exercitat ullamco
-                              laboris. Lorem ipsum dolor sit amet cons aetetur
-                              adipisicing elit sedo eiusmod Incididunt labore et
-                              dolore magna aliqua. Ut sed ayd minim veniam.
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="total-sub">
-                        <Image
-                          width={1000}
-                          height={50}
-                          src="/total-sub.png"
-                          alt="sub"
-                        />
-                      </div>
+                    <Tabs items={items} className="tabClass"/>
                       <div className="affar mt-4">
                         <h5>Affordability</h5>
                         <p>
@@ -380,9 +384,9 @@ export default function App() {
                     <div className="Related">
                       <h5>Related Properties</h5>
                           <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
-                            {allproperty && allproperty?.map((list: any) => (
+                            {allproperty && allproperty?.slice(0,4)?.map((list: any) => (
                               <Col className="gutter-row amndisplay" span={6} key={list.property_name}>
-                             <Link href={`/buylisting/${list?.slug}`}>
+                             <Link href={`/listing/${list?.slug}`}>
                                 <div className="Related-box" >
                                   <Image
                                     width={300}
@@ -395,7 +399,7 @@ export default function App() {
                                     <h6>{list.property_name}</h6>
                                     <p className="iconmap">
                                     <i className="fa fa-map-marker" aria-hidden="true"></i>
-                                     &nbsp; {list.property_address}, {list.country}
+                                     &nbsp; {list.property_address}, {list.city}
                                     </p>
                                     <p>
                                       {list.beds} Beds &emsp;{list.baths} Baths
@@ -411,19 +415,19 @@ export default function App() {
                     <div className="Listing-box mt-5 pl-3">
                       <h5>Listing provided by</h5>
                       <p>
-                        Roference: AJJ-23324
+                        Reference: AJJ-23324
                         <br />
-                        Broxeroge: beter Homes Inc.
+                        Brokerage:{listingData?.user?.organization_name}
                         <br />
-                        Trokhees Permit 342343243
+                        Trakheesi Permit: {listingData?.user?.trakheesi_number}
                         <br />
-                        Broker ORK: 123212
+                        Broker ORN: {listingData?.user?.ORN}
                         <br />
-                        Agent BRN: 2433
+                        Agent BRN:  {listingData?.user?.BRN}
                         <br />
-                        sing: 12 Days Ago
+                        Listing: {days} Days Ago
                         <br />
-                        Lost Updotadt 20oys Ago.
+                        Last Updated: {updateDays} Days Ago
                         <br />
                       </p>
                     </div>

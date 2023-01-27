@@ -102,7 +102,7 @@ const RentComp = () => {
     const a = JSON.parse(token);
 
     await propertyService.getAllProperty(a).then((data: any) => {
-     const a = data?.data.slice(0, 2);
+     const a = data?.data;
       setTotalPage(data?.data.length);
       setData(a);
       setTempData(data?.data);
@@ -522,10 +522,10 @@ const RentComp = () => {
                       return (
                         <li key={i}>
                           <div className="Business-cart">
-                          <Link href={`/rentlisting/${e?.slug}`}>
+                          <Link href={`/listings/${e?.slug}`}>
                             <div className="busi-img">
                               <Image
-                                src={e?.upload_file}
+                                src={e?.upload_file?.imagee[0]}
                                 alt="NewHouse"
                                 preview={false}
                               />
@@ -573,10 +573,10 @@ const RentComp = () => {
                       return (
                         <li key={i}>
                           <div className="Business-cart">
-                          <Link href={`/rentlisting/${e?.slug}`}>
+                          <Link href={`/listings/${e?.slug}`}>
                             <div className="busi-img">
                               <Image
-                                src={e?.upload_file}
+                                src={e?.upload_file?.imagee[0]}
                                 alt="NewHouse"
                                 preview={false}
                               />

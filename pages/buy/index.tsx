@@ -101,7 +101,7 @@ const BuyHeader = () => {
       : null;
     const a = JSON.parse(token);
 
-    await propertyService.getAllProperty(a).then((data: any) => {
+    await propertyService.getAllBuyProperty(a).then((data: any) => {
       const a = data?.data.slice(0, 2);
       setTotalPage(data?.data.length);
       setData(a);
@@ -542,10 +542,10 @@ const BuyHeader = () => {
                       return (
                         <li key={i}>
                           <div className="Business-cart">
-                            <Link href={`/buylisting/${e?.slug}`}>
+                            <Link href={`/listing/${e?.slug}`}>
                               <div className="busi-img">
                                 <Image
-                                  src={e?.upload_file}
+                                  src={e?.upload_file?.imagee[0]}
                                   alt="NewHouse"
                                   preview={false}
                                 />
@@ -589,13 +589,15 @@ const BuyHeader = () => {
                     })
                   : data &&
                     data?.map((e: any, i: any) => {
+                      console.log('@@@@@@@@@@',e);
+                    
                       return (
                         <li key={i}>
                           <div className="Business-cart">
-                          <Link href={`/buylisting/${e?.slug}`}>
+                          <Link href={`/listing/${e?.slug}`}>
                               <div className="busi-img">
                                 <Image
-                                  src={e?.upload_file}
+                                  src={e?.upload_file?.imagee[0]}
                                   alt="NewHouse"
                                   preview={false}
                                 />

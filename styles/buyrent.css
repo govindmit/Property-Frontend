@@ -3681,3 +3681,15 @@ h5.amanities {
 .ant-checkbox-checked .ant-checkbox-inner {
     background-color: #ff5a3c !important;
 }
+.bgfloor {
+    background: #eef1f3;
+    padding: 12px 0px 0px 14px;
+}
+p.headtabs {
+    font-weight: 600;
+    font-size: 13px;
+}
+p.paraheading {
+    font-size: 13px;
+    color: #3a3737;
+}

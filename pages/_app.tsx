@@ -15,6 +15,7 @@ import "../styles/buy.css";
 
 import "../styles/buyrent.css";
 
+import "../styles/image-gallery.css";
 
 import "../styles/myProfile.css";
 import "../styles/loginNew.css";
