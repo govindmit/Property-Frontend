@@ -3693,3 +3693,18 @@ p.paraheading {
     font-size: 13px;
     color: #3a3737;
 }
+.image-gallery-thumbnails .image-gallery-thumbnails-container {
+    cursor: pointer;
+    text-align: left !important;
+    white-space: nowrap;
+}
+.image-gallery-content .image-gallery-slide .image-gallery-image {
+    max-height: fit-content !important;
+}
+/* .image-gallery-slide .image-gallery-image {
+    width: 100%;
+    object-fit: contain;
+} */
+.image-gallery-thumbnail {
+    width: 150px !important;
+}

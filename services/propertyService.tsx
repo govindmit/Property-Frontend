@@ -38,7 +38,13 @@ class PropertyService {
       },
     });
   }
-  
+  popularProperty( token: any) {
+    return http.get(`api/listing/property/popular`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
   
 }
 

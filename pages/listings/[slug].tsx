@@ -365,7 +365,7 @@ export default function App() {
                                   <Image
                                     width={300}
                                     height={150}
-                                    src={list.upload_file}
+                                    src={list.upload_file?.imagee[0]}
                                     alt={list.property_name}
                                   />
                                   <div className="related-head">
