@@ -12,12 +12,13 @@ import "../styles/users.css";
 import "../styles/myProfile.css";
 import "../styles/home.css";
 import "../styles/buy.css";
-
 import "../styles/buyrent.css";
-
-
+import "../styles/image-gallery.css";
 import "../styles/myProfile.css";
 import "../styles/loginNew.css";
+
+import "../styles/varun.scss";
+
 
 import type { AppProps } from "next/app";
 import Header from "./components/Header";

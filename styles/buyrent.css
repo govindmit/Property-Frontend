@@ -3652,3 +3652,59 @@ form.form-amnt label {
 .fontbed{
     font-size: 14px !important;
 }
+.iconmap i.fa.fa-map-marker {
+    color: #ff5a3c;
+}
+
+h5.amanities {
+    border-left: 1px solid #ff5a3c;
+    height: 18px;
+    border-left-width: 3px;
+    padding-left: 4px;
+    margin-bottom: 18px;
+}
+.amntencss{
+    margin-bottom:8px;
+}
+/* .ant-checkbox-inner {
+    background-color: #ff5a3c !important;
+    border-color: transparent;
+} */
+.ant-checkbox-checked:after {
+    border: 2px solid  #ff5a3c !important;
+}
+.ant-checkbox-inner {
+    /* background-color: #ff5a3c !important; */
+    border-color: #ff5a3c !important;
+    border-radius:1px !important;
+}
+.ant-checkbox-checked .ant-checkbox-inner {
+    background-color: #ff5a3c !important;
+}
+.bgfloor {
+    background: #eef1f3;
+    padding: 12px 0px 0px 14px;
+}
+p.headtabs {
+    font-weight: 600;
+    font-size: 13px;
+}
+p.paraheading {
+    font-size: 13px;
+    color: #3a3737;
+}
+.image-gallery-thumbnails .image-gallery-thumbnails-container {
+    cursor: pointer;
+    text-align: left !important;
+    white-space: nowrap;
+}
+.image-gallery-content .image-gallery-slide .image-gallery-image {
+    max-height: fit-content !important;
+}
+/* .image-gallery-slide .image-gallery-image {
+    width: 100%;
+    object-fit: contain;
+} */
+.image-gallery-thumbnail {
+    width: 150px !important;
+}
