@@ -9,6 +9,7 @@ import Link from "next/link";
 import Image from "next/image";
 import propertyService from "../../services/propertyService";
 import Moment from 'moment';
+import ImageGallery, { ReactImageGalleryItem } from "react-image-gallery";
 
 const MyFormItemContext = React.createContext<(string | number)[]>([]);
 export interface UserDataTypes {
@@ -25,12 +26,185 @@ interface MyFormItemGroupProps {
   children: React.ReactNode;
 }
 
+const slideWidth = 30;
+
+const sleep = (ms = 0) => {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+};
+const createItem = (position: any, idx: any) => {
+  const item = {
+    styles: {
+      transform: `translateX(${position * slideWidth}rem)`,
+    },
+    player: position,
+  };
+
+  const item1 = {
+    styles: {
+      transform: `translateX(${position * slideWidth}rem)`,
+      filter: "grayscale(1)",
+    },
+    player: position,
+  };
+
+  const item2 = {
+    styles: {
+      transform: `translateX(${position * slideWidth}rem)`,
+      opacity: 0,
+    },
+    player: position,
+  };
+
+  switch (position) {
+    case length - 1:
+    case length + 1:
+      item.styles = { ...item1.styles };
+      break;
+    case length:
+      break;
+    default:
+      item.styles = { ...item2.styles };
+      break;
+  }
+
+  return item;
+};
+
+const CarouselSlideItem = ({ pos, idx, activeIdx }: any) => {
+  const item = createItem(pos, idx);
+  return (
+    <li className="carousel__slide-item" style={item.styles}>
+      <div className="carousel__slide-item-img-link">
+      <Link href={`/listings/${item?.player?.slug}`}>
+        <Image
+          width={50}
+          height={50}
+          src={item?.player?.upload_file?.imagee[0]}
+          alt="image"
+        />
+        </Link>
+      </div>
+      <div className="popularProperty">
+        <h6 className="fonthead">$ {(pos?.rent_per_year/12)?.toFixed(2)+"/Month"}</h6>
+        <h5>{pos?.property_name}</h5>
+        <address>
+          <i className="fa fa-map-marker" aria-hidden="true"></i>
+          {pos?.property_address}
+        </address>
+        <span>
+          <i className="fa fa-bed" aria-hidden="true"></i>
+          {pos?.beds} Bedrooms
+        </span>
+        &emsp;
+        <span>
+          <i className="fa fa-bath" aria-hidden="true"></i>
+          {pos?.baths} Baths
+        </span>
+        &emsp;
+        <span>
+          <i className="fa fa-microchip" aria-hidden="true"></i>
+          {pos?.sqft} Sq Ft
+        </span>
+      </div>
+    </li>
+  );
+};
+
+const Carousel = () => {
+  const [items, setItems] = React.useState([]);
+  const [isTicking, setIsTicking] = React.useState(false);
+  const [activeIdx, setActiveIdx] = React.useState(0);
+  const [iidx, setiidx] = React.useState(0);
+
+  const bigLength = items.length;
+
+  const getPopularProperty = async () => {
+    const webtoken = localStorage.getItem("webToken");
+    let web = webtoken?.substring(1, webtoken?.length - 1);
+    await propertyService.popularRentProperty(web).then(async (data: any) => {
+      setItems(data?.data?.data);
+    });
+  };
+
+  const prevClick = (jump = 1) => {
+    if (!isTicking) {
+      setIsTicking(true);
+      setItems((prev: any) => {
+        return prev.map((_: any, i: any) => prev[(i + jump) % bigLength]);
+      });
+    }
+  };
+
+  const nextClick = (jump = 1) => {
+    if (!isTicking) {
+      setIsTicking(true);
+      setItems((prev: any) => {
+        return prev.map(
+          (_: any, i: any) => prev[(i - jump + bigLength) % bigLength]
+        );
+      });
+    }
+  };
+  const handleDotClick = (idx:any) => {
+    setiidx(idx)
+    if (idx < iidx) prevClick(iidx - idx);
+    if (idx > iidx) nextClick(idx - iidx);
+};
+  React.useEffect(() => {
+    if (isTicking) sleep(300).then(() => setIsTicking(false));
+  }, [isTicking]);
+
+  React.useEffect(() => {
+    setActiveIdx((bigLength - (iidx % bigLength)) % bigLength)
+  }, [items]);
+  React.useEffect(() => {
+    getPopularProperty();
+  }, []);
+  return (
+    <div className="carousel__wrap ">
+      <div className="carousel__inner">
+        <div className="carousel__container">
+          <ul className="carousel__slide-list">
+            {items?.slice(0,5)?.map((pos: any, i: any) => (
+              <CarouselSlideItem
+                key={i}
+                idx={i}
+                pos={pos}
+                activeIdx={activeIdx}
+              />
+            ))}
+          </ul>
+        </div>
+        <div className="carousel__dots">
+          {items?.slice(0, 5)?.map((pos: any, i: any) => (
+            <button
+              key={i}
+              onClick={() => handleDotClick(i)}
+              className={i === activeIdx ? "dot active" : "dot"}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
 export default function App() {
   const { query } = useRouter();
   const { TextArea } = Input;
   let datee=new Date();
   const [listingData, setListingData] = useState<UserDataTypes | any>("");
   const [allproperty, setAllProperty] = useState<UserDataTypes | any>("");
+
+  var imageee = [];
+  for (var i = 0; i < listingData?.upload_file?.imagee.length; i++) {
+    imageee.push({
+      original: listingData?.upload_file?.imagee[i],
+      thumbnail: listingData?.upload_file?.imagee[i],
+    });
+  }
+  const images: readonly ReactImageGalleryItem[] = imageee;
+
   const getUserData = async () => {
     const webtoken = localStorage.getItem("webToken");
     let web = webtoken?.substring(1, webtoken?.length - 1);
@@ -154,54 +328,12 @@ export default function App() {
           <div className="container-fluid side-space-tow">
             <div className="row">
               <div className="col-md-7 col-lg-9">
-                <Image
-                  src={listingData?.upload_file?.imagee[0]}
-                  width={1200}
-                  height={500}
-                  alt="car-house"
-                />
-                <div className="img-gallery">
-                  <Image
-                    src="/002.jpg"
-                    alt="-gallery-img"
-                    width={143}
-                    height={100}
-                  />
-                  <Image
-                    src="/002.jpg"
-                    alt="-gallery-img"
-                    width={143}
-                    height={100}
-                  />
-                  <Image
-                    src="/002.jpg"
-                    alt="-gallery-img"
-                    width={143}
-                    height={100}
-                  />
-                  <Image
-                    src="/002.jpg"
-                    alt="-gallery-img"
-                    width={143}
-                    height={100}
-                  />
-                  <Image
-                    src="/002.jpg"
-                    alt="-gallery-img"
-                    width={143}
-                    height={100}
-                  />
-                  <Image
-                    src="/002.jpg"
-                    alt="-gallery-img"
-                    width={143}
-                    height={100}
-                  />
-                  <Image
-                    src="/002.jpg"
-                    alt="-gallery-img"
-                    width={143}
-                    height={100}
+              <div className="img-gallery">
+                  <ImageGallery
+                    items={images}
+                    showNav={false}
+                    showFullscreenButton={false}
+                    showPlayButton={false}
                   />
                 </div>
                 <div className="house-detail">
@@ -413,7 +545,7 @@ export default function App() {
                 </div>
                 <div className="contact-form-wrapper d-flex justify-content-center">
                   <Form action="#" className="contact-form">
-                    <h5 className="title">Contact Agent</h5>
+                    <h5 className="title">Contact Us</h5>
                     <div>
                       <Input
                         type="text"
@@ -451,25 +583,8 @@ export default function App() {
                   </Form>
                 </div>
                 <div className="popular">
-                  <h4>Popular Properties</h4>
-                  <Image src="/005.jpg" width={300} height={175} alt="img" />
-                  <h6>$349.00/Month</h6>
-                  <h5>New Aparment Nice View</h5>
-                  <address>
-                    <i className="fa fa-map-marker" aria-hidden="true"></i>
-                    Sector P, Emirates Hills
-                  </address>
-                  <span>
-                    <i className="fa fa-bed" aria-hidden="true"></i>6 Beds +
-                    Maid
-                  </span>
-                  <span>
-                    <i className="fa fa-bath" aria-hidden="true"></i>7Baths
-                  </span>
-                  <span>
-                    <i className="fa fa-microchip" aria-hidden="true"></i>13,450
-                    sqft
-                  </span>
+                  <h5>Popular Properties</h5>
+                  <Carousel />
                 </div>
                 <div className="real-Est">
                   <h5>Real Estate News</h5>

@@ -39,13 +39,19 @@ class PropertyService {
     });
   }
   popularProperty( token: any) {
-    return http.get(`api/listing/property/popular`, {
+    return http.get(`api/listing/property/popular?property_purpose=Sale`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
   }
-  
+  popularRentProperty( token: any) {
+    return http.get(`api/listing/property/popular?property_purpose=Rent`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
 }
 
 export default new PropertyService();

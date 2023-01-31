@@ -28,195 +28,165 @@ interface MyFormItemGroupProps {
 
 const slideWidth = 30;
 
-// const _items = [
-//     {
-//         player: {
-//             title: 'Efren Reyes',
-//             desc: 'Known as "The Magician", Efren Reyes is well regarded by many professionals as the greatest all around player of all time.',
-//             image: 'https://i.postimg.cc/RhYnBf5m/er-slider.jpg',
-//         },
-//     },
-//     {
-//         player: {
-//             title: "Ronnie O'Sullivan",
-//             desc: "Ronald Antonio O'Sullivan is a six-time world champion and is the most successful player in the history of snooker.",
-//             image: 'https://i.postimg.cc/qBGQNc37/ro-slider.jpg',
-//         },
-//     },
-//     {
-//         player: {
-//             title: 'Shane Van Boening',
-//             desc: 'The "South Dakota Kid" is hearing-impaired and uses a hearing aid, but it has not limited his ability.',
-//             image: 'https://i.postimg.cc/cHdMJQKG/svb-slider.jpg',
-//         },
-//     },
-//     {
-//         player: {
-//             title: 'Mike Sigel',
-//             desc: 'Mike Sigel or "Captain Hook" as many like to call him is an American professional pool player with over 108 tournament wins.',
-//             image: 'https://i.postimg.cc/C12h7nZn/ms-1.jpg',
-//         },
-//     },
-//     {
-//         player: {
-//             title: 'Willie Mosconi',
-//             desc: 'Nicknamed "Mr. Pocket Billiards," Willie Mosconi was among the first Billiard Congress of America Hall of Fame inductees.',
-//             image: 'https://i.postimg.cc/NfzMDVHP/willie-mosconi-slider.jpg',
-//         },
-//     },
-// ];
-
-// const length
-//  = items.length;
-// items.push(...items);
-
 const sleep = (ms = 0) => {
-    return new Promise((resolve) => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms));
 };
+const createItem = (position: any, idx: any) => {
+  const item = {
+    styles: {
+      transform: `translateX(${position * slideWidth}rem)`,
+    },
+    player: position,
+  };
 
-const createItem = (position:any, idx:any) => {
-  console.log('position',position);
-    const item = {
-        styles: {
-            transform: `translateX(${position * slideWidth}rem)`,
-        },
-        player: position[idx],
-    };
-
-    const item1 = {
-      styles: {
-          transform: `translateX(${position * slideWidth}rem)`,
-          filter: 'grayscale(1)'
-      },
-      player: position[idx],
+  const item1 = {
+    styles: {
+      transform: `translateX(${position * slideWidth}rem)`,
+      filter: "grayscale(1)",
+    },
+    player: position,
   };
 
   const item2 = {
     styles: {
-        transform: `translateX(${position * slideWidth}rem)`,
-        opacity: 0
+      transform: `translateX(${position * slideWidth}rem)`,
+      opacity: 0,
     },
-    player: position[idx],
+    player: position,
+  };
+
+  switch (position) {
+    case length - 1:
+    case length + 1:
+      item.styles = { ...item1.styles };
+      break;
+    case length:
+      break;
+    default:
+      item.styles = { ...item2.styles };
+      break;
+  }
+
+  return item;
 };
 
-    switch (position) {
-        case length - 1:
-        case length + 1:
-            item.styles = {...item1.styles};
-            break;
-        case length:
-            break;
-        default:
-            item.styles = {...item2.styles};
-            break;
-    }
-
-    return item;
-};
-
-
-const CarouselSlideItem = ({pos, idx, activeIdx}:any) => {
+const CarouselSlideItem = ({ pos, idx, activeIdx }: any) => {
   const item = createItem(pos, idx);
   return (
-      <li className="carousel__slide-item" style={item.styles}>
-          <div className="carousel__slide-item-img-link">
-              <Image width={50} height={50} src={pos?.upload_file?.imagee[0]} alt={pos?.upload_file.imagee[0]} />
-          </div>
-          <div className="carousel-slide-item__body">
-              <h4>{pos.first_name}</h4>
-              <p>{pos.first_name}</p>
-          </div>
-      </li>
+    <li className="carousel__slide-item" style={item.styles}>
+      <div className="carousel__slide-item-img-link">
+      <Link href={`/listing/${item?.player?.slug}`}>
+        <Image
+          width={50}
+          height={50}
+          src={item?.player?.upload_file?.imagee[0]}
+          alt="image"
+        />
+        </Link>
+      </div>
+      <div className="popularProperty">
+        <h6 className="fonthead">$ {pos?.sale_value}</h6>
+        <h5>{pos?.property_name}</h5>
+        <address>
+          <i className="fa fa-map-marker" aria-hidden="true"></i>
+          {pos?.property_address}
+        </address>
+        <span>
+          <i className="fa fa-bed" aria-hidden="true"></i>
+          {pos?.beds} Bedrooms
+        </span>
+        &emsp;
+        <span>
+          <i className="fa fa-bath" aria-hidden="true"></i>
+          {pos?.baths} Baths
+        </span>
+        &emsp;
+        <span>
+          <i className="fa fa-microchip" aria-hidden="true"></i>
+          {pos?.sqft} Sq Ft
+        </span>
+      </div>
+    </li>
   );
 };
-// const keys = Array.from(Array(_items.length).keys());
 
-const Carousel = (item:any) => {
-    const [items, setItems] = React.useState([]);
-    const [isTicking, setIsTicking] = React.useState(false);
-    // const [popular, setPopular] = useState<any>([]);
-    const [activeIdx, setActiveIdx] = React.useState(0);
-    const bigLength = items.length;
-    console.log('imrerffdd',items);
-    const getPopularProperty = async () => {
-      const webtoken = localStorage.getItem("webToken");
-      let web = webtoken?.substring(1, webtoken?.length - 1);
-      await propertyService.popularProperty(web).then(async (data: any) => {
-        setItems(data?.data?.data);
+const Carousel = () => {
+  const [items, setItems] = React.useState([]);
+  const [isTicking, setIsTicking] = React.useState(false);
+  const [activeIdx, setActiveIdx] = React.useState(0);
+  const [iidx, setiidx] = React.useState(0);
+
+  const bigLength = items.length;
+
+  const getPopularProperty = async () => {
+    const webtoken = localStorage.getItem("webToken");
+    let web = webtoken?.substring(1, webtoken?.length - 1);
+    await propertyService.popularProperty(web).then(async (data: any) => {
+      setItems(data?.data?.data);
+    });
+  };
+
+  const prevClick = (jump = 1) => {
+    if (!isTicking) {
+      setIsTicking(true);
+      setItems((prev: any) => {
+        return prev.map((_: any, i: any) => prev[(i + jump) % bigLength]);
       });
-    };
+    }
+  };
 
-    const prevClick = (jump = 1) => {
-        if (!isTicking) {
-            setIsTicking(true);
-            setItems((prev:any) => {
-                return prev.map((_:any, i:any) => prev[(i + jump) % bigLength]);
-            });
-        }
-    };
+  const nextClick = (jump = 1) => {
+    if (!isTicking) {
+      setIsTicking(true);
+      setItems((prev: any) => {
+        return prev.map(
+          (_: any, i: any) => prev[(i - jump + bigLength) % bigLength]
+        );
+      });
+    }
+  };
+  const handleDotClick = (idx:any) => {
+    setiidx(idx)
+    if (idx < iidx) prevClick(iidx - idx);
+    if (idx > iidx) nextClick(idx - iidx);
+};
+  React.useEffect(() => {
+    if (isTicking) sleep(300).then(() => setIsTicking(false));
+  }, [isTicking]);
 
-    const nextClick = (jump = 1) => {
-        if (!isTicking) {
-            setIsTicking(true);
-            setItems((prev:any) => {
-                return prev.map(
-                    (_:any, i:any) => prev[(i - jump + bigLength) % bigLength],
-                );
-            });
-        }
-    };
-
-    const handleDotClick = (idx:any) => {
-        if (idx < activeIdx) prevClick(activeIdx - idx);
-        if (idx > activeIdx) nextClick(idx - activeIdx);
-    };
-
-    React.useEffect(() => {
-        if (isTicking) sleep(300).then(() => setIsTicking(false));
-    }, [isTicking]);
-
-    React.useEffect(() => {
-        setActiveIdx((length - (items[0] % length)) % length) // prettier-ignore
-    }, [items]);
-    React.useEffect(() => {
-      getPopularProperty() // prettier-ignore
+  React.useEffect(() => {
+    setActiveIdx((bigLength - (iidx % bigLength)) % bigLength)
+  }, [items]);
+  React.useEffect(() => {
+    getPopularProperty();
   }, []);
-
-
-    return (
-        <div className="carousel__wrap">
-            <div className="carousel__inner">
-                <button className="carousel__btn carousel__btn--prev" onClick={() => prevClick()}>
-                    {/* <i className="carousel__btn-arrow carousel__btn-arrow--left" /> */}
-                </button>
-                <div className="carousel__container">
-                    <ul className="carousel__slide-list">
-                        {items?.map((pos:any, i:any) => (
-                            <CarouselSlideItem
-                                key={i}
-                                idx={i}
-                                pos={pos}
-                                activeIdx={activeIdx}
-                                
-                            />
-                        ))}
-                    </ul>
-                </div>
-                <button className="carousel__btn carousel__btn--next" onClick={() => nextClick()}>
-                    {/* <i className="carousel__btn-arrow carousel__btn-arrow--right" /> */}
-                </button>
-                <div className="carousel__dots">
-                    {items.slice(0, 5).map((pos:any, i:any) => (
-                        <button
-                            key={i}
-                            onClick={() => handleDotClick(i)}
-                            className={i === activeIdx ? 'dot active' : 'dot'}
-                        />
-                    ))}
-                </div>
-            </div>
+  return (
+    <div className="carousel__wrap ">
+      <div className="carousel__inner">
+        <div className="carousel__container">
+          <ul className="carousel__slide-list">
+          {items?.slice(0,5)?.map((pos: any, i: any) => (
+              <CarouselSlideItem
+                key={i}
+                idx={i}
+                pos={pos}
+                activeIdx={activeIdx}
+              />
+            ))}
+          </ul>
         </div>
-    );
+        <div className="carousel__dots">
+          {items?.slice(0, 5)?.map((pos: any, i: any) => (
+            <button
+              key={i}
+              onClick={() => handleDotClick(i)}
+              className={i === activeIdx ? "dot active" : "dot"}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default function App() {
@@ -234,7 +204,7 @@ export default function App() {
     });
   }
   const images: readonly ReactImageGalleryItem[] = imageee;
-
+  console.log('************',listingData?.upload_file);
   const getUserData = async () => {
     const webtoken = localStorage.getItem("webToken");
     let web = webtoken?.substring(1, webtoken?.length - 1);
@@ -261,7 +231,6 @@ export default function App() {
       return;
     }
     getUserData();
-   
   }, [query]);
 
   var someString = listingData?.description;
@@ -277,8 +246,6 @@ export default function App() {
   var dateUpdate = Moment(dateFormetUpdate);
   var days = date1.diff(date2, "days");
   var updateDays = date1.diff(dateUpdate, "days");
-
- 
 
   const items = listingData?.floor_planes?.map((data: any, i: any) => {
     const id = String(i + 1);
@@ -348,84 +315,8 @@ export default function App() {
     background: "#364d79",
   };
   const onChangeSlider = (currentSlide: number) => {
-    console.log("!!!!!!!!!!!!!", currentSlide);
+    // console.log("!!!!!!!!!!!!!", currentSlide);
   };
-
-  // *****************
-
-  
-  // const slideWidth = 30;
-
-  // const _items = [
-  //     {
-  //         player: {
-  //             title: 'Efren Reyes',
-  //             desc: 'Known as "The Magician", Efren Reyes is well regarded by many professionals as the greatest all around player of all time.',
-  //             image: 'https://i.postimg.cc/RhYnBf5m/er-slider.jpg',
-  //         },
-  //     },
-  //     {
-  //         player: {
-  //             title: "Ronnie O'Sullivan",
-  //             desc: "Ronald Antonio O'Sullivan is a six-time world champion and is the most successful player in the history of snooker.",
-  //             image: 'https://i.postimg.cc/qBGQNc37/ro-slider.jpg',
-  //         },
-  //     },
-  //     {
-  //         player: {
-  //             title: 'Shane Van Boening',
-  //             desc: 'The "South Dakota Kid" is hearing-impaired and uses a hearing aid, but it has not limited his ability.',
-  //             image: 'https://i.postimg.cc/cHdMJQKG/svb-slider.jpg',
-  //         },
-  //     },
-  //     {
-  //         player: {
-  //             title: 'Mike Sigel',
-  //             desc: 'Mike Sigel or "Captain Hook" as many like to call him is an American professional pool player with over 108 tournament wins.',
-  //             image: 'https://i.postimg.cc/C12h7nZn/ms-1.jpg',
-  //         },
-  //     },
-  //     {
-  //         player: {
-  //             title: 'Willie Mosconi',
-  //             desc: 'Nicknamed "Mr. Pocket Billiards," Willie Mosconi was among the first Billiard Congress of America Hall of Fame inductees.',
-  //             image: 'https://i.postimg.cc/NfzMDVHP/willie-mosconi-slider.jpg',
-  //         },
-  //     },
-  // ];
-  
-  // const length
-  //  = _items.length;
-  // _items.push(..._items);
-  
-  // const sleep = (ms = 0) => {
-  //     return new Promise((resolve) => setTimeout(resolve, ms));
-  // };
-  
-  // const createItem = (position:any, idx:any) => {
-  //     const item = {
-  //         styles: {
-  //             transform: `translateX(${position * slideWidth}rem)`,
-  //         },
-  //         player: _items[idx].player,
-  //     };
-  
-  //     switch (position) {
-  //         case length - 1:
-  //         case length + 1:
-  //             item.styles = {...item.styles, filter: 'grayscale(1)'};
-  //             break;
-  //         case length:
-  //             break;
-  //         default:
-  //             item.styles = {...item.styles, opacity: 0};
-  //             break;
-  //     }
-  
-  //     return item;
-  // };
-
-  // ****************
 
   return (
     <>
@@ -483,12 +374,6 @@ export default function App() {
                     showFullscreenButton={false}
                     showPlayButton={false}
                   />
-                  {/*  <Image
-                    src="/002.jpg"
-                    alt="-gallery-img"
-                    width={143}
-                    height={100}
-                  />   */}
                 </div>
                 <div className="house-detail">
                   <div className="img-detail">
@@ -783,47 +668,8 @@ export default function App() {
                   </Form>
                 </div>
                 <div className="popular">
-                  <h4>Popular Properties</h4>
-
-                  <Carousel/>
-
-                  {/* {popular &&
-                    popular.slice(0, 1)?.map((item: any, index: any) => {
-                      return (
-                        <div key={index}>
-                          <Image
-                            src={item?.upload_file?.imagee[0]}
-                            width={300}
-                            height={175}
-                            alt="img"
-                          />
-                          <h6>${item?.sale_value}</h6>
-                          <h5>{item?.property_name}</h5>
-                          <address>
-                            <i
-                              className="fa fa-map-marker"
-                              aria-hidden="true"
-                            ></i>
-                           {item?.property_address}
-                          </address>
-                          <span>
-                            <i className="fa fa-bed" aria-hidden="true"></i>
-                           {item?.beds} Bedrooms
-                          </span>&emsp;
-                          <span>
-                            <i className="fa fa-bath" aria-hidden="true"></i>
-                           {item?.baths} Baths
-                          </span>&emsp;
-                          <span>
-                            <i
-                              className="fa fa-microchip"
-                              aria-hidden="true"
-                            ></i>
-                            {item?.sqft} Sq Ft
-                          </span>
-                        </div>
-                      );
-                    })} */}
+                  <h5>Popular Properties</h5>
+                  <Carousel />
                 </div>
                 <div className="real-Est">
                   <h5>Real Estate News</h5>
@@ -890,4 +736,4 @@ export default function App() {
   );
 }
 
-
+// export default Carousel;

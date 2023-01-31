@@ -2038,9 +2038,9 @@ a.float-end.text-primary.for-pwd {
   }
   
   .contact-form .title {
-    font-size: 24px;
-    font-weight: 500;
-    margin-bottom: 26px;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 22px;
   }
   
   .contact-form .description {
@@ -3707,4 +3707,8 @@ p.paraheading {
 } */
 .image-gallery-thumbnail {
     width: 150px !important;
+}
+.real-Est h5 {
+    font-size: 20px;
+    font-weight: 600;
 }
