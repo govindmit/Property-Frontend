@@ -255,12 +255,20 @@ export default function App() {
       children: (
         <div>
           <div style={{ display: "flex" }}>
+          {data && data?.plan_drawing === undefined? 
+            <Image
+              width={400}
+              height={350}
+              src=""
+              alt="foolr-img"
+            />:
             <Image
               width={400}
               height={350}
               src={data?.plan_drawing[0]}
               alt="foolr-img"
             />
+            }
             <div className="col-md-6">
               <div className="Deluxe-Portion" style={{ marginLeft: "24%" }}>
                 <h5>Deluxe Portion</h5>

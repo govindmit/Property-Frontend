@@ -19,7 +19,6 @@ import "../styles/loginNew.css";
 
 import "../styles/slider.scss";
 
-
 import type { AppProps } from "next/app";
 import Header from "./components/Header";
 import FooterComp from "./components/Footer";
