@@ -13,6 +13,8 @@ import {
   theme,
 } from "antd";
 import { Button, Form, Input, Select, Upload } from "antd";
+import es from 'react-phone-input-2/lang/es.json'
+import PhoneInput from 'react-phone-input-2'
 // import ImgCrop from "antd-img-crop";
 import dynamic from "next/dynamic";
 import Image from "next/image";
@@ -81,7 +83,7 @@ export default function AddUser(props: IAppProps) {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
   const [previewTitle, setPreviewTitle] = useState("");
-
+  const [phone1, setPhone] = useState("");
   const antIcon = (
     <LoadingOutlined style={{ fontSize: 24, color: "orangered" }} spin />
   );
@@ -193,7 +195,7 @@ export default function AddUser(props: IAppProps) {
     const webtoken = localStorage.getItem("webToken");
     let web = webtoken?.substring(1, webtoken?.length - 1);
     let { first_name, last_name, email, status, role_type, gender, phone } =
-      values.user.name;
+    values.user.name;
     let formData = new FormData();
     const requestData: any = {
       first_name: first_name,
@@ -202,7 +204,7 @@ export default function AddUser(props: IAppProps) {
       role_type: role_type,
       status: status,
       gender: gender,
-      phone: phone,
+      phone: phone1,
       profile_pic: image,
     };
     for (var key in requestData) {
@@ -357,25 +359,15 @@ export default function AddUser(props: IAppProps) {
                         </MyFormItem>
                       </Col>
                       <Col className="gutter-row" span={2}></Col>
-                      <Col className="gutter-row" span={10}>
-                        <MyFormItem
-                          name="phone"
-                          label="Phone"
-                          style={style}
-                          rules={[
-                            {
-                              min: 10,
-                              max: 10,
-                              message: "Mobile number must be 10 digit",
-                            },
-                          ]}
-                        >
-                          <Input
-                            type="number"
-                            // addonBefore={prefixSelector}
-                            style={inputStyle}
-                          />
-                        </MyFormItem>
+                      <Col className="gutter-row foextra" span={10}>
+                       <h6 className="phonecss">Phone</h6>
+                        <PhoneInput
+                         localization={es}     
+                          country={'in'}
+                          value={phone1}
+                          onChange={phone =>setPhone(phone)}
+                            />
+                        
                       </Col>
                     </Row>
                     <Row gutter={{ xs: 4, sm: 8, md: 12, lg: 20 }}>

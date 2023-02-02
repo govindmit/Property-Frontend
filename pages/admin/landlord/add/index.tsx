@@ -13,6 +13,8 @@ import {
   theme,
 } from "antd";
 import { Button, Form, Input, Select, Upload } from "antd";
+import es from 'react-phone-input-2/lang/es.json'
+import PhoneInput from 'react-phone-input-2'
 // import ImgCrop from "antd-img-crop";
 import dynamic from "next/dynamic";
 import Image from "next/image";
@@ -76,7 +78,7 @@ export default function AddUser(props: IAppProps) {
   const [photo, setPhoto] = useState<any>();
   const [fileList, setFileList] = useState<UploadFile[]>([]);
   const [loading, setLoading] = useState<Boolean>(false);
-
+  const [phone1, setPhone] = useState("");
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
   const [previewTitle, setPreviewTitle] = useState("");
@@ -160,7 +162,7 @@ export default function AddUser(props: IAppProps) {
       case "male":
         form.setFieldsValue({ note: "Hi, man!" });
         return;
-      case "female":
+      case "female":Row
         form.setFieldsValue({ note: "Hi, lady!" });
         return;
       case "other":
@@ -202,7 +204,7 @@ export default function AddUser(props: IAppProps) {
     role_type: role_type,
     status: status,
     gender: gender,
-    phone: phone,
+    phone: phone1,
     profile_pic: image,
   };
     for (var key in requestData) {
@@ -228,7 +230,6 @@ export default function AddUser(props: IAppProps) {
     } catch (err) {
       console.log("#####", err);
     }
-    console.log(values);
   };
   const inputStyle: React.CSSProperties = {
     padding: "5px 12px",
@@ -358,25 +359,14 @@ export default function AddUser(props: IAppProps) {
                         </MyFormItem>
                       </Col>
                       <Col className="gutter-row" span={2}></Col>
-                      <Col className="gutter-row" span={10}>
-                        <MyFormItem
-                          name="phone"
-                          label="Landlord Phone"
-                          style={style}
-                          rules={[
-                            {
-                              min: 10,
-                              max: 10,
-                              message: "Landlord phone number must be 10 digit",
-                            },
-                          ]}
-                        >
-                          <Input
-                            type="number"
-                            // addonBefore={prefixSelector}
-                            style={inputStyle}
-                          />
-                        </MyFormItem>
+                      <Col className="gutter-row foextra" span={10}>
+                      <h6 className="phonecss">Phone</h6>
+                        <PhoneInput
+                         localization={es}     
+                          country={'in'}
+                          value={phone1}
+                          onChange={phone =>setPhone(phone)}
+                            />
                       </Col>
                     </Row>
                     <Row gutter={{ xs: 4, sm: 8, md: 12, lg: 20 }}>

@@ -130,7 +130,7 @@ export default function UserListing() {
       key: "profile_pic",
       title: "Image",
       dataIndex: "profile_pic",
-      render: (t: any) => <Image alt="image" src={t} width={50} height={50} />,
+      render: (t: any) => <Image alt="image" src={t===""?"/no-image.png":t} width={50} height={50} />,
     },
     {
       key: "phone",

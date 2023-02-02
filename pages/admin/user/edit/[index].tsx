@@ -14,6 +14,8 @@ import {
 } from "antd";
 import { Button, Form, Input, Select, Upload } from "antd";
 // import ImgCrop from "antd-img-crop";
+import es from 'react-phone-input-2/lang/es.json'
+import PhoneInput from 'react-phone-input-2'
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { Avatar, Col, Radio, Row, Tabs } from "antd";
@@ -83,6 +85,7 @@ export default function AddUser(props: IAppProps) {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
   const [previewTitle, setPreviewTitle] = useState("");
+  const [phone1, setPhone] = useState("");
   const handleCancel = () => setPreviewOpen(false);
   const style: React.CSSProperties = { fontWeight: 558 };
   const landlordcs: React.CSSProperties = { fontSize: "21px" };
@@ -226,7 +229,7 @@ export default function AddUser(props: IAppProps) {
       email: email === undefined ? user.email : email,
       status: status === undefined ? user.status : status,
       role_type: role_type === undefined ? user.role_type?.id : role_type,
-      phone: phone === undefined ? user.phone : phone,
+      phone: phone1 === undefined ? user.phone : phone1,
       gender: gender === undefined ? user.gender : gender,
       profile_pic: image,
     };
@@ -393,25 +396,13 @@ export default function AddUser(props: IAppProps) {
                       </Col>
                       <Col className="gutter-row" span={2}></Col>
                       <Col className="gutter-row" span={10}>
-                        <MyFormItem
-                          name="phone"
-                          label="Phone"
-                          style={style}
-                          rules={[
-                            {
-                              min: 10,
-                              max: 10,
-                              message: "Mobile number must be 10 digit",
-                            },
-                          ]}
-                        >
-                          <Input
-                            type="number"
-                            // addonBefore={prefixSelector}
-                            style={inputStyle}
-                            defaultValue={user && user.phone}
-                          />
-                        </MyFormItem>
+                      <h6 className="phonecss extra">Phone</h6>
+                      <PhoneInput
+                         localization={es}     
+                          country={'in'}
+                          value={user && user.phone}
+                          onChange={phone =>setPhone(phone)}
+                            /> 
                       </Col>
                     </Row>
                     <Row gutter={{ xs: 4, sm: 8, md: 12, lg: 20 }}>

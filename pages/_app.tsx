@@ -1,23 +1,26 @@
 /* eslint-disable @next/next/no-css-tags */
 
-import "../styles/navbar.css";
-import "../styles/login.css";
-import "../styles/signup.css";
-import "../styles/globals.css";
-import "../styles/HomePage.css";
-import "../styles/landloard.css";
-import "../styles/broker.css";
+// import "../styles/navbar.css";
+// import "../styles/login.css";
+// import "../styles/signup.css";
+// import "../styles/globals.css";
+// import "../styles/HomePage.css";
+// import "../styles/landloard.css";
+// import "../styles/broker.css";
 import "../styles/adminSide.css";
-import "../styles/users.css";
-import "../styles/myProfile.css";
-import "../styles/home.css";
-import "../styles/buy.css";
-import "../styles/buyrent.css";
-import "../styles/image-gallery.css";
-import "../styles/myProfile.css";
-import "../styles/loginNew.css";
+// import "../styles/users.css";
+// import "../styles/myProfile.css";
+// import "../styles/home.css";
+// import "../styles/buy.css";
+// import "../styles/buyrent.css";
+// import "../styles/image-gallery.css";
+// import "../styles/myProfile.css";
+// import "../styles/loginNew.css";
+import 'react-phone-input-2/lib/style.css'
 
 import "../styles/slider.scss";
+
+
 
 import type { AppProps } from "next/app";
 import Header from "./components/Header";
@@ -90,10 +93,12 @@ export default function App({ Component, pageProps }: AppProps) {
 
       {loading ? (
         <>
+         
           <Header />
           <Component {...pageProps} />
           <ToastContainer />
           <FooterComp />
+        
         </>
       ) : (
         <Loader />
