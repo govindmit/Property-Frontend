@@ -17,8 +17,7 @@ import "../styles/image-gallery.css";
 import "../styles/myProfile.css";
 import "../styles/loginNew.css";
 
-import "../styles/varun.scss";
-
+import "../styles/slider.scss";
 
 import type { AppProps } from "next/app";
 import Header from "./components/Header";

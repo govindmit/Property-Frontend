@@ -1,14 +1,18 @@
-import React, { useEffect, useState } from "react";
+/* eslint-disable react/jsx-no-undef */
+import React, { useEffect, useState, useCallback } from "react";
+import dynamic from "next/dynamic";
 import axios from "axios";
 import { Checkbox, Layout, Typography } from "antd";
-import { Form, Input, Button, Col, Divider, Row,Tabs } from "antd";
+import { Form, Input, Button, Col, Divider, Row, Tabs } from "antd";
 import type { FormItemProps } from "antd";
 import { toast } from "react-toastify";
 import Router, { useRouter, withRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
 import propertyService from "../../services/propertyService";
-import Moment from 'moment';
+import Moment from "moment";
+import ImageGallery, { ReactImageGalleryItem } from "react-image-gallery";
+const VideoThumbnail = dynamic(import("react-video-thumbnail"), { ssr: false });
 
 const MyFormItemContext = React.createContext<(string | number)[]>([]);
 export interface UserDataTypes {
@@ -25,83 +29,311 @@ interface MyFormItemGroupProps {
   children: React.ReactNode;
 }
 
+const slideWidth = 30;
+
+const sleep = (ms = 0) => {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+};
+const createItem = (position: any, idx: any) => {
+  const item = {
+    styles: {
+      transform: `translateX(${position * slideWidth}rem)`,
+    },
+    player: position,
+  };
+
+  const item1 = {
+    styles: {
+      transform: `translateX(${position * slideWidth}rem)`,
+      filter: "grayscale(1)",
+    },
+    player: position,
+  };
+
+  const item2 = {
+    styles: {
+      transform: `translateX(${position * slideWidth}rem)`,
+      opacity: 0,
+    },
+    player: position,
+  };
+
+  switch (position) {
+    case length - 1:
+    case length + 1:
+      item.styles = { ...item1.styles };
+      break;
+    case length:
+      break;
+    default:
+      item.styles = { ...item2.styles };
+      break;
+  }
+
+  return item;
+};
+
+const CarouselSlideItem = ({ pos, idx, activeIdx }: any) => {
+  const item = createItem(pos, idx);
+  return (
+    <li className="carousel__slide-item" style={item.styles}>
+      <div className="carousel__slide-item-img-link">
+        <Link href={`/listings/${item?.player?.slug}`}>
+          <Image
+            width={50}
+            height={50}
+            src={item?.player?.upload_file?.imagee[0]}
+            alt="image"
+          />
+        </Link>
+      </div>
+      <div className="popularProperty">
+        <h6 className="fonthead">
+          $ {(pos?.rent_per_year / 12)?.toFixed(2) + "/Month"}
+        </h6>
+        <h5>{pos?.property_name}</h5>
+        <address>
+          <i className="fa fa-map-marker" aria-hidden="true"></i>
+          {pos?.property_address}
+        </address>
+        <span>
+          <i className="fa fa-bed" aria-hidden="true"></i>
+          {pos?.beds} Bedrooms
+        </span>
+        &emsp;
+        <span>
+          <i className="fa fa-bath" aria-hidden="true"></i>
+          {pos?.baths} Baths
+        </span>
+        &emsp;
+        <span>
+          <i className="fa fa-microchip" aria-hidden="true"></i>
+          {pos?.sqft} Sq Ft
+        </span>
+      </div>
+    </li>
+  );
+};
+
+const Carousel = () => {
+  const [items, setItems] = React.useState([]);
+  const [isTicking, setIsTicking] = React.useState(false);
+  const [activeIdx, setActiveIdx] = React.useState(0);
+  const [iidx, setiidx] = React.useState(0);
+
+  const bigLength = items.length;
+
+  const getPopularProperty = async () => {
+    const webtoken = localStorage.getItem("webToken");
+    let web = webtoken?.substring(1, webtoken?.length - 1);
+    await propertyService.popularRentProperty(web).then(async (data: any) => {
+      setItems(data?.data?.data);
+    });
+  };
+
+  const prevClick = (jump = 1) => {
+    if (!isTicking) {
+      setIsTicking(true);
+      setItems((prev: any) => {
+        return prev.map((_: any, i: any) => prev[(i + jump) % bigLength]);
+      });
+    }
+  };
+
+  const nextClick = (jump = 1) => {
+    if (!isTicking) {
+      setIsTicking(true);
+      setItems((prev: any) => {
+        return prev.map(
+          (_: any, i: any) => prev[(i - jump + bigLength) % bigLength]
+        );
+      });
+    }
+  };
+  const handleDotClick = (idx: any) => {
+    setiidx(idx);
+    if (idx < iidx) prevClick(iidx - idx);
+    if (idx > iidx) nextClick(idx - iidx);
+  };
+  React.useEffect(() => {
+    if (isTicking) sleep(300).then(() => setIsTicking(false));
+  }, [isTicking]);
+
+  React.useEffect(() => {
+    setActiveIdx((bigLength - (iidx % bigLength)) % bigLength);
+  }, [items]);
+  React.useEffect(() => {
+    getPopularProperty();
+  }, []);
+  return (
+    <div className="carousel__wrap ">
+      <div className="carousel__inner">
+        <div className="carousel__container">
+          <ul className="carousel__slide-list">
+            {items?.slice(0, 5)?.map((pos: any, i: any) => (
+              <CarouselSlideItem
+                key={i}
+                idx={i}
+                pos={pos}
+                activeIdx={activeIdx}
+              />
+            ))}
+          </ul>
+        </div>
+        <div className="carousel__dots">
+          {items?.slice(0, 5)?.map((pos: any, i: any) => (
+            <button
+              key={i}
+              onClick={() => handleDotClick(i)}
+              className={i === activeIdx ? "dot active" : "dot"}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
 export default function App() {
   const { query } = useRouter();
   const { TextArea } = Input;
-  let datee=new Date();
+  let datee = new Date();
+  var newThumb:any;
   const [listingData, setListingData] = useState<UserDataTypes | any>("");
   const [allproperty, setAllProperty] = useState<UserDataTypes | any>("");
+  const [thumb, setThumb] = useState<any>("");
+  
+  const memoizedHandleClick = useCallback((item: any) => {
+    return (
+      <iframe
+        width="fit-content"
+        height="700px"
+        src={item.embedUrl}
+        frameBorder="0"
+        allowFullScreen
+      ></iframe>
+    );
+  }, []);
+
+  var imageee:any[] = [];
+  for (var i = 0; i < listingData?.upload_file?.imagee.length; i++) {
+    imageee.push({
+      original: listingData?.upload_file?.imagee[i],
+      thumbnail: listingData?.upload_file?.imagee[i],
+    });
+  }
+  const images: readonly ReactImageGalleryItem[] = imageee;
+
+  for (var i = 0; i < listingData?.upload_file?.videos.length; i++) {
+    //  newThumb = listingData?.upload_file?.videos[i];
+    imageee.push({
+      original: "",
+      thumbnail: "/video_images.jpeg",
+      // thumbnail: thumb && thumb === "" ? "/video-img-banner.png" : thumb,
+      embedUrl: listingData?.upload_file?.videos[i],
+      renderItem: memoizedHandleClick,
+    });
+  }
+
   const getUserData = async () => {
     const webtoken = localStorage.getItem("webToken");
     let web = webtoken?.substring(1, webtoken?.length - 1);
-    await propertyService.getPropertyBySlug(query?.slug,web).then(async(data: any) => {
-      setListingData(data?.data[0]);
-      if(data){
-        await propertyService.getRentProperty(web,data?.data[0]?.city).then((data: any) => {
-          setAllProperty(data.data)
-        }); 
-      }
-    });
-   
+    await propertyService
+      .getPropertyBySlug(query?.slug, web)
+      .then(async (data: any) => {
+        setListingData(data?.data[0]);
+        if (data) {
+          await propertyService
+            .getRentProperty(web, data?.data[0]?.city)
+            .then((data: any) => {
+              setAllProperty(data.data);
+            });
+        }
+      });
   };
   const onChange = (e: any) => {
     console.log("fgdfgfd");
   };
-  
+
   useEffect(() => {
-    if(!query) {
+    if (!query) {
       return;
     }
     getUserData();
   }, [query]);
 
-
   var someString = listingData?.description;
   var index = someString?.indexOf("."); // Gets the first index where a space occours
   var firstPart = someString?.substr(0, index); // Gets the first part
   var secondPart = someString?.substr(index + 1);
- 
- 
-  let dateFormet1= Moment(listingData?.createdAt).format('MM-DD-YYYY');
-  let dateFormet2= Moment(datee).format('MM-DD-YYYY');
+
+  let dateFormet1 = Moment(listingData?.createdAt).format("MM-DD-YYYY");
+  let dateFormet2 = Moment(datee).format("MM-DD-YYYY");
   var date1 = Moment(dateFormet2);
   var date2 = Moment(dateFormet1);
-  var days = date1.diff(date2, 'days');
+  var days = date1.diff(date2, "days");
 
-  const items = listingData?.floor_planes?.map((data:any, i:any) => {
+  const items = listingData?.floor_planes?.map((data: any, i: any) => {
     const id = String(i + 1);
     return {
       label: `${data?.floor_range}`,
       key: id,
-      children: <div> 
-        <div style={{display:"flex"}}>
-      <Image
-        width={400}
-        height={350}
-        src={data?.plan_drawing[0]}
-        alt="foolr-img"
-      />
-      <div className="col-md-6">
-                          <div className="Deluxe-Portion" style={{marginLeft: "24%"}}>
-                            <h5>Deluxe Portion</h5>
-                            <p>{data?.description}
-                            </p>
-                          </div>
-                        </div>
-    </div>
-      <div className="bgfloor">
-      <div style={{display:"flex"}}><p className="headtabs">Total Area &emsp;</p><p className="paraheading"> .........................&emsp;{data?.sqft} Sq. Ft</p>
-      <br/>
-      <p style={{marginLeft:"25%"}} className="headtabs">Smokings &emsp;</p><p className="paraheading">.........................&emsp; Not Allowed</p>
-      </div>
-      {data?.floor_range==="Top Garden"?"":
-      <div style={{display:"flex"}}><p className="headtabs">Bedroom &emsp;</p><p className="paraheading"> .........................&emsp;{data?.bedroom_sqft} Sq. Ft</p>
-      <br/>
-      <p style={{marginLeft:"28.3%"}} className="headtabs">Lounge &emsp;</p><p className="paraheading">.........................&emsp;{data?.lounge_sqft} Sq. Ft</p>
-      </div>
-    }
-      </div>
-      </div>
+      children: (
+        <div>
+          <div style={{ display: "flex" }}>
+            {data && data?.plan_drawing === undefined ? (
+              <Image width={400} height={350} src="" alt="foolr-img" />
+            ) : (
+              <Image
+                width={400}
+                height={350}
+                src={data?.plan_drawing[0]}
+                alt="foolr-img"
+              />
+            )}
+            <div className="col-md-6">
+              <div className="Deluxe-Portion" style={{ marginLeft: "24%" }}>
+                <h5>Deluxe Portion</h5>
+                <p>{data?.description}</p>
+              </div>
+            </div>
+          </div>
+          <div className="bgfloor">
+            <div style={{ display: "flex" }}>
+              <p className="headtabs">Total Area &emsp;</p>
+              <p className="paraheading">
+                {" "}
+                .........................&emsp;{data?.sqft} Sq. Ft
+              </p>
+              <br />
+              <p style={{ marginLeft: "25%" }} className="headtabs">
+                Smokings &emsp;
+              </p>
+              <p className="paraheading">
+                .........................&emsp; Not Allowed
+              </p>
+            </div>
+            {data?.floor_range === "Top Garden" ? (
+              ""
+            ) : (
+              <div style={{ display: "flex" }}>
+                <p className="headtabs">Bedroom &emsp;</p>
+                <p className="paraheading">
+                  {" "}
+                  .........................&emsp;{data?.bedroom_sqft} Sq. Ft
+                </p>
+                <br />
+                <p style={{ marginLeft: "28.3%" }} className="headtabs">
+                  Lounge &emsp;
+                </p>
+                <p className="paraheading">
+                  .........................&emsp;{data?.lounge_sqft} Sq. Ft
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
+      ),
     };
   });
 
@@ -154,54 +386,24 @@ export default function App() {
           <div className="container-fluid side-space-tow">
             <div className="row">
               <div className="col-md-7 col-lg-9">
-                <Image
-                  src={listingData?.upload_file?.imagee[0]}
-                  width={1200}
-                  height={500}
-                  alt="car-house"
-                />
+                {/* { newThumb === undefined ? (
+                  ""
+                ) : (
+                  <div className="videothumb">
+                    <VideoThumbnail
+                      videoUrl={newThumb}
+                      thumbnailHandler={(thumbnail: any) => setThumb(thumbnail)}
+                      // width={120}
+                      // height={80}
+                    />
+                  </div>
+                )} */}
                 <div className="img-gallery">
-                  <Image
-                    src="/002.jpg"
-                    alt="-gallery-img"
-                    width={143}
-                    height={100}
-                  />
-                  <Image
-                    src="/002.jpg"
-                    alt="-gallery-img"
-                    width={143}
-                    height={100}
-                  />
-                  <Image
-                    src="/002.jpg"
-                    alt="-gallery-img"
-                    width={143}
-                    height={100}
-                  />
-                  <Image
-                    src="/002.jpg"
-                    alt="-gallery-img"
-                    width={143}
-                    height={100}
-                  />
-                  <Image
-                    src="/002.jpg"
-                    alt="-gallery-img"
-                    width={143}
-                    height={100}
-                  />
-                  <Image
-                    src="/002.jpg"
-                    alt="-gallery-img"
-                    width={143}
-                    height={100}
-                  />
-                  <Image
-                    src="/002.jpg"
-                    alt="-gallery-img"
-                    width={143}
-                    height={100}
+                  <ImageGallery
+                    items={images}
+                    showNav={false}
+                    showFullscreenButton={false}
+                    showPlayButton={false}
                   />
                 </div>
                 <div className="house-detail">
@@ -212,15 +414,28 @@ export default function App() {
                     </p>
                     <h4>{listingData?.property_name}</h4>
                     <span className="fontbed">
-                      <Image src="/beds.svg" width={25} height={25} alt="fdf" />&nbsp;
+                      <Image src="/beds.svg" width={25} height={25} alt="fdf" />
+                      &nbsp;
                       {listingData?.beds} Bed
                     </span>
                     <span className="fontbed">
-                    <Image src="/baths.svg" width={20} height={20} alt="fdf" />&nbsp;
+                      <Image
+                        src="/baths.svg"
+                        width={20}
+                        height={20}
+                        alt="fdf"
+                      />
+                      &nbsp;
                       {listingData?.baths} Baths
                     </span>
                     <span className="fontbed">
-                    <Image src="/square-foot.svg" width={25} height={25} alt="fdf" />&nbsp;
+                      <Image
+                        src="/square-foot.svg"
+                        width={25}
+                        height={25}
+                        alt="fdf"
+                      />
+                      &nbsp;
                       {listingData?.sqft} sqft
                     </span>
                   </div>
@@ -228,12 +443,12 @@ export default function App() {
                     <h4>AED {listingData?.rent_per_year}/Year</h4>
                   </div>
                 </div>
-                <div className="Description" style={{marginTop:"25px"}}>
+                <div className="Description" style={{ marginTop: "25px" }}>
                   <h5>Description</h5>
                   <p>{firstPart}</p>
                   <p>{secondPart}</p>
                 </div>
-                
+
                 <div className="local-info">
                   <h5>Local Information</h5>
                   <div className="loc-box">
@@ -288,15 +503,20 @@ export default function App() {
                     {listingData?.home_highlight?.map((data: any, i: any) => (
                       <Col className="gutter-row amndisplay" span={6} key={i}>
                         <span className="iocn-img">
-                        <Image
-                          width={45}
-                          height={35}
-                          src={data.icon}
-                          alt="iocn-img"
+                          <Image
+                            width={45}
+                            height={35}
+                            src={data.icon}
+                            alt="iocn-img"
                           />
-                          </span>
+                        </span>
                         <div>
-                           &nbsp; <span style={{fontWeight: "600"}}>{data.name}</span> <br /> &nbsp;&nbsp;<span style={{color:"grey"}}>{data.sqft} sq feet</span> 
+                          &nbsp;{" "}
+                          <span style={{ fontWeight: "600" }}>{data.name}</span>{" "}
+                          <br /> &nbsp;&nbsp;
+                          <span style={{ color: "grey" }}>
+                            {data.sqft} sq feet
+                          </span>
                         </div>
                       </Col>
                     ))}
@@ -305,23 +525,28 @@ export default function App() {
 
                 <div className="Amenities mt-5">
                   <h5 className="amanities">Amenities</h5>
-                  <div className="container pl-0"> 
-                        <Form className="form-amnt" action="/action_page.php">
-                        <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
-                          {listingData?.amenities?.map((amnt: any, i: any) => (
-                            <Col className="gutter-row dddddd" span={8} key={i}>
-                           <div key={i} className="amntencss">
-                                <Checkbox onChange={onChange} className="checkcss">{amnt}</Checkbox>
-                             </div>
-                              </Col>
-                          ))}
-                          </Row>
-                        </Form>   
+                  <div className="container pl-0">
+                    <Form className="form-amnt" action="/action_page.php">
+                      <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
+                        {listingData?.amenities?.map((amnt: any, i: any) => (
+                          <Col className="gutter-row dddddd" span={8} key={i}>
+                            <div key={i} className="amntencss">
+                              <Checkbox
+                                onChange={onChange}
+                                className="checkcss"
+                              >
+                                {amnt}
+                              </Checkbox>
+                            </div>
+                          </Col>
+                        ))}
+                      </Row>
+                    </Form>
                   </div>
                   <div className="Floor-Plans mt-5">
                     <h5>Floor Plans</h5>
                     <div className="container">
-                    <Tabs items={items} className="tabClass"/>
+                      <Tabs items={items} className="tabClass" />
                       <div className="affar mt-4">
                         <h5>Affordability</h5>
                         <p>
@@ -357,11 +582,16 @@ export default function App() {
                     </div>
                     <div className="Related">
                       <h5>Related Properties</h5>
-                          <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
-                            {allproperty && allproperty?.slice(0,4)?.map((list: any) => (
-                              <Col className="gutter-row amndisplay" span={6} key={list.property_name}>
-                                <Link href={`/listings/${list?.slug}`}>
-                                <div className="Related-box" >
+                      <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
+                        {allproperty &&
+                          allproperty?.slice(0, 4)?.map((list: any) => (
+                            <Col
+                              className="gutter-row amndisplay"
+                              span={6}
+                              key={list.property_name}
+                            >
+                              <Link href={`/listings/${list?.slug}`}>
+                                <div className="Related-box">
                                   <Image
                                     width={300}
                                     height={150}
@@ -372,8 +602,12 @@ export default function App() {
                                     <h5>AED {list.rent_per_year}/Year</h5>
                                     <h6>{list.property_name}</h6>
                                     <p className="iconmap">
-                                    <i className="fa fa-map-marker" aria-hidden="true"></i>
-                                     &nbsp; {list.property_address}, {list.city}
+                                      <i
+                                        className="fa fa-map-marker"
+                                        aria-hidden="true"
+                                      ></i>
+                                      &nbsp; {list.property_address},{" "}
+                                      {list.city}
                                     </p>
                                     <p>
                                       {list.beds} Beds &emsp;{list.baths} Baths
@@ -381,10 +615,10 @@ export default function App() {
                                     </p>
                                   </div>
                                 </div>
-                                </Link>
-                                </Col>
-                              ))}
-                              </Row>
+                              </Link>
+                            </Col>
+                          ))}
+                      </Row>
                     </div>
                     <div className="Listing-box mt-5 pl-3">
                       <h5>Listing provided by</h5>
@@ -397,7 +631,7 @@ export default function App() {
                         <br />
                         Broker ORN: {listingData?.user?.ORN}
                         <br />
-                        Agent BRN:  {listingData?.user?.BRN}
+                        Agent BRN: {listingData?.user?.BRN}
                         <br />
                         Listing: {days} Days Ago
                         <br />
@@ -413,7 +647,7 @@ export default function App() {
                 </div>
                 <div className="contact-form-wrapper d-flex justify-content-center">
                   <Form action="#" className="contact-form">
-                    <h5 className="title">Contact Agent</h5>
+                    <h5 className="title">Contact Us</h5>
                     <div>
                       <Input
                         type="text"
@@ -451,25 +685,8 @@ export default function App() {
                   </Form>
                 </div>
                 <div className="popular">
-                  <h4>Popular Properties</h4>
-                  <Image src="/005.jpg" width={300} height={175} alt="img" />
-                  <h6>$349.00/Month</h6>
-                  <h5>New Aparment Nice View</h5>
-                  <address>
-                    <i className="fa fa-map-marker" aria-hidden="true"></i>
-                    Sector P, Emirates Hills
-                  </address>
-                  <span>
-                    <i className="fa fa-bed" aria-hidden="true"></i>6 Beds +
-                    Maid
-                  </span>
-                  <span>
-                    <i className="fa fa-bath" aria-hidden="true"></i>7Baths
-                  </span>
-                  <span>
-                    <i className="fa fa-microchip" aria-hidden="true"></i>13,450
-                    sqft
-                  </span>
+                  <h5>Popular Properties</h5>
+                  <Carousel />
                 </div>
                 <div className="real-Est">
                   <h5>Real Estate News</h5>

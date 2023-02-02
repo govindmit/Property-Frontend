@@ -56,7 +56,7 @@ const Welcome = () => {
                     <div className="signup-baneer">
                       <form target="#" className="top-banner-btn">
                         <input
-                          type="email"
+                          type="text"
                           id="email-signup"
                           placeholder="City, place, town.."
                           required
