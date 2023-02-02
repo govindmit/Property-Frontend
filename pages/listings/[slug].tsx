@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-no-undef */
 import React, { useEffect, useState, useCallback } from "react";
-import axios from "axios";
 import dynamic from "next/dynamic";
+import axios from "axios";
 import { Checkbox, Layout, Typography } from "antd";
 import { Form, Input, Button, Col, Divider, Row, Tabs } from "antd";
 import type { FormItemProps } from "antd";
@@ -12,8 +12,8 @@ import Image from "next/image";
 import propertyService from "../../services/propertyService";
 import Moment from "moment";
 import ImageGallery, { ReactImageGalleryItem } from "react-image-gallery";
+const VideoThumbnail = dynamic(import("react-video-thumbnail"), { ssr: false });
 
-// const VideoThumbnail = dynamic(import("react-video-thumbnail"), { ssr: false });
 const MyFormItemContext = React.createContext<(string | number)[]>([]);
 export interface UserDataTypes {
   address: String;
@@ -198,15 +198,16 @@ export default function App() {
   const { query } = useRouter();
   const { TextArea } = Input;
   let datee = new Date();
-  var newThumb;
+  var newThumb:any;
   const [listingData, setListingData] = useState<UserDataTypes | any>("");
   const [allproperty, setAllProperty] = useState<UserDataTypes | any>("");
   const [thumb, setThumb] = useState<any>("");
+  
   const memoizedHandleClick = useCallback((item: any) => {
     return (
       <iframe
         width="fit-content"
-        height="700"
+        height="700px"
         src={item.embedUrl}
         frameBorder="0"
         allowFullScreen
@@ -214,7 +215,7 @@ export default function App() {
     );
   }, []);
 
-  var imageee = [];
+  var imageee:any[] = [];
   for (var i = 0; i < listingData?.upload_file?.imagee.length; i++) {
     imageee.push({
       original: listingData?.upload_file?.imagee[i],
@@ -223,14 +224,12 @@ export default function App() {
   }
   const images: readonly ReactImageGalleryItem[] = imageee;
 
-console.log('thumbthumb',thumb);
-
   for (var i = 0; i < listingData?.upload_file?.videos.length; i++) {
-    // newThumb = listingData?.upload_file?.videos[i];
+    //  newThumb = listingData?.upload_file?.videos[i];
     imageee.push({
       original: "",
-      thumbnail: "http://res.cloudinary.com/piyushproj/image/upload/v1674817909/xoncuzicaaatjggseahh.jpg",
-      // thumbnail: thumb && thumb==="" ? "/video-img-banner.png" : thumb,
+      thumbnail: "/video_images.jpeg",
+      // thumbnail: thumb && thumb === "" ? "/video-img-banner.png" : thumb,
       embedUrl: listingData?.upload_file?.videos[i],
       renderItem: memoizedHandleClick,
     });
@@ -394,8 +393,8 @@ console.log('thumbthumb',thumb);
                     <VideoThumbnail
                       videoUrl={newThumb}
                       thumbnailHandler={(thumbnail: any) => setThumb(thumbnail)}
-                      width={120}
-                      height={80}
+                      // width={120}
+                      // height={80}
                     />
                   </div>
                 )} */}

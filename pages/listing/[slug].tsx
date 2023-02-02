@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useCallback } from "react";
 import axios from "axios";
+import dynamic from "next/dynamic";
 import { Checkbox, Layout, Typography } from "antd";
 import { Form, Input, Button, Col, Divider, Row, Tabs } from "antd";
 import type { FormItemProps } from "antd";
@@ -10,6 +11,7 @@ import Image from "next/image";
 import propertyService from "../../services/propertyService";
 import Moment from "moment";
 import ImageGallery, { ReactImageGalleryItem } from "react-image-gallery";
+const VideoThumbnail = dynamic(import("react-video-thumbnail"), { ssr: false });
 
 const MyFormItemContext = React.createContext<(string | number)[]>([]);
 export interface UserDataTypes {
@@ -38,7 +40,7 @@ const createItem = (position: any, idx: any) => {
     },
     player: position,
   };
-
+  
   const item1 = {
     styles: {
       transform: `translateX(${position * slideWidth}rem)`,
@@ -125,7 +127,7 @@ const Carousel = () => {
       setItems(data?.data?.data);
     });
   };
-
+  
   const prevClick = (jump = 1) => {
     if (!isTicking) {
       setIsTicking(true);
@@ -134,16 +136,16 @@ const Carousel = () => {
       });
     }
   };
-
+  
   const nextClick = (jump = 1) => {
     if (!isTicking) {
       setIsTicking(true);
       setItems((prev: any) => {
         return prev.map(
           (_: any, i: any) => prev[(i - jump + bigLength) % bigLength]
-        );
-      });
-    }
+          );
+        });
+      }
   };
   const handleDotClick = (idx:any) => {
     setiidx(idx)
@@ -166,23 +168,23 @@ const Carousel = () => {
         <div className="carousel__container">
           <ul className="carousel__slide-list">
           {items?.slice(0,5)?.map((pos: any, i: any) => (
-              <CarouselSlideItem
-                key={i}
-                idx={i}
-                pos={pos}
-                activeIdx={activeIdx}
-              />
+            <CarouselSlideItem
+            key={i}
+            idx={i}
+            pos={pos}
+            activeIdx={activeIdx}
+            />
             ))}
           </ul>
         </div>
         <div className="carousel__dots">
           {items?.slice(0, 5)?.map((pos: any, i: any) => (
             <button
-              key={i}
+            key={i}
               onClick={() => handleDotClick(i)}
               className={i === activeIdx ? "dot active" : "dot"}
-            />
-          ))}
+              />
+              ))}
         </div>
       </div>
     </div>
@@ -193,10 +195,24 @@ export default function App() {
   const { query } = useRouter();
   const { TextArea } = Input;
   let datee = new Date();
+  var newThumb:any;
   const [listingData, setListingData] = useState<UserDataTypes | any>("");
   const [allproperty, setAllProperty] = useState<UserDataTypes | any>("");
+  const [thumb, setThumb] = useState<any>("");
+  
+  const memoizedHandleClick = useCallback((item: any) => {
+    return (
+      <iframe
+        width="fit-content"
+        height="700"
+        src={item.embedUrl}
+        frameBorder="0"
+        allowFullScreen
+      ></iframe>
+    );
+  }, []);
 
-  var imageee = [];
+  var imageee:any[] = [];
   for (var i = 0; i < listingData?.upload_file?.imagee.length; i++) {
     imageee.push({
       original: listingData?.upload_file?.imagee[i],
@@ -204,7 +220,18 @@ export default function App() {
     });
   }
   const images: readonly ReactImageGalleryItem[] = imageee;
-  console.log('************',listingData?.upload_file);
+
+  for (var i = 0; i < listingData?.upload_file?.videos.length; i++) {
+    // newThumb = listingData?.upload_file?.videos[i];
+    imageee.push({
+      original: "",
+      thumbnail: "/video_images.jpeg",
+      // thumbnail: thumb && thumb === "" ? "/video-img-banner.png" : thumb,
+      embedUrl: listingData?.upload_file?.videos[i],
+      renderItem: memoizedHandleClick,
+    });
+  }
+
   const getUserData = async () => {
     const webtoken = localStorage.getItem("webToken");
     let web = webtoken?.substring(1, webtoken?.length - 1);
@@ -375,6 +402,18 @@ export default function App() {
           <div className="container-fluid side-space-tow">
             <div className="row">
               <div className="col-md-7 col-lg-9">
+              {/* { newThumb === undefined ? (
+                  ""
+                ) : (
+                  <div className="videothumb">
+                    <VideoThumbnail
+                      videoUrl={newThumb}
+                      thumbnailHandler={(thumbnail: any) => setThumb(thumbnail)}
+                      // width={120}
+                      // height={80}
+                    />
+                  </div>
+                )} */}
                 <div className="img-gallery">
                   <ImageGallery
                     items={images}
