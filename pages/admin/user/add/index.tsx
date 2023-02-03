@@ -34,6 +34,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { Spin } from "antd";
 import type { RcFile, UploadFile, UploadProps } from "antd/es/upload/interface";
+import userService from "../../../../services/userService";
 
 const MyFormItemContext = React.createContext<(string | number)[]>([]);
 const ImgCrop = dynamic(import("antd-img-crop"), { ssr: false });
@@ -212,21 +213,16 @@ export default function AddUser(props: IAppProps) {
     }
     setLoading(true);
     try {
-      await axios
-        .post(
-          `https://api-property.mangoitsol.com/api/user/createuser`,
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-              Authorization: `Bearer ${web}`,
-            },
-          }
-        )
-        .then((res) => {
+      await userService.addUser(formData, web)
+      .then((res: any) => {
+        if(res?.data?.message==="already exist with this email"){
+          toast.error("Account already exists with this email.");
+          setLoading(false);
+        }else{
           setLoading(false);
           Router.push("/admin/user");
-        });
+        }
+      });
     } catch (err) {
       console.log("#####", err);
     }
@@ -241,7 +237,7 @@ export default function AddUser(props: IAppProps) {
   return (
     <Layout>
       <Sidebar />
-      <Content className="contentcss">
+      <Content className="contentcss add">
         <Link href="/admin/user">
           <Button
             type="text"

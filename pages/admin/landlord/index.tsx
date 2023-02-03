@@ -32,6 +32,7 @@ export interface UserDataTypes {
   status: String;
 }
 import Image from "next/image";
+import userService from "../../../services/userService";
 
 export default function UserListing() {
   const { Header, Sider, Content } = Layout;
@@ -66,18 +67,9 @@ export default function UserListing() {
         const webtoken = localStorage.getItem("webToken");
         let web = webtoken?.substring(1, webtoken?.length - 1);
         try {
-          await axios
-            .delete(
-              `https://api-property.mangoitsol.com/api/user/deleteuser/${userData?.id}`,
-              {
-                headers: {
-                  Authorization: `Bearer ${web}`,
-                },
-              }
-            )
-            .then((res) => {
-              getUserData();
-            });
+          await userService.deleteUser(userData?.id, web).then((res) => {
+            getUserData();
+          });
         } catch (err) {
           console.log("#####", err);
         }
@@ -131,7 +123,15 @@ export default function UserListing() {
       key: "profile_pic",
       title: "Image",
       dataIndex: "profile_pic",
-      render: (t: any) => <Image alt="image" src={t} width={50} height={50} />,
+      render: (t: any) => (
+        <Image
+          alt="image"
+          src={t === "" ? "/no-image.png" : t}
+          width={50}
+          height={50}
+          className="imageuser"
+        />
+      ),
     },
     {
       key: "no_of_property",
@@ -175,29 +175,23 @@ export default function UserListing() {
     const webtoken = localStorage.getItem("webToken");
     let web = webtoken?.substring(1, webtoken?.length - 1);
     try {
-      await axios
-        .get(`https://api-property.mangoitsol.com/api/user/getusers`, {
-          headers: {
-            Authorization: `Bearer ${web}`,
-          },
-        })
-        .then((res) => {
-          setUser(res.data);
-          const identifierUserData = res.data.filter((data: any) => {
-            if (data?.role?.title === "Landlord") {
-              return data;
-            }
-          });
-          let newdata = identifierUserData.filter((ae: any) => {
-            return ae.status === "Inactive";
-          });
-          let newactivedata = identifierUserData.filter((ae: any) => {
-            return ae.status === "Active";
-          });
-          setActiveNewData(newactivedata);
-          setNewData(newdata);
-          setUserData1(identifierUserData);
+      await userService.getUser(web).then((res: any) => {
+        setUser(res.data);
+        const identifierUserData = res.data.filter((data: any) => {
+          if (data?.role?.title === "Landlord") {
+            return data;
+          }
         });
+        let newdata = identifierUserData.filter((ae: any) => {
+          return ae.status === "Inactive";
+        });
+        let newactivedata = identifierUserData.filter((ae: any) => {
+          return ae.status === "Active";
+        });
+        setActiveNewData(newactivedata);
+        setNewData(newdata);
+        setUserData1(identifierUserData);
+      });
     } catch (err) {
       console.log("#####", err);
     }
@@ -248,7 +242,9 @@ export default function UserListing() {
       const results = identifier.filter((post: any) => {
         var a, b;
         if (e.target.value === "") return userData1;
-        a = post.first_name.toLowerCase().includes(e.target.value.toLowerCase());
+        a = post.first_name
+          .toLowerCase()
+          .includes(e.target.value.toLowerCase());
         b = post.email.toLowerCase().includes(e.target.value.toLowerCase());
         return a || b;
       });
@@ -260,7 +256,9 @@ export default function UserListing() {
       const results = identifier.filter((post: any) => {
         var a, b;
         if (e.target.value === "") return userData1;
-        a = post.first_name.toLowerCase().includes(e.target.value.toLowerCase());
+        a = post.first_name
+          .toLowerCase()
+          .includes(e.target.value.toLowerCase());
         b = post.email.toLowerCase().includes(e.target.value.toLowerCase());
         return a || b;
       });
@@ -272,7 +270,9 @@ export default function UserListing() {
       const results = identifier.filter((post: any) => {
         var a, b;
         if (e.target.value === "") return userData1;
-        a = post.first_name.toLowerCase().includes(e.target.value.toLowerCase());
+        a = post.first_name
+          .toLowerCase()
+          .includes(e.target.value.toLowerCase());
         b = post.email.toLowerCase().includes(e.target.value.toLowerCase());
         return a || b;
       });

@@ -99,8 +99,8 @@ export default function App(props: IAppProps) {
               <div className="bg-white shadow rounded main-vox">
                 <div className="row">
                   <div className="col-md-7 pe-0">
-                    <div className="form-left">
-                      <Form className="row g-4" onFinish={onFinish}>
+                    <div className="form-left log-f">
+                      <Form className="row g-4 form-main" onFinish={onFinish}>
                         <MyFormItemGroup prefix={["user"]}>
                           <MyFormItemGroup prefix={["data"]}>
                             <div className="col-12">

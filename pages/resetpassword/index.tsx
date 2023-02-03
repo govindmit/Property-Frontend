@@ -70,7 +70,7 @@ export default function App(props: IAppProps) {
     );
   };
   return (
-    <div className="mainlogindivsign">
+    <div className="mainlogindivsign reset">
       <div className="textCentersign">
         <h2 className="h2marginsign">Create New Password</h2>
         {/* <h3 style={{ marginBottom: "18px" }}></h3> */}
@@ -91,7 +91,7 @@ export default function App(props: IAppProps) {
                       },
                       {
                         pattern:/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
-                        message: `Password should have at least 7 character and contain one uppercase, one lowercase, one number and one special character`
+                        message: `Password should have at least 8 character and contain one uppercase, one lowercase, one number and one special character.`
                      }
                     ]}
                     hasFeedback

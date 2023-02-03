@@ -23,7 +23,28 @@ class userService {
       },
     });
   }
-
+  addUser(data: any, token: any) {
+    return http.post(`api/user/createuser`, data, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
+  deleteUser(data: any, token: any) {
+    return http.delete(`api/user/deleteuser/${data}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
+  getUser(token: any) {
+    return http.get(`api/user/getusers`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
   authToken() {
     return http.post("/genrateToken");
   }
