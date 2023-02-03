@@ -13,6 +13,8 @@ import {
   theme,
 } from "antd";
 import { Button, Form, Input, Select, Upload } from "antd";
+import es from 'react-phone-input-2/lang/es.json'
+import PhoneInput from 'react-phone-input-2'
 // import ImgCrop from "antd-img-crop";
 import dynamic from "next/dynamic";
 import Image from "next/image";
@@ -32,6 +34,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { Spin } from "antd";
 import type { RcFile, UploadFile, UploadProps } from "antd/es/upload/interface";
+import userService from "../../../../services/userService";
 
 const MyFormItemContext = React.createContext<(string | number)[]>([]);
 const ImgCrop = dynamic(import("antd-img-crop"), { ssr: false });
@@ -81,7 +84,7 @@ export default function AddUser(props: IAppProps) {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
   const [previewTitle, setPreviewTitle] = useState("");
-
+  const [phone1, setPhone] = useState("");
   const antIcon = (
     <LoadingOutlined style={{ fontSize: 24, color: "orangered" }} spin />
   );
@@ -193,7 +196,7 @@ export default function AddUser(props: IAppProps) {
     const webtoken = localStorage.getItem("webToken");
     let web = webtoken?.substring(1, webtoken?.length - 1);
     let { first_name, last_name, email, status, role_type, gender, phone } =
-      values.user.name;
+    values.user.name;
     let formData = new FormData();
     const requestData: any = {
       first_name: first_name,
@@ -202,7 +205,7 @@ export default function AddUser(props: IAppProps) {
       role_type: role_type,
       status: status,
       gender: gender,
-      phone: phone,
+      phone: phone1,
       profile_pic: image,
     };
     for (var key in requestData) {
@@ -210,21 +213,16 @@ export default function AddUser(props: IAppProps) {
     }
     setLoading(true);
     try {
-      await axios
-        .post(
-          `https://api-property.mangoitsol.com/api/user/createuser`,
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-              Authorization: `Bearer ${web}`,
-            },
-          }
-        )
-        .then((res) => {
+      await userService.addUser(formData, web)
+      .then((res: any) => {
+        if(res?.data?.message==="already exist with this email"){
+          toast.error("Account already exists with this email.");
+          setLoading(false);
+        }else{
           setLoading(false);
           Router.push("/admin/user");
-        });
+        }
+      });
     } catch (err) {
       console.log("#####", err);
     }
@@ -239,7 +237,7 @@ export default function AddUser(props: IAppProps) {
   return (
     <Layout>
       <Sidebar />
-      <Content className="contentcss">
+      <Content className="contentcss add">
         <Link href="/admin/user">
           <Button
             type="text"
@@ -357,25 +355,15 @@ export default function AddUser(props: IAppProps) {
                         </MyFormItem>
                       </Col>
                       <Col className="gutter-row" span={2}></Col>
-                      <Col className="gutter-row" span={10}>
-                        <MyFormItem
-                          name="phone"
-                          label="Phone"
-                          style={style}
-                          rules={[
-                            {
-                              min: 10,
-                              max: 10,
-                              message: "Mobile number must be 10 digit",
-                            },
-                          ]}
-                        >
-                          <Input
-                            type="number"
-                            // addonBefore={prefixSelector}
-                            style={inputStyle}
-                          />
-                        </MyFormItem>
+                      <Col className="gutter-row foextra" span={10}>
+                       <h6 className="phonecss">Phone</h6>
+                        <PhoneInput
+                         localization={es}     
+                          country={'in'}
+                          value={phone1}
+                          onChange={phone =>setPhone(phone)}
+                            />
+                        
                       </Col>
                     </Row>
                     <Row gutter={{ xs: 4, sm: 8, md: 12, lg: 20 }}>

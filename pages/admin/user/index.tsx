@@ -23,6 +23,7 @@ import {
   MoreOutlined,
 } from "@ant-design/icons";
 import axios from "axios";
+import userService from "../../../services/userService";
 import Image from "next/image";
 export interface UserDataTypes {
   address: String;
@@ -66,18 +67,10 @@ export default function UserListing() {
         const webtoken = localStorage.getItem("webToken");
         let web = webtoken?.substring(1, webtoken?.length - 1);
         try {
-          await axios
-            .delete(
-              `https://api-property.mangoitsol.com/api/user/deleteuser/${userData?.id}`,
-              {
-                headers: {
-                  Authorization: `Bearer ${web}`,
-                },
-              }
-            )
-            .then((res) => {
-              getUserData();
-            });
+          await userService.deleteUser(userData?.id,web)
+          .then((res) => {
+            getUserData();
+          });
         } catch (err) {
           console.log("#####", err);
         }
@@ -130,7 +123,7 @@ export default function UserListing() {
       key: "profile_pic",
       title: "Image",
       dataIndex: "profile_pic",
-      render: (t: any) => <Image alt="image" src={t} width={50} height={50} />,
+      render: (t: any) => <Image alt="image" src={t===""?"/no-image.png":t} width={50} height={50} className="imageuser" />,
     },
     {
       key: "phone",
@@ -169,29 +162,23 @@ export default function UserListing() {
     const webtoken = localStorage.getItem("webToken");
     let web = webtoken?.substring(1, webtoken?.length - 1);
     try {
-      await axios
-        .get(`https://api-property.mangoitsol.com/api/user/getusers`, {
-          headers: {
-            Authorization: `Bearer ${web}`,
-          },
-        })
-        .then((res) => {
-          setUser(res.data);
-          const identifierUserData = res.data.filter((data: any) => {
-            if (data?.role?.title === "User") {
-              return data;
-            }
-          });
-          let newdata = identifierUserData.filter((ae: any) => {
-            return ae.status === "Inactive";
-          });
-          let newactivedata = identifierUserData.filter((ae: any) => {
-            return ae.status === "Active";
-          });
-          setActiveNewData(newactivedata);
-          setNewData(newdata);
-          setUserData1(identifierUserData);
+      await userService.getUser(web).then((res: any) => {
+        setUser(res.data);
+        const identifierUserData = res.data.filter((data: any) => {
+          if (data?.role?.title === "User") {
+            return data;
+          }
         });
+        let newdata = identifierUserData.filter((ae: any) => {
+          return ae.status === "Inactive";
+        });
+        let newactivedata = identifierUserData.filter((ae: any) => {
+          return ae.status === "Active";
+        });
+        setActiveNewData(newactivedata);
+        setNewData(newdata);
+        setUserData1(identifierUserData);
+      });
     } catch (err) {
       console.log("#####", err);
     }

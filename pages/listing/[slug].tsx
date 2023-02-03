@@ -1,4 +1,4 @@
-import React, { useEffect, useState,useCallback } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import dynamic from "next/dynamic";
 import { Checkbox, Layout, Typography } from "antd";
@@ -11,6 +11,7 @@ import Image from "next/image";
 import propertyService from "../../services/propertyService";
 import Moment from "moment";
 import ImageGallery, { ReactImageGalleryItem } from "react-image-gallery";
+import Loader from "../common/loader";
 const VideoThumbnail = dynamic(import("react-video-thumbnail"), { ssr: false });
 
 const MyFormItemContext = React.createContext<(string | number)[]>([]);
@@ -40,7 +41,7 @@ const createItem = (position: any, idx: any) => {
     },
     player: position,
   };
-  
+
   const item1 = {
     styles: {
       transform: `translateX(${position * slideWidth}rem)`,
@@ -77,13 +78,13 @@ const CarouselSlideItem = ({ pos, idx, activeIdx }: any) => {
   return (
     <li className="carousel__slide-item" style={item.styles}>
       <div className="carousel__slide-item-img-link">
-      <Link href={`/listing/${item?.player?.slug}`}>
-        <Image
-          width={50}
-          height={50}
-          src={item?.player?.upload_file?.imagee[0]}
-          alt="image"
-        />
+        <Link href={`/listing/${item?.player?.slug}`}>
+          <Image
+            width={50}
+            height={50}
+            src={item?.player?.upload_file?.imagee[0]}
+            alt="image"
+          />
         </Link>
       </div>
       <div className="popularProperty">
@@ -127,7 +128,7 @@ const Carousel = () => {
       setItems(data?.data?.data);
     });
   };
-  
+
   const prevClick = (jump = 1) => {
     if (!isTicking) {
       setIsTicking(true);
@@ -136,28 +137,28 @@ const Carousel = () => {
       });
     }
   };
-  
+
   const nextClick = (jump = 1) => {
     if (!isTicking) {
       setIsTicking(true);
       setItems((prev: any) => {
         return prev.map(
           (_: any, i: any) => prev[(i - jump + bigLength) % bigLength]
-          );
-        });
-      }
+        );
+      });
+    }
   };
-  const handleDotClick = (idx:any) => {
-    setiidx(idx)
+  const handleDotClick = (idx: any) => {
+    setiidx(idx);
     if (idx < iidx) prevClick(iidx - idx);
     if (idx > iidx) nextClick(idx - iidx);
-};
+  };
   React.useEffect(() => {
     if (isTicking) sleep(300).then(() => setIsTicking(false));
   }, [isTicking]);
 
   React.useEffect(() => {
-    setActiveIdx((bigLength - (iidx % bigLength)) % bigLength)
+    setActiveIdx((bigLength - (iidx % bigLength)) % bigLength);
   }, [items]);
   React.useEffect(() => {
     getPopularProperty();
@@ -167,24 +168,24 @@ const Carousel = () => {
       <div className="carousel__inner">
         <div className="carousel__container">
           <ul className="carousel__slide-list">
-          {items?.slice(0,5)?.map((pos: any, i: any) => (
-            <CarouselSlideItem
-            key={i}
-            idx={i}
-            pos={pos}
-            activeIdx={activeIdx}
-            />
+            {items?.slice(0, 5)?.map((pos: any, i: any) => (
+              <CarouselSlideItem
+                key={i}
+                idx={i}
+                pos={pos}
+                activeIdx={activeIdx}
+              />
             ))}
           </ul>
         </div>
         <div className="carousel__dots">
           {items?.slice(0, 5)?.map((pos: any, i: any) => (
             <button
-            key={i}
+              key={i}
               onClick={() => handleDotClick(i)}
               className={i === activeIdx ? "dot active" : "dot"}
-              />
-              ))}
+            />
+          ))}
         </div>
       </div>
     </div>
@@ -195,11 +196,12 @@ export default function App() {
   const { query } = useRouter();
   const { TextArea } = Input;
   let datee = new Date();
-  var newThumb:any;
+  var newThumb: any;
   const [listingData, setListingData] = useState<UserDataTypes | any>("");
   const [allproperty, setAllProperty] = useState<UserDataTypes | any>("");
   const [thumb, setThumb] = useState<any>("");
-  
+  const [loading, setLoading] = useState<Boolean>(false);
+
   const memoizedHandleClick = useCallback((item: any) => {
     return (
       <iframe
@@ -212,14 +214,14 @@ export default function App() {
     );
   }, []);
 
-  var imageee:any[] = [];
+  var imageee: any[] = [];
   for (var i = 0; i < listingData?.upload_file?.imagee.length; i++) {
     imageee.push({
       original: listingData?.upload_file?.imagee[i],
       thumbnail: listingData?.upload_file?.imagee[i],
     });
   }
-  const images: readonly ReactImageGalleryItem[] = imageee;
+  // const images: readonly ReactImageGalleryItem[] = imageee;
 
   for (var i = 0; i < listingData?.upload_file?.videos.length; i++) {
     // newThumb = listingData?.upload_file?.videos[i];
@@ -244,6 +246,7 @@ export default function App() {
             .getSaleProperty(web, data?.data[0]?.city)
             .then((data: any) => {
               setAllProperty(data.data);
+                setLoading(true);
             });
         }
       });
@@ -282,20 +285,16 @@ export default function App() {
       children: (
         <div>
           <div style={{ display: "flex" }}>
-          {data && data?.plan_drawing === undefined? 
-            <Image
-              width={400}
-              height={350}
-              src=""
-              alt="foolr-img"
-            />:
-            <Image
-              width={400}
-              height={350}
-              src={data?.plan_drawing[0]}
-              alt="foolr-img"
-            />
-            }
+            {data && data?.plan_drawing === undefined ? (
+              <Image width={400} height={350} src="" alt="foolr-img" />
+            ) : (
+              <Image
+                width={400}
+                height={350}
+                src={data?.plan_drawing[0]}
+                alt="foolr-img"
+              />
+            )}
             <div className="col-md-6">
               <div className="Deluxe-Portion" style={{ marginLeft: "24%" }}>
                 <h5>Deluxe Portion</h5>
@@ -352,7 +351,6 @@ export default function App() {
   const onChangeSlider = (currentSlide: number) => {
     // console.log("!!!!!!!!!!!!!", currentSlide);
   };
-
   return (
     <>
       <div className="sec-block">
@@ -402,7 +400,7 @@ export default function App() {
           <div className="container-fluid side-space-tow">
             <div className="row">
               <div className="col-md-7 col-lg-9">
-              {/* { newThumb === undefined ? (
+                {/* { newThumb === undefined ? (
                   ""
                 ) : (
                   <div className="videothumb">
@@ -414,14 +412,19 @@ export default function App() {
                     />
                   </div>
                 )} */}
-                <div className="img-gallery">
-                  <ImageGallery
-                    items={images}
-                    showNav={false}
-                    showFullscreenButton={false}
-                    showPlayButton={false}
-                  />
-                </div>
+                {loading ? (
+                  <div className="img-gallery">
+                    <ImageGallery
+                      items={imageee && imageee}
+                      showNav={false}
+                      showFullscreenButton={false}
+                      showPlayButton={false}
+                    />
+                  </div>
+                ) : (
+                  <Loader />
+                )}
+
                 <div className="house-detail">
                   <div className="img-detail">
                     <p className="iconmap">

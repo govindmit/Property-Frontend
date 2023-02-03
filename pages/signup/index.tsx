@@ -139,12 +139,12 @@ const onFinish4=()=>{
   const landlordcs: React.CSSProperties = { fontSize: "21px" };
 
   return (
-    <div className="mainlogindiv">
+    <div className="mainlogindiv sign">
       <Tabs defaultActiveKey="1" activeKey={activeKey} onChange={onKeyChange}>
         <TabPane tab="Tab 1" key="1" className="mainnnnn">
           <div className="textCenter">
-            <h2 className="h2margin">Welcome to Propter</h2>
-            <h3 style={{marginBottom:"11px"}}>Create an Account</h3>
+            <h2 className="h2margin proptrhead">Welcome to Propter</h2>
+            <h3 style={{marginBottom:"11px"}} className="proptrcss">Create an Account</h3>
           </div>
           <div className="marginleftcss">
             <Form name="form_item_path" layout="vertical" onFinish={onFinish}>

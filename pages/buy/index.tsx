@@ -589,8 +589,6 @@ const BuyHeader = () => {
                     })
                   : data &&
                     data?.map((e: any, i: any) => {
-                      console.log('@@@@@@@@@@',e);
-                    
                       return (
                         <li key={i}>
                           <div className="Business-cart">

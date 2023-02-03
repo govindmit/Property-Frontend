@@ -266,7 +266,7 @@ ul.ant-menu.ant-menu-root.ant-menu-vertical.ant-menu-light.css-dev-only-do-not-o
   font-size: initial;
   font-weight: 500;
   font-family: ui-serif;
-  margin-top: -4px;
+  margin-top:2px;
 }
 .borderview {
   border: 1px solid lightgrey;
@@ -355,4 +355,30 @@ section.ant-layout.ant-layout-has-sider.css-dev-only-do-not-override-k83k30 {
 }
 .ant-popover-content p {
   margin: 0;
+}
+h6.phonecss {
+  font-size: 13px;
+  margin-top: 6px;
+  font-weight: 700;
+}
+.react-tel-input .form-control {
+ 
+  border-radius: 0px !important;
+  line-height: 25px;
+  height: 35px;
+   width: inherit !important;
+  outline: none;
+  background: rgb(209, 209, 209) !important;
+}
+.foextra .react-tel-input .form-control {
+  border-radius: 0px !important;
+  line-height: 25px;
+  height: 35px;
+  width: inherit !important;
+  outline: none;
+  background: rgb(255 255 255) !important;
+}
+img.imageuser {
+  border: 1px solid #dddddd;
+  border-radius: 5px;
 }

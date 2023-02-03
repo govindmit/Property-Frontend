@@ -82,7 +82,7 @@ const antIcon = <LoadingOutlined style={{ fontSize: 24,color:"orangered" }} spin
   };
 
   return (
-    <div className="mainlogindivsign">
+    <div className="mainlogindivsign forgot">
       <div className="textCentersign">
       <Button
               type="text"

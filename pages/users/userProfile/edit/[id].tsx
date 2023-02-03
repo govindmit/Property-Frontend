@@ -64,7 +64,6 @@ const UserProfile = () => {
       ? localStorage.getItem("webToken")
       : null;
     const a = JSON.parse(token);
-    console.log(";;;;;;", id);
 
     await userService.getUserProfile(id, a).then((data) => {
       if (data.data != null) {

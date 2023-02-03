@@ -14,6 +14,8 @@ import {
 } from "antd";
 import { Button, Form, Input, Select, Upload } from "antd";
 // import ImgCrop from "antd-img-crop";
+import es from 'react-phone-input-2/lang/es.json'
+import PhoneInput from 'react-phone-input-2'
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { Avatar, Col, Radio, Row, Tabs } from "antd";
@@ -32,6 +34,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { Spin } from "antd";
 import type { RcFile, UploadFile, UploadProps } from "antd/es/upload/interface";
+import userService from "../../../../services/userService";
 
 const MyFormItemContext = React.createContext<(string | number)[]>([]);
 const ImgCrop = dynamic(import("antd-img-crop"), { ssr: false });
@@ -78,11 +81,12 @@ export default function AddUser(props: IAppProps) {
   const [photo, setPhoto] = useState<any>();
   const [fileList, setFileList] = useState<UploadFile[]>([]);
   const [loading, setLoading] = useState<Boolean>(false);
-  const { query } = useRouter();
+  const { query }: any = useRouter();
   const [user, setUser] = useState<UserDataTypes | any>("");
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
   const [previewTitle, setPreviewTitle] = useState("");
+  const [phone1, setPhone] = useState("");
   const handleCancel = () => setPreviewOpen(false);
   const style: React.CSSProperties = { fontWeight: 558 };
   const landlordcs: React.CSSProperties = { fontSize: "21px" };
@@ -120,17 +124,10 @@ export default function AddUser(props: IAppProps) {
   const getUserData = async () => {
     const webtoken = localStorage.getItem("webToken");
     let web = webtoken?.substring(1, webtoken?.length - 1);
-
     try {
-      await axios
-        .get(`https://api-property.mangoitsol.com/api/user/${query?.index}`, {
-          headers: {
-            Authorization: `Bearer ${web}`,
-          },
-        })
-        .then((res) => {
-          setUser(res.data);
-        });
+      await userService.getUserProfile(query?.index,web).then((res: any) => {
+        setUser(res.data);
+      });
     } catch (err) {
       console.log("#####", err);
     }
@@ -225,30 +222,26 @@ export default function AddUser(props: IAppProps) {
       last_name: last_name === undefined ? user.last_name : last_name,
       email: email === undefined ? user.email : email,
       status: status === undefined ? user.status : status,
-      role_type: role_type === undefined ? user.role_type?.id : role_type,
-      phone: phone === undefined ? user.phone : phone,
+      role_type: role_type === undefined ? user.role_type : role_type,
+      phone: phone1 === "" ? user?.phone : phone1,
       gender: gender === undefined ? user.gender : gender,
       profile_pic: image,
     };
     setLoading(true);
     try {
-      await axios
-        .put(
-          `https://api-property.mangoitsol.com/api/user/${query?.index}`,
-          requesData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-              Authorization: `Bearer ${web}`,
-            },
-          }
-        )
-        .then((res) => {
-          setLoading(false);
-          Router.push("/admin/user");
-        });
-    } catch (err) {
-      console.log("#####", err);
+      await userService.updateprofile(query?.index,requesData,web)
+      .then((res: any) => {
+        setLoading(false);
+        Router.push("/admin/user");
+      });
+    } catch (err:any) {
+      if (err?.response?.data?.errMessage === "user not updated ") {
+        setLoading(false);
+        toast.error("Account already exists with this email.");
+      } else {
+        setLoading(false);
+        toast.error(err?.message);
+      }
     }
   };
   const inputStyle: React.CSSProperties = {
@@ -260,7 +253,7 @@ export default function AddUser(props: IAppProps) {
   return (
     <Layout>
       <Sidebar />
-      <Content className="contentcss">
+      <Content className="contentcss add">
         <Link href="/admin/user">
           <Button
             type="text"
@@ -393,25 +386,13 @@ export default function AddUser(props: IAppProps) {
                       </Col>
                       <Col className="gutter-row" span={2}></Col>
                       <Col className="gutter-row" span={10}>
-                        <MyFormItem
-                          name="phone"
-                          label="Phone"
-                          style={style}
-                          rules={[
-                            {
-                              min: 10,
-                              max: 10,
-                              message: "Mobile number must be 10 digit",
-                            },
-                          ]}
-                        >
-                          <Input
-                            type="number"
-                            // addonBefore={prefixSelector}
-                            style={inputStyle}
-                            defaultValue={user && user.phone}
-                          />
-                        </MyFormItem>
+                      <h6 className="phonecss extra">Phone</h6>
+                      <PhoneInput
+                         localization={es}     
+                          country={'in'}
+                          value={user && user.phone}
+                          onChange={phone =>setPhone(phone)}
+                            /> 
                       </Col>
                     </Row>
                     <Row gutter={{ xs: 4, sm: 8, md: 12, lg: 20 }}>
@@ -422,14 +403,14 @@ export default function AddUser(props: IAppProps) {
                             placeholder="Select role"
                             onChange={onRoleChange}
                             allowClear
-                            defaultValue={user && user?.role_type===1?"User":user?.role_type===2?"User":user?.role_type===3?"Brokerage":user?.role_type===4?"Landlord":user?.role_type===5?"Agent":""}
+                            defaultValue={user && user?.role_type===1?"Admin":user?.role_type===2?"User":user?.role_type===3?"Brokerage":user?.role_type===4?"Landlord":user?.role_type===5?"Agent":""}
                             className="dropdownadmin"
                           >
                             <Option value="1">Admin</Option>
                             <Option value="2">User</Option>
                             <Option value="3">Brokerage</Option>
                             <Option value="4">Landlord</Option>
-                            {/* <Option value="5">Agent</Option> */}
+                            <Option value="5">Agent</Option>
                           </Select>
                         </MyFormItem>
                       </Col>

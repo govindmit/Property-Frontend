@@ -25,6 +25,7 @@ import { Avatar, Col, Radio, Row, Tabs } from "antd";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import axios from "axios";
+import userService from "../../../../services/userService";
 
 const MyFormItemContext = React.createContext<(string | number)[]>([]);
 
@@ -68,7 +69,7 @@ export default function AddUser(props: IAppProps) {
   const { Option } = Select;
   const { Header, Sider, Content } = Layout;
   const { confirm } = Modal;
-  const { query } = useRouter();
+  const { query }:any = useRouter();
   const [user, setUser] = useState<UserDataTypes | any>("");
   const inputStyle: React.CSSProperties = {
     padding: "5px 12px",
@@ -114,18 +115,10 @@ export default function AddUser(props: IAppProps) {
         const webtoken = localStorage.getItem("webToken");
         let web = webtoken?.substring(1, webtoken?.length - 1);
         try {
-          await axios
-            .delete(
-              `https://api-property.mangoitsol.com/api/user/deleteuser/${user?.id}`,
-              {
-                headers: {
-                  Authorization: `Bearer ${web}`,
-                },
-              }
-            )
-            .then((res) => {
-              Router.push("/admin/user/");
-            });
+          await userService.deleteUser(user?.id,web)
+          .then((res) => {
+            Router.push("/admin/user/");
+          });
         } catch (err) {
           console.log("#####", err);
         }
@@ -139,15 +132,9 @@ export default function AddUser(props: IAppProps) {
     const webtoken = localStorage.getItem("webToken");
     let web = webtoken?.substring(1, webtoken?.length - 1);
     try {
-      await axios
-        .get(`https://api-property.mangoitsol.com/api/user/${query?.index}`, {
-          headers: {
-            Authorization: `Bearer ${web}`,
-          },
-        })
-        .then((res) => {
-          setUser(res.data);
-        });
+      await userService.getUserProfile(query?.index,web).then((res: any) => {
+        setUser(res.data);
+      });
     } catch (err) {
       console.log("#####", err);
     }
