@@ -12,7 +12,8 @@ import propertyService from "../../services/propertyService";
 import Moment from "moment";
 import ImageGallery, { ReactImageGalleryItem } from "react-image-gallery";
 import Loader from "../common/loader";
-const VideoThumbnail = dynamic(import("react-video-thumbnail"), { ssr: false });
+// const VideoThumbnail = dynamic(import("react-video-thumbnail"), { ssr: false });
+import VideoImageThumbnail from "react-video-thumbnail-image"; // use npm published version
 
 const MyFormItemContext = React.createContext<(string | number)[]>([]);
 export interface UserDataTypes {
@@ -204,36 +205,32 @@ export default function App() {
 
   const memoizedHandleClick = useCallback((item: any) => {
     return (
-      <iframe
-        width="fit-content"
-        height="700"
-        src={item.embedUrl}
-        frameBorder="0"
-        allowFullScreen
-      ></iframe>
+      <video width="920" controls>
+        <source src={item.embedUrl} />
+      </video>
     );
   }, []);
+
 
   var imageee: any[] = [];
   for (var i = 0; i < listingData?.upload_file?.imagee.length; i++) {
     imageee.push({
-      original: listingData?.upload_file?.imagee[i],
-      thumbnail: listingData?.upload_file?.imagee[i],
+      original: listingData?.upload_file?.imagee[i]?.replace('http','https'),
+      thumbnail: listingData?.upload_file?.imagee[i]?.replace('http','https'),
     });
   }
   // const images: readonly ReactImageGalleryItem[] = imageee;
 
   for (var i = 0; i < listingData?.upload_file?.videos.length; i++) {
-    // newThumb = listingData?.upload_file?.videos[i];
+    newThumb = listingData?.upload_file?.videos[i];
     imageee.push({
       original: "",
-      thumbnail: "/video_images.jpeg",
-      // thumbnail: thumb && thumb === "" ? "/video-img-banner.png" : thumb,
-      embedUrl: listingData?.upload_file?.videos[i],
+      thumbnail: thumb && thumb === "" ? "/video-img-banner.png" : thumb,
+      embedUrl: listingData?.upload_file?.videos[i]?.replace('http','https'),
       renderItem: memoizedHandleClick,
     });
   }
-
+  
   const getUserData = async () => {
     const webtoken = localStorage.getItem("webToken");
     let web = webtoken?.substring(1, webtoken?.length - 1);
@@ -400,18 +397,16 @@ export default function App() {
           <div className="container-fluid side-space-tow">
             <div className="row">
               <div className="col-md-7 col-lg-9">
-                {/* { newThumb === undefined ? (
+                {newThumb === undefined ? (
                   ""
                 ) : (
                   <div className="videothumb">
-                    <VideoThumbnail
+                    <VideoImageThumbnail
                       videoUrl={newThumb}
                       thumbnailHandler={(thumbnail: any) => setThumb(thumbnail)}
-                      // width={120}
-                      // height={80}
                     />
                   </div>
-                )} */}
+                )}
                 {loading ? (
                   <div className="img-gallery">
                     <ImageGallery
@@ -512,7 +507,7 @@ export default function App() {
                       src="/map-box.png"
                       alt="map-box"
                     />
-                    <p>Haspitals</p>
+                    <p>Hospitals</p>
                   </div>
                   <div className="loc-box">
                     <Image

@@ -221,6 +221,7 @@ const BuyHeader = () => {
         )
           return pp;
       });
+
       setPropertyPriceArray(priceFilterArray);
       concatFn(priceFilterArray, priceObject);
       setOpen1(false);
@@ -229,7 +230,7 @@ const BuyHeader = () => {
         (currentPage - 1) * pageSize,
         currentPage * pageSize
       );
-      setData(projects);
+        setData(projects);
       setTotalPage(priceFilterArray?.length);
       setPageSize(pageSize);
       setCurrentPage(currentPage);

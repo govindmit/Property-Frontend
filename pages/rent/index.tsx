@@ -102,7 +102,8 @@ const RentComp = () => {
     const a = JSON.parse(token);
 
     await propertyService.getAllProperty(a).then((data: any) => {
-     const a = data?.data;
+    //  const a = data?.data;
+      const a =data?.data.slice(0, 2);
       setTotalPage(data?.data.length);
       setData(a);
       setTempData(data?.data);
