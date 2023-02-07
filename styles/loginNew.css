@@ -24,7 +24,7 @@ li {
   padding: 0;
 }
 .container-fluid.side-space {
-  margin-top:15%;
+  margin-top:10%;
   padding-right: 50px;
   padding-left: 50px;
 }
@@ -608,7 +608,7 @@ background-color: transparent;
 .mainlogindiv.sign form {
   display: block;
   margin-top: 33px;
-  margin-bottom: 70px;
+  margin-bottom:16%;
 }
 .mainlogindiv.sign .marginleftcss {
   margin-left: 39.5%;
@@ -627,3 +627,12 @@ background-color: transparent;
 .ant-layout-sider-children {
   background: #fff !important;
 }
+.Floor-Plans.mt-5.floorcss .ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: #ff5a3c !important;
+}
+.Floor-Plans.mt-5.floorcss .ant-tabs .ant-tabs-ink-bar {
+  background: #ff5a3c !important;
+}
+.Floor-Plans.mt-5.floorcss .ant-tabs .ant-tabs-tab:hover {
+  color: black ;
+} 

@@ -17,6 +17,13 @@ class PropertyService {
       },
     });
   }
+  getPropertyByPurpose( token: any,purpose:any) {
+    return http.get(`api/listing?property_purpose=${purpose}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
   getPropertyBySlug( slug:any,token: any) {
     return http.get(`api/listing?slug=${slug}`, {
       headers: {

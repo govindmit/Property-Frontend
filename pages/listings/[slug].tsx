@@ -544,7 +544,7 @@ export default function App() {
                       </Row>
                     </Form>
                   </div>
-                  <div className="Floor-Plans mt-5">
+                  <div className="Floor-Plans mt-5 floorcss">
                     <h5>Floor Plans</h5>
                     <div className="container">
                       <Tabs items={items} className="tabClass" />

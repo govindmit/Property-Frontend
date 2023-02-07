@@ -95,6 +95,19 @@ const BuyHeader = () => {
     bathsBtn2 === "2" ? setBathsBtn2("0") : setBathsBtn2("2");
   };
 
+  const getpropertyPurpose = async (item: any) => {
+    const token: any = localStorage.getItem("webToken")
+      ? localStorage.getItem("webToken")
+      : null;
+    const a = JSON.parse(token);
+
+    await propertyService.getPropertyByPurpose(a, item).then((data: any) => {
+      const a = data?.data.slice(0, 2);
+      setTotalPage(data?.data.length);
+      setData(a);
+      setTempData(data?.data);
+    });
+  };
   const getAllListings = async () => {
     const token: any = localStorage.getItem("webToken")
       ? localStorage.getItem("webToken")
@@ -108,7 +121,6 @@ const BuyHeader = () => {
       setTempData(data?.data);
     });
   };
-
   const handlePageChange = (page: any, perPage: any) => {
     if (
       !propertyPurposeArray &&
@@ -151,10 +163,14 @@ const BuyHeader = () => {
   };
 
   const propertyPurposeFn = (e: any) => {
+    hide1();
     setPropertyPurpose(e);
+    getpropertyPurpose(e);
+   
     const propertyPurposeVar = tempData.filter((ppt: any) => {
       if (ppt.property_purpose === e) return ppt;
     });
+    
     setproPertyPurposeArray(propertyPurposeVar);
     if (e && propertyCategory && minPrice && maxPrice) {
       concatFn(propertyPurposeVar, e);
@@ -168,16 +184,16 @@ const BuyHeader = () => {
     setPageSize(pageSize);
     setCurrentPage(currentPage);
   };
-
+  
   const handlePropertyCategoryFn = (e: any) => {
     setPropertyCategory(e);
-    const handlePropertyCategoryVar = tempData.filter((ppt: any) => {
-      if (ppt.property_category === e) return ppt;
+    const handlePropertyCategoryVar = propertyPriceArray.filter((ppt: any) => {
+      if (ppt.property_type === e) return ppt;
     });
     setpropertyCategoryArray(handlePropertyCategoryVar);
-    if (e && propertyPurpose && minPrice && maxPrice) {
-      concatFn(handlePropertyCategoryVar, e);
-    }
+    // if (e && propertyPurpose && minPrice && maxPrice) {
+    //   concatFn(handlePropertyCategoryVar, e);
+    // }
     const projects = handlePropertyCategoryVar.slice(
       (currentPage - 1) * pageSize,
       currentPage * pageSize
@@ -196,7 +212,7 @@ const BuyHeader = () => {
       setMaxPriceErr(true);
     }
 
-    if (minPriceErr || maxPriceErr) {
+    if (minPriceErr < maxPriceErr) {
       toast.error("please min and max price fields correctly", {
         position: "top-right",
         autoClose: 5000,
@@ -212,16 +228,23 @@ const BuyHeader = () => {
         min: minPrice,
         max: maxPrice,
       };
-
       const priceFilterArray = tempData.filter((pp: any) => {
-        if (
-          pp.sale_value &&
-          pp.sale_value >= minPrice &&
-          pp.sale_value <= maxPrice
-        )
-          return pp;
+        if(pp.sale_value === null){
+          if (
+            pp.rent_per_year &&
+            pp.rent_per_year >= minPrice &&
+            pp.rent_per_year <= maxPrice
+          )
+            return pp;
+        }else{
+          if (
+            pp.sale_value &&
+            pp.sale_value >= minPrice &&
+            pp.sale_value <= maxPrice
+          )
+            return pp;
+        }
       });
-
       setPropertyPriceArray(priceFilterArray);
       concatFn(priceFilterArray, priceObject);
       setOpen1(false);
@@ -230,7 +253,7 @@ const BuyHeader = () => {
         (currentPage - 1) * pageSize,
         currentPage * pageSize
       );
-        setData(projects);
+      setData(projects);
       setTotalPage(priceFilterArray?.length);
       setPageSize(pageSize);
       setCurrentPage(currentPage);
@@ -238,32 +261,69 @@ const BuyHeader = () => {
   };
 
   const handleBedsAndBathsFilters = () => {
-    const propertyObject = {
-      bedsBtn1: bedsBtn1,
-      bedsBtn2: bedsBtn2,
-      bathsBtn1: bathsBtn1,
-      bathsBtn2: bathsBtn2,
-    };
-    const otherFilter = tempData.filter((ppt: any) => {
-      if (
-        ppt.beds === bedsBtn1 ||
-        ppt.beds === bedsBtn2 ||
-        ppt.baths === bathsBtn1 ||
-        ppt.baths === bathsBtn2
-      )
+    if (
+      bedsBtn1 === "0" &&
+      bedsBtn2 === "0" &&
+      bathsBtn1 === "0" &&
+      bathsBtn2 === "0"
+    ) {
+      const otherFilter = propertyCategoryArray.filter((ppt: any) => {
         return ppt;
-    });
-    setPropertyBedsAndBathsArray(otherFilter);
-    concatFn(otherFilter, propertyObject);
-
-    const projects = otherFilter.slice(
-      (currentPage - 1) * pageSize,
-      currentPage * pageSize
-    );
-    setData(projects);
-    setTotalPage(otherFilter?.length);
-    setPageSize(pageSize);
-    setCurrentPage(currentPage);
+      });
+      setPropertyBedsAndBathsArray(otherFilter);
+      const projects = otherFilter.slice(
+        (currentPage - 1) * pageSize,
+        currentPage * pageSize
+      );
+      setData(projects);
+      setTotalPage(otherFilter?.length);
+      setPageSize(pageSize);
+      setCurrentPage(currentPage);
+     
+    }
+     else {
+      const propertyObject = {
+        bedsBtn1: bedsBtn1,
+        bedsBtn2: bedsBtn2,
+        bathsBtn1: bathsBtn1,
+        bathsBtn2: bathsBtn2,
+      };
+      const otherFilter = propertyCategoryArray.filter((ppt: any) => {
+        if (
+          ppt.beds === bedsBtn1  &&
+          ppt.baths === bathsBtn1
+        ){
+          return ppt;
+        }else if(
+          ppt.beds === bedsBtn1  &&
+          ppt.baths === bathsBtn2
+        ){
+          return ppt;
+        }else if(
+          ppt.beds === bedsBtn2  &&
+          ppt.baths === bathsBtn1
+        ){
+          return ppt;
+        }else if(
+          ppt.beds === bedsBtn2  &&
+          ppt.baths === bathsBtn2
+        ){
+          return ppt;
+        }
+      });
+      setPropertyBedsAndBathsArray(otherFilter);
+      concatFn(otherFilter, propertyObject);
+  
+      const projects = otherFilter.slice(
+        (currentPage - 1) * pageSize,
+        currentPage * pageSize
+      );
+      setData(projects);
+      setTotalPage(otherFilter?.length);
+      setPageSize(pageSize);
+      setCurrentPage(currentPage);
+     
+    }
   };
 
   function arrayUnique(array: any) {
@@ -593,7 +653,7 @@ const BuyHeader = () => {
                       return (
                         <li key={i}>
                           <div className="Business-cart">
-                          <Link href={`/listing/${e?.slug}`}>
+                            <Link href={`/listing/${e?.slug}`}>
                               <div className="busi-img">
                                 <Image
                                   src={e?.upload_file?.imagee[0]}
